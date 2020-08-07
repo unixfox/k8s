@@ -1,0 +1,17 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: searx
+  labels:
+    parent: searx
+  namespace: searx
+  chart: ../../../charts/searx
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"
+  set:
+    - name: filtronRules
+      file: rules.json

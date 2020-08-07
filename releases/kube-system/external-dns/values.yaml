@@ -1,0 +1,10 @@
+cloudflare:
+  proxied: false
+
+provider: cloudflare
+
+publishHostIP: true
+
+image:
+  repository: unixfox/external-dns
+  tag: latest

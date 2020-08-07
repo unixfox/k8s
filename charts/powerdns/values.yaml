@@ -1,0 +1,129 @@
+#Author: aescanero@disasterproject.com
+#Website: www.disasterproject.com
+#Version: 0.1
+
+powerdns:
+  enabled: true
+  service:
+    dns:
+      type: ClusterIP
+      port: 53
+    api:
+      type: ClusterIP
+      port: 8081
+  image:
+    repository: pschiffe/pdns-mysql
+    tag: alpine
+    pullPolicy: Always
+  domain: unixfox.eu
+  master: "yes"
+  api: "yes"
+  webserver: "yes"
+  ingress:
+    enabled: "true"
+    path: "/"
+    hostname: "api.dns"
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: buypass-prod
+    tls:
+    - secretName: chart-powerdns-api-tls
+      hosts:
+      - api.dns.unixfox.eu
+  webserver_address: "0.0.0.0"
+  webserver_allow_from: "0.0.0.0/0"
+  version_string: "anonymous"
+  default_ttl: "1500"
+  soa_minimum_ttl: "1200"
+  default_soa_name: "dns.unixfox.eu"
+  mysql_host: "127.0.0.1"
+  mysql_database: "powerdns"
+  mysql_user: "powerdns"
+  extra_envs:
+    - name: PDNS_allow_axfr_ips
+      value: "93.95.224.6,149.202.19.146,93.95.226.52,69.65.50.192"
+    - name: PDNS_forward_notify
+      value: "93.95.224.6,149.202.19.146,93.95.226.52,69.65.50.192"
+    - name: PDNS_only_notify
+      value: "93.95.224.6,149.202.19.146,93.95.226.52,69.65.50.192"
+    - name: PDNS_allow_notify-from
+      value: "93.95.224.6,149.202.19.146,93.95.226.52,69.65.50.192"
+    - name: PDNS_also_notify
+      value: "93.95.224.6,149.202.19.146,93.95.226.52,69.65.50.192"
+    - name: PDNS_resolver
+      value: "9.9.9.9,1.1.1.1,8.8.8.8"
+    - name: PDNS_expand_alias
+      value: "true"
+    - name: PDNS_outgoing_axfr_expand_alias
+      value: "true"
+  requests:
+    memory: "512Mi"
+    cpu: "300m"
+  limits:
+    memory: "512Mi"
+    cpu: "300m"
+
+mariadb:
+  enabled: true
+  image:
+    repository: mariadb
+    tag: latest
+    pullPolicy: Always
+  persistence:
+    annotations:
+      "helm.sh/resource-policy": keep
+    enabled: true
+    accessMode: 'ReadWriteOnce'
+    size: '1Gi'
+  args: "--innodb_use_native_aio=0 --innodb_flush_method=fsync"
+  requests:
+    memory: "512Mi"
+    cpu: "300m"
+  limits:
+    memory: "512Mi"
+    cpu: "300m"
+
+powerdnsadmin:
+  enabled: true
+  service:
+    type: ClusterIP
+    port: 80
+  image:
+    repository: ngoduykhanh/powerdns-admin
+    tag: latest
+    pullPolicy: Always
+  extra_envs:
+    - name: OFFLINE_MODE
+      value: "True"
+  proto: "http"
+  powerdns_host: "127.0.0.1"
+  powerdns_port: "8081"
+  mysql_host: "127.0.0.1"
+  mysql_database: "powerdns"
+  mysql_user: "powerdns"
+  ingress:
+    enabled: "true"
+    path: "/"
+    hostname: "admin.dns"
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: buypass-prod
+    tls:
+    - secretName: chart-powerdnsadmin-tls
+      hosts:
+      - admin.dns.unixfox.eu
+  requests:
+    memory: "512Mi"
+    cpu: "300m"
+  limits:
+    memory: "512Mi"
+    cpu: "300m"
+
+nameOverride: ""
+fullnameOverride: ""
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

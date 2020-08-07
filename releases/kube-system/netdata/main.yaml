@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: netdata
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: ../../../charts/netdata
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

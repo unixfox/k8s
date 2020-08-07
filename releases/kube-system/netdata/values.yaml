@@ -1,0 +1,4 @@
+parent:
+  claiming:
+    enabled: true
+    rooms: "cab21165-bdd2-4663-b542-7a83d5e3c75c"

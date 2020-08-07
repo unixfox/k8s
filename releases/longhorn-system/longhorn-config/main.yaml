@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: longhorn-config
+  labels:
+    parent: longhorn-system
+  namespace: longhorn-system
+  chart: ../../../charts/longhorn-config
+  secrets:
+  - "secrets.yaml"

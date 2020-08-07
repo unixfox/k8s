@@ -1,0 +1,13 @@
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: longhorn
+    url: https://charts.longhorn.io
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: keel
+    url: https://charts.keel.sh
+  - name: infracloudio
+    url: https://infracloudio.github.io/charts

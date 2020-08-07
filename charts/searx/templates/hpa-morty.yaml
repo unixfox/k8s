@@ -1,0 +1,18 @@
+{{- if .Values.morty.autoscaling.enabled }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "searx.fullname" . }}-morty
+  labels:
+    app: {{ template "searx.name" . }}-morty
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "searx.fullname" . }}-morty
+  minReplicas: {{ .Values.morty.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.morty.autoscaling.maxReplicas }}
+  targetCPUUtilizationPercentage: {{ .Values.morty.autoscaling.targetCPUUtilizationPercentage }}
+{{- end }}

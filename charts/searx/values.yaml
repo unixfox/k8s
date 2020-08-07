@@ -1,0 +1,82 @@
+name: searx
+
+searx:
+  image:
+    repository: unixfox/searx-custom
+    tag: latest
+    pullPolicy: Always
+  replicaCount: 3
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 50
+  resources: {}
+    #requests:
+    #  cpu: 100m
+    #  memory: 64Mi
+    #limits:
+    #  cpu: 800m
+    #  memory: 512Mi
+
+filtron:
+  image:
+    repository: dalf/filtron
+    tag: latest
+    pullPolicy: Always
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 16
+    targetCPUUtilizationPercentage: 50
+  resources: {}
+    #requests:
+    #  cpu: 100m
+    #  memory: 64Mi
+    #limits:
+    #  cpu: 800m
+    #  memory: 512Mi
+
+morty:
+  #key: ""
+  image:
+    repository: dalf/morty
+    tag: latest
+    pullPolicy: Always
+  replicaCount: 1
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 50
+  resources: {}
+    #requests:
+    #  cpu: 100m
+    #  memory: 64Mi
+    #limits:
+    #  cpu: 800m
+    #  memory: 512Mi
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: buypass-prod
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "server: hide";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-Frame-Options: SAMEORIGIN";
+      more_set_headers "X-Xss-Protection: 1";
+      more_set_headers "Content-Security-Policy: upgrade-insecure-requests; default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'self'; font-src 'self'; frame-ancestors 'self'; base-uri 'self'; connect-src 'self' https://overpass-api.de; img-src 'self' data: https://*.tile.openstreetmap.org; frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com https://www.dailymotion.com https://www.deezer.com https://www.mixcloud.com https://w.soundcloud.com https://embed.spotify.com";
+      more_set_headers "Feature-Policy: accelerometer 'none';ambient-light-sensor 'none'; autoplay 'none';camera 'none';encrypted-media 'none';focus-without-user-activation 'none'; geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';picture-in-picture 'none'; speaker 'none';sync-xhr 'none';usb 'none';vr 'none'";
+      more_set_headers "Referrer-Policy: no-referrer";
+      more_set_headers "X-Robots-Tag: noindex, noarchive, nofollow";
+
+  hosts:
+  - searx.be
+  - www.searx.be
+  tls:
+   - secretName: chart-searx-tls
+     hosts:
+     - searx.be

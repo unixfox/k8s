@@ -1,0 +1,10 @@
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+defaultSettings:
+  backupTarget: "s3://longhorn@nl-ams/"
+  backupTargetCredentialSecret: "longhorn-config-scaleway-secret"

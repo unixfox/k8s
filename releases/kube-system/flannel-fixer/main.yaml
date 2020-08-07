@@ -1,0 +1,10 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: flannel-fixer
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: ../../../charts/flannel-fixer

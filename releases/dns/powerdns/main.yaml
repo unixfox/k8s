@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: powerdns
+  labels:
+    parent: dns
+  namespace: dns
+  chart: ../../../charts/powerdns
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"

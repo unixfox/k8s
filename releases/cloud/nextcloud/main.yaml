@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: nextcloud
+  labels:
+    parent: cloud
+  namespace: cloud
+  chart: ../../../charts/nextcloud
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

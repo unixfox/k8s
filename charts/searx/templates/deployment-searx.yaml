@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "searx.fullname" . }}
+  labels:
+    app: {{ template "searx.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+    autoupdate/scheduled: "true"
+  annotations:
+    autoupdate/config: >
+      searx: latest$
+spec:
+  replicas: {{ .Values.searx.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "searx.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        app: {{ template "searx.name" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: {{ .Release.Name }}
+    spec:
+      tolerations:
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 30
+      - key: "node.kubernetes.io/not-ready"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 30
+      volumes:
+      - name: config-searx
+        configMap:
+          name: {{ template "searx.fullname" . }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.searx.image.repository }}:{{ .Values.searx.image.tag }}"
+        imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
+        env:
+        - name: PGID
+          value: "991"
+        - name: PUID
+          value: "991"
+        ports:
+        - containerPort: 8888
+        volumeMounts:
+        - name: config-searx
+          mountPath: /data/settings.yml
+          subPath: settings.yml
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - CHOWN
+            - SETGID
+            - SETUID
+            - DAC_OVERRIDE
+        resources:
+{{ toYaml .Values.searx.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            port: 8888
+            path: /
+        livenessProbe:
+          httpGet:
+            port: 8888
+            path: /
+      restartPolicy: Always

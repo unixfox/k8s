@@ -1,0 +1,3 @@
+helmfiles:
+  - longhorn-config/main.yaml
+  - longhorn/main.yaml

@@ -1,0 +1,31 @@
+{{- if .Values.powerdns.ingress.enabled -}}
+{{- $fullName := include "powerdns.fullname" . -}}
+{{- $svcPort := .Values.powerdns.service.api.port -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-api
+{{- with .Values.powerdns.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+{{- if .Values.powerdns.ingress.tls }}
+  tls:
+  {{- range .Values.powerdns.ingress.tls }}
+    - hosts:
+      {{- range .hosts }}
+        - {{ . }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}
+  rules:
+    - host: {{ .Values.powerdns.ingress.hostname }}.{{ .Values.powerdns.domain }}
+      http:
+        paths:
+          - path: {{ .Values.powerdns.ingress.path | quote }}
+            backend:
+              serviceName: {{ $fullName }}-service-api
+              servicePort: {{ $svcPort }}
+{{- end }}

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "searx.fullname" . }}-filtron
+  labels:
+    app: {{ template "searx.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+data:
+  rules.json: |
+{{ required "filtronRules must be set" .Values.filtronRules | indent 4 }}

@@ -1,0 +1,36 @@
+controller:
+  config:
+    ssl-protocols: "TLSv1.2 TLSv1.3"
+    ssl-ciphers: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
+    hsts-preload: "true"
+    disable-access-log: "true"
+  daemonset:
+    useHostPort: true
+  hostNetwork: true
+  kind: DaemonSet
+  service:
+    enabled: false
+  tolerations:
+    - key: "k3s-controlplane"
+      operator: "Equal"
+      value: "true"
+      effect: "NoExecute"
+# TCP service key:value pairs
+# Ref: https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx/examples/tcp
+##
+tcp:
+  # 25: "mail/mailu-front:smtp::PROXY"
+  53: "dns/powerdns-service-dns:dns-tcp::PROXY"
+  # 110: "mail/mailu-front:pop3::PROXY"
+  # 143: "mail/mailu-front:imap::PROXY"
+  # 465: "mail/mailu-front:smtps::PROXY"
+  # 587: "mail/mailu-front:smtpd::PROXY"
+  # 993: "mail/mailu-front:imaps::PROXY"
+  # 995: "mail/mailu-front:pop3s::PROXY"
+  # 10025: "mail/mailu-front:smtp-auth::PROXY"
+
+# UDP service key:value pairs
+# Ref: https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx/examples/udp
+##
+udp:
+  53: "dns/powerdns-service-dns:dns-udp"

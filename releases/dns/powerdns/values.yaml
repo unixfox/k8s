@@ -1,0 +1,14 @@
+keel:
+  # keel policy (all/major/minor/patch/force)
+  policy: force
+  trigger: poll
+  pollSchedule: "@every 10m"
+  approvals: 0
+  # images to track and update
+  images: 
+    - repository: powerdns.image.repository
+      tag: powerdns.image.tag
+    - repository: mariadb.image.repository
+      tag: mariadb.image.tag
+    - repository: powerdnsadmin.image.repository
+      tag: powerdnsadmin.image.tag

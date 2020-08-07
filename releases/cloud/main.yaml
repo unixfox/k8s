@@ -1,0 +1,2 @@
+helmfiles:
+  - nextcloud/main.yaml

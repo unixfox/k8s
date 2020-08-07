@@ -1,0 +1,18 @@
+{{- if .Values.searx.autoscaling.enabled }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "searx.fullname" . }}
+  labels:
+    app: {{ template "searx.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "searx.fullname" . }}
+  minReplicas: {{ .Values.searx.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.searx.autoscaling.maxReplicas }}
+  targetCPUUtilizationPercentage: {{ .Values.searx.autoscaling.targetCPUUtilizationPercentage }}
+{{- end }}

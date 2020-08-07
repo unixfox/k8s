@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: metrics-server
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: stable/metrics-server
+  values:
+  - "values.yaml"

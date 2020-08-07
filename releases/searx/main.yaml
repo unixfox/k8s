@@ -1,0 +1,2 @@
+helmfiles:
+  - searx/main.yaml

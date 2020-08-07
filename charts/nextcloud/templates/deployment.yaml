@@ -1,0 +1,317 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "nextcloud.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "nextcloud.name" . }}
+    helm.sh/chart: {{ include "nextcloud.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  {{- if .Values.deploymentAnnotations }}
+  annotations:
+{{ toYaml .Values.deploymentAnnotations | indent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "nextcloud.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "nextcloud.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+      {{- end }}
+    spec:
+      {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end}}
+      {{- end }}
+      initContainers:
+      - name: setup
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command: [ "/bin/ash", "-cx" ]
+        volumeMounts:
+        - name: nextcloud-data
+          mountPath: /php/session
+          subPath: "php_session"
+        - name: nextcloud-data
+          mountPath: /data
+          subPath: "data"
+        - name: nextcloud-data
+          mountPath: /config
+          subPath: "config"
+        - name: nextcloud-data
+          mountPath: /apps2
+          subPath: "custom_apps"
+        - name: nextcloud-data
+          mountPath: /nextcloud/themes
+          subPath: "themes"
+        env:
+        {{- if .Values.internalDatabase.enabled }}
+        - name: DB_TYPE
+          value: "sqlite3"
+        {{- else if .Values.mariadb.enabled }}
+        - name: DB_TYPE
+          value: "mysql"
+        - name: DB_HOST
+          value: {{ template "nextcloud.mariadb.fullname" . }}
+        - name: DB_NAME
+          value: {{ .Values.mariadb.db.name | quote }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.usernameKey | default "db-username" }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.passwordKey | default "db-password" }}
+        {{- else }}
+          {{- if eq .Values.externalDatabase.type "postgresql" }}
+        - name: DB_TYPE
+          value: "pgsql"
+        - name: DB_HOST
+          value: {{ .Values.externalDatabase.host | quote }}
+        - name: DB_NAME
+          value: {{ .Values.externalDatabase.database | quote }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.usernameKey | default "db-username" }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.passwordKey | default "db-password" }}
+          {{- else }}
+        - name: DB_TYPE
+          value: "mysql"
+        - name: DB_HOST
+          value: {{ .Values.externalDatabase.host | quote }}
+        - name: DB_NAME
+          value: {{ .Values.externalDatabase.database | quote }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.usernameKey | default "db-username" }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.passwordKey | default "db-password" }}
+          {{- end }}
+        {{- end }}
+        - name: ADMIN_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "nextcloud.fullname" . }}
+              key: nextcloud-username
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "nextcloud.fullname" . }}
+              key: nextcloud-password
+        - name: DOMAIN
+          value: {{ .Values.nextcloud.host }}
+        {{- if ne (int .Values.nextcloud.appAutoUpdate) 0 }}
+        - name: APP_AUTO_UPDATE
+          value: {{ .Values.nextcloud.appAutoUpdate | quote }}
+        {{- end }}
+        {{- if .Values.nextcloud.extraEnv }}
+{{ toYaml .Values.nextcloud.extraEnv | indent 8 }}
+        {{- end }}
+        args:
+          - /usr/local/bin/run.sh & echo "checking until complete installation, this might take a long time...";
+            ash -c 'while [[ "$(curl -s -o /dev/null -L -w ''%{http_code}'' http://localhost:8888)" != "200" ]]; do sleep 5; done';
+            exit 0 ;
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- if .Values.lifecycle }}
+        lifecycle:
+        {{-   if .Values.lifecycle.postStartCommand }}
+          postStart:
+            exec:
+              command:
+                {{- toYaml .Values.lifecycle.postStartCommand | nindent 16 -}}
+        {{-   end }}
+        {{-   if .Values.lifecycle.preStopCommand }}
+          preStop:
+            exec:
+              command:
+                {{- toYaml .Values.lifecycle.preStopCommand | nindent 16 -}}
+        {{-   end }}
+        {{- end }}
+        env:
+        {{- if .Values.internalDatabase.enabled }}
+        - name: DB_TYPE
+          value: "sqlite3"
+        {{- else if .Values.mariadb.enabled }}
+        - name: DB_TYPE
+          value: "mysql"
+        - name: DB_HOST
+          value: {{ template "nextcloud.mariadb.fullname" . }}
+        - name: DB_NAME
+          value: {{ .Values.mariadb.db.name | quote }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.usernameKey | default "db-username" }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.passwordKey | default "db-password" }}
+        {{- else }}
+          {{- if eq .Values.externalDatabase.type "postgresql" }}
+        - name: DB_TYPE
+          value: "pgsql"
+        - name: DB_HOST
+          value: {{ .Values.externalDatabase.host | quote }}
+        - name: DB_NAME
+          value: {{ .Values.externalDatabase.database | quote }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.usernameKey | default "db-username" }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.passwordKey | default "db-password" }}
+          {{- else }}
+        - name: DB_TYPE
+          value: "mysql"
+        - name: DB_HOST
+          value: {{ .Values.externalDatabase.host | quote }}
+        - name: DB_NAME
+          value: {{ .Values.externalDatabase.database | quote }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.usernameKey | default "db-username" }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
+              key: {{ .Values.externalDatabase.existingSecret.passwordKey | default "db-password" }}
+          {{- end }}
+        {{- end }}
+        - name: ADMIN_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "nextcloud.fullname" . }}
+              key: nextcloud-username
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "nextcloud.fullname" . }}
+              key: nextcloud-password
+        - name: DOMAIN
+          value: {{ .Values.nextcloud.host }}
+        {{- if ne (int .Values.nextcloud.appAutoUpdate) 0 }}
+        - name: APP_AUTO_UPDATE
+          value: {{ .Values.nextcloud.appAutoUpdate | quote }}
+        {{- end }}
+        {{- if .Values.nextcloud.extraEnv }}
+{{ toYaml .Values.nextcloud.extraEnv | indent 8 }}
+        {{- end }}
+        ports:
+        - name: http
+          containerPort: 8888
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /status.php
+            port: http
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.nextcloud.host | quote }}
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+        readinessProbe:
+          httpGet:
+            path: /status.php
+            port: http
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.nextcloud.host | quote }}
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+        - name: nextcloud-data
+          mountPath: /php/session
+          subPath: "php_session"
+        - name: nextcloud-data
+          mountPath: /data
+          subPath: "data"
+        - name: nextcloud-data
+          mountPath: /config
+          subPath: "config"
+        - name: nextcloud-data
+          mountPath: /apps2
+          subPath: "custom_apps"
+        - name: nextcloud-data
+          mountPath: /nextcloud/themes
+          subPath: "themes"
+        # {{- range $key, $value := .Values.nextcloud.configs }}
+        # - name: nextcloud-config
+        #   mountPath: /config/{{ $key }}
+        #   subPath: {{ $key }}
+        # {{- end }}
+        # {{- if .Values.nextcloud.configs }}
+        # {{- range $key, $value := .Values.nextcloud.defaultConfigs }}
+        # {{- if $value }}
+        # - name: nextcloud-config
+        #   mountPath: /config/{{ $key }}
+        #   subPath: {{ $key }}
+        # {{- end }}
+        # {{- end }}
+        # {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+      - name: nextcloud-data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "nextcloud.fullname" . }}-nextcloud{{- end }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      # Will mount configuration files as www-data (id: 33) for nextcloud
+      securityContext:
+        fsGroup: 991

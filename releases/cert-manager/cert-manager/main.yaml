@@ -1,0 +1,13 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: cert-manager
+  labels:
+    parent: cert-manager
+  namespace: cert-manager
+  chart: jetstack/cert-manager
+  version: v0.16.0
+  values:
+  - "values.yaml"

@@ -1,0 +1,36 @@
+helmProvider:
+  version: "v3"
+  enabled: true
+image:
+  tag: "latest"
+basicauth:
+  enabled: true
+  user: "unixfox"
+service:
+  enabled: true
+  type: "ClusterIP"
+keel:
+  # keel policy (all/major/minor/patch/force)
+  policy: patch
+  # trigger type, defaults to events such as pubsub, webhooks
+  trigger: poll
+  approvals: 0
+  # polling schedule
+  pollSchedule: "@every 5m"
+  # images to track and update
+  images:
+    - repository: image.repository
+      tag: image.tag
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: buypass-prod
+    kubernetes.io/tls-acme: "true"
+  hosts: 
+    - host: keel.unixfox.eu
+      paths:
+        - /
+  tls:
+    - secretName: keel-ingress-tls
+      hosts:
+        - keel.unixfox.eu

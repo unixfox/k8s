@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "searx.fullname" . }}-morty
+  labels:
+    app: {{ template "searx.name" . }}-morty
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.morty.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "searx.name" . }}-morty
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        app: {{ template "searx.name" . }}-morty
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: morty
+        image: "{{ .Values.morty.image.repository }}:{{ .Values.morty.image.tag }}"
+        imagePullPolicy: {{ .Values.morty.image.pullPolicy }}
+        args: ["-timeout", "6"]
+        env:
+        - name: MORTY_KEY
+          value: "{{ .Values.morty.key }}"
+        - name: MORTY_ADDRESS
+          value: "0.0.0.0:3000"
+        ports:
+        - containerPort: 3000
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+        resources:
+{{ toYaml .Values.morty.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /
+        livenessProbe:
+          httpGet:
+            port: 3000
+            path: /
+      restartPolicy: Always

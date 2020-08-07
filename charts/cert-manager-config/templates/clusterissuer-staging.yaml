@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: buypass-staging
+spec:
+  acme:
+    email: certmaster@unixfox.eu
+    server: https://api.test4.buypass.no/acme/directory
+    privateKeySecretRef:
+      name: buypass-staging-account-key
+    solvers:
+    - dns01:
+        webhook:
+          groupName: acme.unixfox.eu
+          solverName: pdns
+          config:
+            host: https://api.dns.unixfox.eu
+            apiKeySecretRef:
+              name: pdns-api-key
+              key: key
+
+            # Optional config, shown with default values
+            #   all times in seconds
+            ttl: 120
+            timeout: 30
+            propagationTimeout: 120
+            pollingInterval: 2
+

@@ -1,0 +1,2 @@
+helmfiles:
+  - nginx-ingress/main.yaml

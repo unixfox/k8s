@@ -1,0 +1,8 @@
+keel:
+  # keel policy (all/major/minor/patch/force)
+  policy: force
+  approvals: 0
+  # images to track and update
+  images: 
+    - repository: searx.image.repository
+      tag: searx.image.tag

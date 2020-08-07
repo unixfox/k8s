@@ -1,0 +1,18 @@
+image:
+  repository: quay.io/unixfox/botkube
+  pullPolicy: Always
+  ## default tag is appVersion from Chart.yaml. If you want to use
+  ## some other tag then it can be specified here
+  tag: feature_discord-integration
+config:
+  recommendations: false
+  settings:
+    clustername: "defaultnew"
+    allowkubectl: true
+communications:
+  # Settings for Discord
+  discord:
+    enabled: true
+    botid: '737588087261233193'         # BotKube Application Client ID 
+    channel: '737592247792566333'   # Discord Channel id for receiving BotKube alerts 
+    notiftype: short                # Change notification type short/long you want to receive. notiftype is optional and Default notification type is short (if not specified)

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: longhorn-config
+description: A Helm chart for bunch of things for longhorn like secrets for s3
+version: 1.0.0

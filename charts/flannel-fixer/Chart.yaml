@@ -1,0 +1,4 @@
+apiVersion: v2
+name: flannel-fixer
+description: A Helm chart for fixing flannel
+version: 1.0.0

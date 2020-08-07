@@ -1,0 +1,16 @@
+apiVersion: v2
+name: searx
+description: Privacy-respecting metasearch engine
+version: 1.0.0
+appVersion: 0.20.1
+keywords:
+- proxy
+- privacy
+home: https://searx.me
+icon: https://github.com/asciimoo/searx/raw/master/searx/static/themes/simple/img/favicon.png
+sources:
+- https://github.com/asciimoo/searx
+maintainers:
+- name: Emilien Devos
+  email: contact@emiliendevos.be
+engine: gotpl

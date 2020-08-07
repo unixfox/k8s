@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "searx.fullname" . }}-filtron
+  labels:
+    app: {{ template "searx.name" . }}-filtron
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.filtron.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "searx.name" . }}-filtron
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        app: {{ template "searx.name" . }}-filtron
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: {{ .Release.Name }}
+    spec:
+      volumes:
+      - name: config-filtron
+        configMap:
+          name: {{ template "searx.fullname" . }}-filtron
+      containers:
+      - name: filtron
+        image: "{{ .Values.filtron.image.repository }}:{{ .Values.filtron.image.tag }}"
+        imagePullPolicy: {{ .Values.filtron.image.pullPolicy }}
+        args: ["-listen", "0.0.0.0:4004", "-target", "searx-searx:8888"]
+        ports:
+        - containerPort: 4004
+        volumeMounts:
+        - name: config-filtron
+          mountPath: /etc/filtron/rules.json
+          subPath: rules.json
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+        resources:
+{{ toYaml .Values.filtron.resources | indent 10 }}
+        readinessProbe:
+          tcpSocket:
+            port: 4004
+        livenessProbe:
+          tcpSocket:
+            port: 4004
+      restartPolicy: Always
