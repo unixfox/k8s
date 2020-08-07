@@ -1,4 +1,4 @@
 helmfiles:
-  - cert-manager/main.yaml
+  #- cert-manager/main.yaml
   - cert-manager-config/main.yaml
   - cert-manager-webhook-pdns/main.yaml
