@@ -1,0 +1,161 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "netdata.name" . }}-parent
+  labels:
+    app: {{ template "netdata.name" . }}
+    chart: {{ template "netdata.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    role: parent
+spec:
+  serviceName: {{ template "netdata.name" . }}
+  replicas: {{ .Values.replicaCount }}
+  {{- if or .Values.parent.database.persistence .Values.parent.alarms.persistence }}
+  volumeClaimTemplates:
+  {{- if .Values.parent.database.persistence }}
+    - metadata:
+        name: database
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+      {{- if (ne "-" .Values.parent.database.storageclass) }}
+        storageClassName: "{{ .Values.parent.database.storageclass }}"
+      {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.parent.database.volumesize }}
+  {{- end }}
+  {{- if .Values.parent.alarms.persistence }}
+    - metadata:
+        name: alarms
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+      {{- if (ne "-" .Values.parent.alarms.storageclass) }}
+        storageClassName: "{{ .Values.parent.alarms.storageclass }}"
+      {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.parent.alarms.volumesize }}
+  {{- end }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ template "netdata.name" . }}
+      release: {{ .Release.Name }}
+      role: parent
+  template:
+    metadata:
+      labels:
+        app: {{ template "netdata.name" . }}
+        release: {{ .Release.Name }}
+        role: parent
+{{- with .Values.parent.podLabels }}
+{{ toYaml . | trim | indent 8 }}
+{{- end }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+{{- with .Values.parent.podAnnotations }}
+{{ toYaml . | trim | indent 8 }}
+{{- end }}
+    spec:
+      securityContext:
+        fsGroup: 201
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      {{- if .Values.parent.priorityClassName }}
+      priorityClassName: "{{ .Values.parent.priorityClassName }}"
+      {{- end }}
+      initContainers:
+      {{- if .Values.sysctlImage.enabled }}
+        - name: init-sysctl
+          image: "{{ .Values.sysctlImage.repository }}:{{ .Values.sysctlImage.tag }}"
+          command:
+{{ toYaml .Values.sysctlImage.command | indent 12 }}
+          securityContext:
+            runAsNonRoot: false
+            privileged: true
+            runAsUser: 0
+          resources:
+{{ toYaml .Values.sysctlImage.resources | indent 12 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if and .Values.parent.claiming.enabled .Values.parent.claiming.token .Values.parent.claiming.rooms }}
+          command:
+            - sh
+            - '-c'
+            - >
+              /usr/sbin/run.sh -W set2 cloud global enabled true -W set2 cloud global "cloud base url" "{{ .Values.parent.claiming.url }}" -W "claim -token={{ .Values.parent.claiming.token }} -rooms={{ .Values.parent.claiming.rooms }} -url={{ .Values.parent.claiming.url }}"
+          {{- end }}
+          env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            {{- range $key, $value := .Values.parent.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh","-c","killall netdata; while killall -0 netdata; do sleep 1; done"]
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/v1/info
+              port: http
+            timeoutSeconds: 1
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /api/v1/info
+              port: http
+            timeoutSeconds: 1
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          volumeMounts:
+            {{- range $name, $config := .Values.parent.configs }}
+            {{- if $config.enabled }}
+            - name: config
+              mountPath: {{ $config.path }}
+              subPath: {{ $name }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.parent.database.persistence }}
+            - name: database
+              mountPath: /var/cache/netdata
+            {{- end }}
+            {{- if .Values.parent.alarms.persistence }}
+            - name: alarms
+              mountPath: /var/lib/netdata
+            {{- end }}
+          resources:
+{{ toYaml .Values.parent.resources | indent 12 }}
+    {{- with .Values.parent.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.parent.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.parent.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: netdata-conf-parent
