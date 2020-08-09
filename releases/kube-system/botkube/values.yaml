@@ -3,7 +3,7 @@ image:
   pullPolicy: Always
   ## default tag is appVersion from Chart.yaml. If you want to use
   ## some other tag then it can be specified here
-  tag: feature_discord-integration
+  tag: b5b3a25
 config:
   recommendations: false
   settings:
