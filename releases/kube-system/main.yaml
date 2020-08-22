@@ -4,3 +4,4 @@ helmfiles:
   - keel/main.yaml
   #- netdata/main.yaml
   - botkube/main.yaml
+  - kured/main.yaml

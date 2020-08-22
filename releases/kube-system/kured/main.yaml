@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: kured
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: kured/kured
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

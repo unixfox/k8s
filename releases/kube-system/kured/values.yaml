@@ -1,0 +1,3 @@
+configuration:
+  slackUsername: "kured"
+  annotationTtl: "30m"

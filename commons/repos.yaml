@@ -11,3 +11,5 @@ repositories:
     url: https://charts.keel.sh
   - name: infracloudio
     url: https://infracloudio.github.io/charts
+  - name: kured
+    url: https://weaveworks.github.io/kured
