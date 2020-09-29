@@ -5,18 +5,17 @@ image:
   ## some other tag then it can be specified here
   tag: b5b3a25
 config:
-  recommendations: false
+  ## Resources you want to watch
   resources:
-    - name: v1/pods             # Name of the resource. Resource name must be in group/version/resource (G/V/R) format
-                                # resource name should be plural (e.g apps/v1/deployments, v1/pods)
-      namespaces:               # List of namespaces, "all" will watch all the namespaces
+    - name: pod                # Name of the resources e.g pod, deployment, ingress, etc. (Resource name must be in singular form)
+      namespaces:
         include:
           - all
         ignore:                 # List of namespaces to be ignored (omitempty), used only with include: all
-          -                     # example : include [all], ignore [x,y,z]
+          -                     # example : include [all], ignore [x,y,z] 
       events:                   # List of lifecycle events you want to receive, e.g create, update, delete, error OR all
         - error
-    - name: v1/services
+    - name: service
       namespaces:
         include:
           - all
@@ -26,7 +25,7 @@ config:
         - create
         - delete
         - error
-    - name: apps/v1/deployments
+    - name: deployment
       namespaces:
         include:
           - all
@@ -39,7 +38,7 @@ config:
         fields:
           - spec.template.spec.containers[*].image
           - status.availableReplicas
-    - name: apps/v1/statefulsets
+    - name: statefulset
       namespaces:
         include:
           - all
@@ -52,67 +51,55 @@ config:
         fields:
           - spec.template.spec.containers[*].image
           - status.readyReplicas
-    - name: networking.k8s.io/v1beta1/ingresses
+    - name: ingress
       namespaces:
         include:
           - all
         ignore:
           -
       events:
-        - create
-        - delete
         - error
-    - name: v1/nodes
+    - name: node
       namespaces:
         include:
           - all
         ignore:
           -
       events:
-        - create
-        - delete
         - error
-    - name: v1/namespaces
+    - name: namespace
       namespaces:
         include:
           - all
         ignore:
           -
       events:
-        - create
-        - delete
         - error
-    - name: v1/persistentvolumes
+    - name: persistentvolume
       namespaces:
         include:
           - all
         ignore:
           -
       events:
-        - create
-        - delete
         - error
-    - name: v1/persistentvolumeclaims
+    - name: persistentvolumeclaim
       namespaces:
         include:
           - all
         ignore:
           -
       events:
-        - create
-        - delete
         - error
-    - name: v1/configmaps
+    - name: configmap
       namespaces:
         include:
           - all
         ignore:
           -
       events:
-        - create
-        - delete
         - error
-    - name: apps/v1/daemonsets
+    - name: daemonset
       namespaces:
         include:
           - all
@@ -125,7 +112,7 @@ config:
         fields:
           - spec.template.spec.containers[*].image
           - status.numberReady
-    - name: batch/v1/jobs
+    - name: job
       namespaces:
         include:
           - all
@@ -138,7 +125,31 @@ config:
         fields:
           - spec.template.spec.containers[*].image
           - status.conditions[*].type
-    - name: rbac.authorization.k8s.io/v1/roles
+    - name: role
+      namespaces:
+        include:
+          - all
+        ignore:
+          -
+      events:
+        - error
+    - name: rolebinding
+      namespaces:
+        include:
+          - all
+        ignore:
+          -
+      events:
+        - error
+    - name: clusterrole
+      namespaces:
+        include:
+          - all
+        ignore:
+          -
+      events:
+        - error
+    - name: clusterrolebinding
       namespaces:
         include:
           - all
@@ -148,39 +159,37 @@ config:
         - create
         - delete
         - error
-    - name: rbac.authorization.k8s.io/v1/rolebindings
-      namespaces:
-        include:
-          - all
-        ignore:
-          -
-      events:
-        - create
-        - delete
-        - error
-    - name: rbac.authorization.k8s.io/v1/clusterrolebindings
-      namespaces:
-        include:
-          - all
-        ignore:
-          -
-      events:
-        - create
-        - delete
-        - error
-    - name: rbac.authorization.k8s.io/v1/clusterroles
-      namespaces:
-        include:
-          - all
-        ignore:
-          -
-      events:
-        - create
-        - delete
-        - error
+
+  # Check true if you want to receive recommendations
+  # about the best practices for the created resource
+  recommendations: true
+
+  ssl:                                           # For using custom SSL certificates
+    enabled: false                               # Set to true and specify cert path in the next line after uncommenting
+    #cert:                                       # SSL Certificate file e.g certs/my-cert.crt
+
+  # Setting to support multiple clusters
   settings:
+    # Cluster name to differentiate incoming messages
     clustername: "defaultnew"
-    allowkubectl: true
+    # Kubectl executor configs
+    kubectl:
+      # Set true to enable kubectl commands execution
+      enabled: false
+      # List of allowed commands
+      commands:
+        # method which are allowed
+        verbs: ["api-resources", "api-versions", "cluster-info", "describe", "diff", "explain", "get", "logs", "top", "auth"]
+        # resource configuration which is allowed
+        resources: ["deployments", "pods" , "namespaces", "daemonsets", "statefulsets", "storageclasses", "nodes" ]
+      # set Namespace to execute botkube kubectl commands by default
+      defaultNamespace: default
+      # Set true to enable commands execution from configured channel only
+      restrictAccess: false
+    # Set true to enable config watcher
+    configwatcher: true
+    # Set false to disable upgrade notification
+    upgradeNotifier: true
 communications:
   # Settings for Discord
   discord:
