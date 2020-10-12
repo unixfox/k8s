@@ -1,0 +1,10 @@
+persistence:
+  enabled: true
+  size: 80Gi
+  storageClass: "local-path"
+
+storageClass:
+  defaultClass: true
+
+nodeSelector:
+  kubernetes.io/hostname: oraclefree3

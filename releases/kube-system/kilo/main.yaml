@@ -3,13 +3,8 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: botkube
+- name: kilo
   labels:
     parent: kube-system
   namespace: kube-system
-  chart: infracloudio/botkube
-  version: v0.11.0
-  values:
-  - "values.yaml"
-  secrets:
-  - "secrets.yaml"
+  chart: ../../../charts/kilo

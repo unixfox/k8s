@@ -3,13 +3,10 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: botkube
+- name: nfs-server-provisioner-oraclefree3
   labels:
     parent: kube-system
   namespace: kube-system
-  chart: infracloudio/botkube
-  version: v0.11.0
+  chart: stable/nfs-server-provisioner
   values:
   - "values.yaml"
-  secrets:
-  - "secrets.yaml"

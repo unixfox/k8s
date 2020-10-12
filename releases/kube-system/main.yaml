@@ -1,5 +1,8 @@
 helmfiles:
-  - flannel-fixer/main.yaml
+  - kilo/main.yaml
+  - local-path/main.yaml
+  - nfs-server-provisioner/main.yaml
+  #- flannel-fixer/main.yaml
   - metrics-server/main.yaml
   - keel/main.yaml
   #- netdata/main.yaml

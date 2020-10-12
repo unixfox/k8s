@@ -3,11 +3,10 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: cert-manager
+- name: local-path
   labels:
-    parent: cert-manager
-  namespace: cert-manager
-  chart: jetstack/cert-manager
-  version: v1.0.3
+    parent: kube-system
+  namespace: kube-system
+  chart: ../../../charts/local-path-provisioner
   values:
   - "values.yaml"

@@ -14,7 +14,7 @@ spec:
           groupName: acme.unixfox.eu
           solverName: pdns
           config:
-            host: https://api.dns.unixfox.eu
+            host: http://powerdns-service-api.dns.svc.cluster.local:8081
             apiKeySecretRef:
               name: pdns-api-key
               key: key
