@@ -1,0 +1,14 @@
+Repository:
+  backend:
+    s3:
+      endpoint: "s3.nl-ams.scw.cloud"
+      bucket: "stash"
+      region: "nl-ams"
+
+BackupConfiguration:
+  schedule: "0 */12 * * *"
+  pvcname: "pvc-powerdns-mariadb"
+  retentionPolicy:
+    name: default
+    keepLast: 60
+    prune: true

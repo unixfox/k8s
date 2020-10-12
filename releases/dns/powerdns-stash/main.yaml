@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: powerdns-backup-pvc
+  labels:
+    parent: dns
+  namespace: dns
+  chart: ../../../charts/stash-config-pvc
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

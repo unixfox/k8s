@@ -1,0 +1,19 @@
+Repository:
+  backend:
+    s3:
+      endpoint: ""
+      bucket: ""
+      region: ""
+
+BackupConfiguration:
+  schedule: ""
+  pvcname: ""
+  retentionPolicy: {}
+    # name: default
+    # keepLast: 60
+    # prune: true
+
+secrets:
+  resticpassword: ""
+  AWSAccessKeyID: ""
+  AWSSecretAccessKey: ""

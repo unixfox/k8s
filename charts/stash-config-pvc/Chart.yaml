@@ -1,0 +1,4 @@
+apiVersion: v2
+name: stash-config-pvc
+description: A Helm chart for backup PVC using Stash
+version: 1.0.0

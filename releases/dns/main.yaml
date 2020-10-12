@@ -1,2 +1,3 @@
 helmfiles:
   - powerdns/main.yaml
+  - powerdns-stash/main.yaml
