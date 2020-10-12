@@ -8,3 +8,4 @@ helmfiles:
   #- netdata/main.yaml
   - botkube/main.yaml
   - kured/main.yaml
+  - stash/main.yaml

@@ -11,6 +11,8 @@ searx:
     minReplicas: 2
     maxReplicas: 8
     targetCPUUtilizationPercentage: 50
+  nodeSelector: {}
+  affinity: {}
   resources: {}
     #requests:
     #  cpu: 100m
@@ -31,6 +33,8 @@ filtron:
     maxReplicas: 16
     targetCPUUtilizationPercentage: 50
   resources: {}
+  nodeSelector: {}
+  affinity: {}
     #requests:
     #  cpu: 100m
     #  memory: 64Mi
@@ -51,6 +55,8 @@ morty:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 50
   resources: {}
+  nodeSelector: {}
+  affinity: {}
     #requests:
     #  cpu: 100m
     #  memory: 64Mi

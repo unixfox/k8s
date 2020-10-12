@@ -13,3 +13,5 @@ repositories:
     url: https://infracloudio.github.io/charts
   - name: kured
     url: https://weaveworks.github.io/kured
+  - name: appscode
+    url: https://charts.appscode.com/stable/
