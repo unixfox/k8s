@@ -1,0 +1,7 @@
+provider: pdns
+pdns:
+  apiUrl: http://powerdns-service-api.dns.svc.cluster.local
+domainFilters:
+  - unixfox.eu
+  - searx.be
+txtPrefix: "externaldns"

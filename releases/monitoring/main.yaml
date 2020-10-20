@@ -1,0 +1,2 @@
+helmfiles:
+  - zabbix/main.yaml

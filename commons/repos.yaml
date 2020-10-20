@@ -15,3 +15,5 @@ repositories:
     url: https://weaveworks.github.io/kured
   - name: appscode
     url: https://charts.appscode.com/stable/
+  - name: cetic
+    url: https://cetic.github.io/helm-charts

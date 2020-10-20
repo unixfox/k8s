@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: external-dns
+  labels:
+    parent: dns
+  namespace: dns
+  chart: bitnami/external-dns
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"

@@ -1,0 +1,13 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: buypass-prod
+  hosts:
+    - host: zabbix.unixfox.eu
+      paths:
+        - /
+  tls:
+    - secretName: zabbix-tls
+      hosts:
+        - zabbix.unixfox.eu

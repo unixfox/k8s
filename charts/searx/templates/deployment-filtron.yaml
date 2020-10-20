@@ -21,11 +21,11 @@ spec:
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         release: {{ .Release.Name }}
     spec:
-      {{- with .Values.searx.affinity }}
+      {{- with .Values.filtron.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.searx.nodeSelector }}
+      {{- with .Values.filtron.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}

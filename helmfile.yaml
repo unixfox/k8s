@@ -6,3 +6,4 @@ helmfiles:
   - "releases/dns/main.yaml"
   #- "releases/cloud/main.yaml"
   - "releases/searx/main.yaml"
+  #- "releases/monitoring/main.yaml"

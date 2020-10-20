@@ -19,15 +19,8 @@ searx:
             - azurefreeelgasse
 
 filtron:
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: NotIn
-            values:
-            - azurefreeelgasse
+  nodeSelector:
+    kubernetes.io/hostname: oraclenonfree
 
 morty:
   affinity:
