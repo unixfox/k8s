@@ -17,3 +17,5 @@ repositories:
     url: https://charts.appscode.com/stable/
   - name: cetic
     url: https://cetic.github.io/helm-charts
+  - name: autoscaler
+    url: https://kubernetes.github.io/autoscaler

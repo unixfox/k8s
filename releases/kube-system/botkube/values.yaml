@@ -12,8 +12,6 @@ config:
         ignore:                 # List of namespaces to be ignored (omitempty), used only with include: all, can contain a wildcard (*)
           -                     # example : include [all], ignore [x,y,secret-ns-*]
       events:                   # List of lifecycle events you want to receive, e.g create, update, delete, error OR all
-        - create
-        - delete
         - error
     - name: v1/services
       namespaces:
@@ -22,8 +20,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: apps/v1/deployments
       namespaces:
@@ -32,9 +28,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - update
-        - delete
         - error
       updateSetting:
         includeDiff: true
@@ -48,9 +41,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - update
-        - delete
         - error
       updateSetting:
         includeDiff: true
@@ -64,8 +54,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: v1/nodes
       namespaces:
@@ -74,8 +62,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: v1/namespaces
       namespaces:
@@ -84,8 +70,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: v1/persistentvolumes
       namespaces:
@@ -94,8 +78,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: v1/persistentvolumeclaims
       namespaces:
@@ -104,8 +86,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: v1/configmaps
       namespaces:
@@ -114,8 +94,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: apps/v1/daemonsets
       namespaces:
@@ -124,9 +102,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - update
-        - delete
         - error
       updateSetting:
         includeDiff: true
@@ -140,9 +115,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - update
-        - delete
         - error
       updateSetting:
         includeDiff: true
@@ -156,8 +128,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: rbac.authorization.k8s.io/v1/rolebindings
       namespaces:
@@ -166,8 +136,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: rbac.authorization.k8s.io/v1/clusterrolebindings
       namespaces:
@@ -176,8 +144,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     - name: rbac.authorization.k8s.io/v1/clusterroles
       namespaces:
@@ -186,8 +152,6 @@ config:
         ignore:
           -
       events:
-        - create
-        - delete
         - error
     # Custom resource example
     #- name: velero.io/v1/backups

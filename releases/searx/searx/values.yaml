@@ -17,6 +17,7 @@ searx:
             operator: NotIn
             values:
             - azurefreeelgasse
+            - oraclefree3
 
 filtron:
   nodeSelector:
@@ -32,3 +33,4 @@ morty:
             operator: NotIn
             values:
             - azurefreeelgasse
+            - oraclefree3
