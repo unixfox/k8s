@@ -42,6 +42,8 @@ spec:
         operator: "Exists"
         effect: "NoExecute"
         tolerationSeconds: 30
+      imagePullSecrets:
+        - name: imagepullsecrets-docker-registry
       volumes:
       - name: config-searx
         configMap:

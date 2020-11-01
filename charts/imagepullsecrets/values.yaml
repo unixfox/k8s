@@ -1,0 +1,4 @@
+dockerregistry:
+  registry: "index.docker.io"
+  #username: ""
+  #password: ""

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: imagepullsecrets
+description: Just for image pull secrets
+version: 1.0.0

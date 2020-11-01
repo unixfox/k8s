@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: imagepullsecrets
+  labels:
+    parent: searx
+  namespace: searx
+  chart: ../../../charts/imagepullsecrets
+  secrets:
+  - "secrets.yaml"
