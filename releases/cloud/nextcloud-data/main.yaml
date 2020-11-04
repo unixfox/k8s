@@ -3,11 +3,11 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: nextcloud
+- name: nextcloud-data
   labels:
     parent: cloud
   namespace: cloud
-  chart: nextcloud/nextcloud
+  chart: ../../../charts/kube-rclone
   values:
   - "values.yaml"
   secrets:

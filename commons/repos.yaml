@@ -19,3 +19,5 @@ repositories:
     url: https://cetic.github.io/helm-charts
   - name: autoscaler
     url: https://kubernetes.github.io/autoscaler
+  - name: nextcloud
+    url: https://nextcloud.github.io/helm/

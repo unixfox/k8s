@@ -9,6 +9,9 @@ basicauth:
 service:
   enabled: true
   type: "ClusterIP"
+resources:
+  limits:
+    cpu: 50m
 keel:
   # keel policy (all/major/minor/patch/force)
   policy: patch

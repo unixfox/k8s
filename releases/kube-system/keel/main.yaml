@@ -7,7 +7,7 @@ releases:
   labels:
     parent: kube-system
   namespace: kube-system
-  chart: ../../../charts/keel
+  chart: keel/keel
   values:
   - "values.yaml"
   secrets:

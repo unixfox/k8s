@@ -1,0 +1,21 @@
+images:
+  container:
+    repository: rclone/rclone
+    tag: latest
+  pullPolicy: Always
+
+nodeSelector:
+  kubernetes.io/hostname: oraclenonfree
+
+rclone:
+  remote: "pulseheberg:pastnuage"
+  path: "/mnt/nextcloud-data"
+  readOnly: false
+  additionalArgs:
+    - --max-read-ahead=14G
+    - --checkers=16
+    - --stats=1m
+    - --uid=33
+    - --gid=33
+    - --umask=007
+    - --vfs-cache-mode=full

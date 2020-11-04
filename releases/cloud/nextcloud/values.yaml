@@ -1,3 +1,85 @@
+persistence:
+  enabled: true
+  annotations:
+    "helm.sh/resource-policy": keep
+
+mariadb:
+  enabled: true
+  master:
+    nodeSelector:
+      kubernetes.io/hostname: oraclenonfree
+    persistence:
+      annotations:
+        "helm.sh/resource-policy": keep
+      enabled: true
+
+internalDatabase:
+  enabled: false
+
+nextcloud:
+  host: "cloud.unixfox.eu"
+  extraEnv:
+    - name: NEXTCLOUD_DATA_DIR
+      value: "/mnt/nextcloud-data"
+    - name: APACHE_DISABLE_REWRITE_IP
+      value: "1"
+  extraVolumeMounts:
+    - name: rclone-data
+      mountPath: /mnt/nextcloud-data
+  extraVolumes:
+    - name: rclone-data
+      hostPath:
+        path: /mnt/nextcloud-data
+
+nodeSelector:
+  kubernetes.io/hostname: oraclenonfree
+
+livenessProbe:
+  initialDelaySeconds: 600
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 4G
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: buypass-prod
+    nginx.ingress.kubernetes.io/server-snippet: |-
+      server_tokens off;
+      proxy_hide_header X-Powered-By;
+
+      rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
+      rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+      rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+      location = /.well-known/carddav {
+        return 301 $scheme://$host/remote.php/dav;
+      }
+      location = /.well-known/caldav {
+        return 301 $scheme://$host/remote.php/dav;
+      }
+      location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+      }
+      location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+        deny all;
+      }
+      location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+        deny all;
+      }
+  tls:
+  - secretName: chart-nextcloud-tls
+    hosts:
+    - cloud.unixfox.eu
+
+redis:
+  enabled: true
+  cluster:
+    enabled: false
+  master:
+    persistence:
+      enabled: false
+
 keel:
   # keel policy (all/major/minor/patch/force)
   policy: force

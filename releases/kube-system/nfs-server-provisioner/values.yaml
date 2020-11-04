@@ -5,6 +5,11 @@ persistence:
 
 storageClass:
   defaultClass: true
+  mountOptions:
+    - async
+    - vers=3
+    - nfsvers=4.2
+    - noatime
 
 nodeSelector:
   kubernetes.io/hostname: oraclefree3
