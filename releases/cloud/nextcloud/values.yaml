@@ -31,6 +31,10 @@ nextcloud:
       hostPath:
         path: /mnt/nextcloud-data
 
+resources:
+  limits:
+    memory: 640Mi
+
 nodeSelector:
   kubernetes.io/hostname: oraclenonfree
 

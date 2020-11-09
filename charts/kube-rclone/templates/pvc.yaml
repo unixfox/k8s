@@ -1,0 +1,15 @@
+{{- if .Values.rclone.pvcVFS.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "kube-rclone.fullname" . }}-cache
+  labels:
+{{ include "kube-rclone.labels" . | indent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.rclone.pvcVFS.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.rclone.pvcVFS.size }}
+{{- end -}}

@@ -8,14 +8,24 @@ nodeSelector:
   kubernetes.io/hostname: oraclenonfree
 
 rclone:
-  remote: "pulseheberg:pastnuage"
+  remote: "onedriveschool:pastnuage"
   path: "/mnt/nextcloud-data"
   readOnly: false
+  pvcVFS:
+    enabled: true
+    storageClassName: local-path
+    size: 15Gi
   additionalArgs:
-    - --max-read-ahead=14G
+    - --max-read-ahead=64M
+    - --rc
     - --checkers=16
     - --stats=1m
     - --uid=33
     - --gid=33
     - --umask=007
     - --vfs-cache-mode=full
+    - -v
+    - --vfs-cache-max-size=15000M
+    - --dir-cache-time=8760h
+    - --attr-timeout=8700h
+    - --dir-cache-time=8700h

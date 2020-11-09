@@ -17,6 +17,11 @@ rclone:
   remote: "gcache:"
   # mount path for  remote
   path: /mnt/disks/gdrive
+  # PVC for cache VFS - optional
+  pvcVFS:
+    enabled: false
+    #storageClassName: local-path
+    #size: 2Gi
   # read only file system for remote (to protect from deletion of files)
   readOnly: true
   # additional arguments for customising rclone

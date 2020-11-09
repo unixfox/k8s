@@ -43,6 +43,9 @@ spec:
           - --config=/etc/rclone/rclone.conf
           - --allow-non-empty
           - --allow-other
+        {{- if .Values.rclone.pvcVFS.enabled }}
+          - --cache-dir=/cache
+        {{- end }}
         {{- if .Values.rclone.readOnly }}
           - --read-only
         {{ end }}
@@ -65,12 +68,19 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/rclone
+        - name: cache
+          mountPath: /cache
         - name: data
           mountPath: /var/lib/rclone
         - name: media
           mountPath: {{ .Values.rclone.path }}
           mountPropagation: Bidirectional
       volumes:
+      {{- if .Values.rclone.pvcVFS.enabled }}
+      - name: cache
+        persistentVolumeClaim:
+          claimName: {{ include "kube-rclone.fullname" . }}-cache
+      {{- end }}
       - name: config
         emptyDir: {}
       - name: config-data
