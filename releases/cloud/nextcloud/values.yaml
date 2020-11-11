@@ -1,3 +1,6 @@
+image:
+  tag: 19.0.4-apache
+
 persistence:
   enabled: true
   annotations:
@@ -39,7 +42,7 @@ nodeSelector:
   kubernetes.io/hostname: oraclenonfree
 
 livenessProbe:
-  initialDelaySeconds: 600
+  initialDelaySeconds: 1800
 
 ingress:
   enabled: true
