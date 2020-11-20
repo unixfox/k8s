@@ -29,3 +29,4 @@ rclone:
     - --dir-cache-time=8760h
     - --attr-timeout=8700h
     - --dir-cache-time=8700h
+    - --vfs-write-back=60s
