@@ -43,6 +43,9 @@ nodeSelector:
 
 livenessProbe:
   initialDelaySeconds: 1800
+  timeoutSeconds: 30
+readinessProbe:
+  timeoutSeconds: 30
 
 ingress:
   enabled: true
