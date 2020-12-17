@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nitter
-  labels:
-    io.kompose.service: nitter
-data:
-  nitter.conf: |
-{{ required "configNitter must be set" .Values.configNitter | indent 4 }}

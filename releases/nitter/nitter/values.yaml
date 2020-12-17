@@ -1,0 +1,22 @@
+keel:
+  # keel policy (all/major/minor/patch/force)
+  policy: force
+  approvals: 0
+  # images to track and update
+  images: 
+    - repository: nitter.image.repository
+      tag: nitter.image.tag
+
+nitter:
+  image:
+    repository: unixfox/nitter
+    tag: latest
+
+redis:
+  enabled: true
+  usePassword: false
+  cluster:
+    enabled: false
+  master:
+    persistence:
+      enabled: false

@@ -10,3 +10,5 @@ releases:
   chart: ../../../charts/nitter
   secrets:
   - "secrets.yaml"
+  values:
+  - "values.yaml"

@@ -6,3 +6,8 @@ keywords:
   - docker-compose
 sources:
 home:
+dependencies:
+- name: redis
+  version: ~12.2.3
+  repository: https://charts.bitnami.com/bitnami
+  condition: redis.enabled
