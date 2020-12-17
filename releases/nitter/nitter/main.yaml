@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: nitter
+  labels:
+    parent: nitter
+  namespace: nitter
+  chart: ../../../charts/nitter
+  secrets:
+  - "secrets.yaml"

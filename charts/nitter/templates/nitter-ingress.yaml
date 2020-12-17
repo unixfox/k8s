@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: buypass-prod
+    kompose.cmd: kompose convert -c
+    kompose.service.expose: nitter.unixfox.eu
+    kompose.service.expose.tls-secret: nitter-tls
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nitter
+  name: nitter
+spec:
+  rules:
+    - host: nitter.unixfox.eu
+      http:
+        paths:
+          - backend:
+              serviceName: nitter
+              servicePort: 8080
+  tls:
+    - hosts:
+        - nitter.unixfox.eu
+      secretName: nitter-tls
+status:
+  loadBalancer: {}

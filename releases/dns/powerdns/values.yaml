@@ -2,7 +2,7 @@ keel:
   # keel policy (all/major/minor/patch/force)
   policy: force
   trigger: poll
-  pollSchedule: "@every 10m"
+  pollSchedule: "@every 6h"
   approvals: 0
   # images to track and update
   images: 

@@ -19,7 +19,7 @@ keel:
   trigger: poll
   approvals: 0
   # polling schedule
-  pollSchedule: "@every 5m"
+  pollSchedule: "@every 6h"
   # images to track and update
   images:
     - repository: image.repository
