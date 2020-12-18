@@ -27,6 +27,16 @@ spec:
       labels:
         io.kompose.service: nitter
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: NotIn
+                values:
+                - azurefreeelgasse
+                - oraclefree3
       containers:
         - image: unixfox/nitter
           env:
@@ -35,7 +45,7 @@ spec:
             - name: TITLE
               value: "nitter-unixfox"
             - name: REDIS_HOST
-              value: "nitter-redis-master"
+              value: "nitter-redis-headless"
             - name: HMAC_KEY
               value: "{{ required "hmacKey must be set" .Values.hmacKey }}"
             - name: REPLACE_TWITTER

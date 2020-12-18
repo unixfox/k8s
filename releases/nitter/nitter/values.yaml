@@ -17,6 +17,19 @@ redis:
   usePassword: false
   cluster:
     enabled: false
+  slave:
+    persistence:
+      enabled: false
   master:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: NotIn
+              values:
+              - azurefreeelgasse
+              - oraclefree3
     persistence:
       enabled: false
