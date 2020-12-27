@@ -31,5 +31,6 @@ redis:
               values:
               - azurefreeelgasse
               - oraclefree3
+              - oraclefree4
     persistence:
       enabled: false

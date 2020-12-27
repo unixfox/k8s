@@ -11,7 +11,7 @@ metadata:
     io.kompose.service: nitter
   name: nitter
 spec:
-  replicas: 4
+  replicas: 3
   selector:
     matchLabels:
       io.kompose.service: nitter
@@ -37,6 +37,7 @@ spec:
                 values:
                 - azurefreeelgasse
                 - oraclefree3
+                - oraclefree4
       containers:
         - image: unixfox/nitter
           env:
