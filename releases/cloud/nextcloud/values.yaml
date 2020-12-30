@@ -1,5 +1,5 @@
 image:
-  tag: 19.0.6-apache
+  tag: 20.0.4-apache
 
 persistence:
   enabled: true
@@ -83,7 +83,7 @@ ingress:
     - cloud.unixfox.eu
 
 redis:
-  enabled: true
+  enabled: false
   cluster:
     enabled: false
   master:
