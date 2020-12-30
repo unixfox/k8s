@@ -1,0 +1,2 @@
+helmfiles:
+  - "../releases/cloud/main.yaml"
