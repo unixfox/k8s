@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --controller daemonSet --chart
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+  name: "{{ .Release.Name }}-hostnet"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name }}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}
+    spec:
+      hostNetwork: true
+      containers:
+      - image: unixfox/caddy-proxy:latest
+        imagePullPolicy: "Always"
+        name: caddy-proxy
+        ports:
+        - containerPort: 2015
+        resources: {}
+      restartPolicy: Always

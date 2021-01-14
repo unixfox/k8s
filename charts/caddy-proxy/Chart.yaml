@@ -1,0 +1,8 @@
+name: caddy-proxy
+description: A generated Helm Chart for caddy-proxy
+version: 0.1
+apiVersion: v1
+keywords:
+  - docker-compose
+sources:
+home:

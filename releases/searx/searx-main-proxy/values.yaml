@@ -1,0 +1,6 @@
+services:
+  searx-rotating-proxy:
+    image: unixfox/rotating-proxy-server:latest
+    replicas: 1
+    ports:
+      - 8080

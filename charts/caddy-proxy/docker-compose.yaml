@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  searx-proxy:
+    image: unixfox/caddy-proxy:latest
+    ports:
+      - 2015

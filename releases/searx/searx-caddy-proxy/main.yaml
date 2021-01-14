@@ -1,0 +1,10 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: searx-caddy-proxy
+  labels:
+    parent: searx
+  namespace: searx
+  chart: ../../../charts/caddy-proxy

@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: searx-rotating-proxy
+  labels:
+    parent: searx
+  namespace: searx
+  chart: okteto/stacks
+  values:
+  - "values.yaml"
