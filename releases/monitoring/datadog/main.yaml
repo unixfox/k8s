@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: datadog
+  labels:
+    parent: monitoring
+  namespace: monitoring
+  chart: datadog/datadog
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

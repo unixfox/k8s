@@ -1,0 +1,7 @@
+datadog:
+  clusterName: "default"
+  criSocketPath: "/run/k3s/containerd/containerd.sock"
+  site: 'datadoghq.com'
+  logs:
+    enabled: true
+    containerCollectAll: true

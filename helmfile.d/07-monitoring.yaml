@@ -1,0 +1,2 @@
+helmfiles:
+  - "../releases/monitoring/main.yaml"

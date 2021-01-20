@@ -23,3 +23,5 @@ repositories:
     url: https://nextcloud.github.io/helm/
   - name: okteto
     url: https://apps.okteto.com
+  - name: datadog
+    url: https://helm.datadoghq.com
