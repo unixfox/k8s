@@ -3,10 +3,10 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: kilo
+- name: coredns
   labels:
     parent: kube-system
   namespace: kube-system
-  chart: ../../../charts/kilo
-  secrets:
-  - "secrets.yaml"
+  chart: stable/coredns
+  values:
+  - "values.yaml"

@@ -17,7 +17,7 @@ spec:
       hostNetwork: true
       containers:
       - name: kilo
-        image: squat/kilo
+        image: squat/kilo:92825ba0c775910ce4f6df0b683f95004a21a06e-dirty
         args:
         - --kubeconfig=/etc/kubernetes/kubeconfig
         - --hostname=$(NODE_NAME)
@@ -34,7 +34,7 @@ spec:
         - name: kilo-dir
           mountPath: /var/lib/kilo
         - name: kubeconfig
-          mountPath: /etc/kubernetes/kubeconfig
+          mountPath: /etc/kubernetes
           readOnly: true
         - name: lib-modules
           mountPath: /lib/modules
@@ -43,8 +43,17 @@ spec:
           mountPath: /run/xtables.lock
           readOnly: false
       initContainers:
+      - name: generate-kubeconfig
+        image: unixfox/kilo-kubeconfig
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: kubeconfig
+          mountPath: /etc/kubernetes
+        env:
+        - name: MASTER_URL
+          value: "{{ .Values.masterURL }}"
       - name: install-cni
-        image: squat/kilo
+        image: squat/kilo:92825ba0c775910ce4f6df0b683f95004a21a06e-dirty
         command:
         - /bin/sh
         - -c
@@ -83,11 +92,8 @@ spec:
         hostPath:
           path: /var/lib/kilo
       - name: kubeconfig
-        hostPath: 
-          # Since kilo runs as a daemonset, it is recommended that you copy the
-          # k3s.yaml kubeconfig file from the master node to all worker nodes
-          # with the same path structure.
-          path: /etc/rancher/k3s/k3s.yaml
+        hostPath:
+          path: /etc/kilo-kubeconfig
       - name: lib-modules
         hostPath:
           path: /lib/modules
