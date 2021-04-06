@@ -130,17 +130,6 @@
                     {"name": "block",
                      "params": {"message": "Rate limit exceeded, try again later."}}
                 ]
-            },
-            {
-                "name": "IP and useragent limit",
-                "interval": 600,
-                "limit": 60,
-                "stop": true,
-                "aggregations": ["Header:X-Forwarded-For", "Header:User-Agent"],
-                "actions": [
-                    {"name": "block",
-                     "params": {"message": "Rate limit exceeded, try again later."}}
-		]
             }
         ]
     }
