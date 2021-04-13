@@ -25,3 +25,7 @@ repositories:
     url: https://apps.okteto.com
   - name: datadog
     url: https://helm.datadoghq.com
+  - name: certs
+    url: https://math-nao.github.io/certs/charts
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx

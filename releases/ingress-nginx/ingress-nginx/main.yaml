@@ -3,10 +3,10 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: nginx-ingress
+- name: ingress-nginx
   labels:
     parent: ingress-nginx
   namespace: ingress-nginx
-  chart: stable/nginx-ingress
+  chart: ingress-nginx/ingress-nginx
   values:
   - "values.yaml"

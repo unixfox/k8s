@@ -1,0 +1,3 @@
+helmfiles:
+  - "../releases/cert-manager/main.yaml"
+  #- "../releases/certs/main.yaml"

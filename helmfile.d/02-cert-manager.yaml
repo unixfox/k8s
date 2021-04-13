@@ -1,2 +1,0 @@
-helmfiles:
-  - "../releases/cert-manager/main.yaml"

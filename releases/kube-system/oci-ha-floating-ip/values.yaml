@@ -1,0 +1,7 @@
+config:
+  region: EU_AMSTERDAM_1
+  publicStaticIp: 193.123.57.162
+nodeSelector:
+  unixfox/oci-ha-floating-ip: "true"
+image:
+  pullPolicy: Always

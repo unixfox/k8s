@@ -1,0 +1,11 @@
+replicaCount: 3
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: app.kubernetes.io/name
+          operator: In
+          values:
+          - coredns
+      topologyKey: kubernetes.io/hostname

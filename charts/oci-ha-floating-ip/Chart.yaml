@@ -1,0 +1,9 @@
+apiVersion: v2
+name: oci-ha-floating-ip
+description: A Helm chart for OCI High Availability with a static IP address
+version: 0.0.1
+home: https://github.com/unixfox/oci-ha-floating-ip
+maintainers:
+  - name: Emilien Devos
+    email: helm@emiliendevos.be
+    url: https://github.com/unixfox/oci-ha-floating-ip/issues

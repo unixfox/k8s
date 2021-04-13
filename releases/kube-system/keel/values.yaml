@@ -27,8 +27,8 @@ keel:
 ingress:
   enabled: true
   annotations:
-    cert-manager.io/cluster-issuer: buypass-prod
     kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: buypass-prod
   hosts: 
     - host: keel.unixfox.eu
       paths:

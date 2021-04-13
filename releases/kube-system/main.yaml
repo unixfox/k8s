@@ -10,3 +10,4 @@ helmfiles:
   #- botkube/main.yaml
   - kured/main.yaml
   #- stash/main.yaml
+  - oci-ha-floating-ip

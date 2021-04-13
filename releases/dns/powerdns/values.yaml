@@ -1,3 +1,5 @@
+mariadb:
+  enabled: false
 keel:
   # keel policy (all/major/minor/patch/force)
   policy: force

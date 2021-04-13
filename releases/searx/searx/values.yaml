@@ -8,29 +8,13 @@ keel:
       tag: searx.image.tag
 
 searx:
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: NotIn
-            values:
-            - azurefreeelgasse
-            - oraclefree3
+  nodeSelector:
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
 
 filtron:
   nodeSelector:
-    kubernetes.io/hostname: oraclenonfree
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
 
 morty:
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: NotIn
-            values:
-            - azurefreeelgasse
-            - oraclefree3
+  nodeSelector:
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1

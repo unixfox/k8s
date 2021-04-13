@@ -1,2 +1,2 @@
 helmfiles:
-  - nginx-ingress/main.yaml
+  - ingress-nginx/main.yaml
