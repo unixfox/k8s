@@ -1,15 +1,13 @@
 controller:
-  nodeSelector:
-    unixfox/oci-ha-floating-ip: "true"
-  updateStrategy:
-    type: Recreate
   config:
     ssl-protocols: "TLSv1.2 TLSv1.3"
     ssl-ciphers: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
     hsts-preload: "true"
     disable-access-log: "true"
+  kind: DaemonSet
   hostPort:
     enabled: true
+  hostNetwork: true
   tolerations:
   - key: "node.kubernetes.io/unreachable"
     operator: "Exists"
@@ -19,44 +17,6 @@ controller:
     operator: "Exists"
     effect: "NoExecute"
     tolerationSeconds: 5
-  extraInitContainers:
-    - name: oci-ha-floating-ip
-      image: unixfox/oci-ha-floating-ip
-      securityContext:
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop:
-          - ALL
-        runAsUser: 10001
-      env:
-        - name: OCI_TENANCY
-          valueFrom:
-            secretKeyRef:
-              key:  OCI_TENANCY
-              name: "oci-ha-floating-ip-secrets"
-        - name: OCI_USER
-          valueFrom:
-            secretKeyRef:
-              key:  OCI_USER
-              name: "oci-ha-floating-ip-secrets"
-        - name: OCI_FINGERPRINT
-          valueFrom:
-            secretKeyRef:
-              key:  OCI_FINGERPRINT
-              name: "oci-ha-floating-ip-secrets"
-        - name: OCI_PRIVATE_KEY
-          valueFrom:
-            secretKeyRef:
-              key:  OCI_PRIVATE_KEY
-              name: "oci-ha-floating-ip-secrets"
-        - name: OCI_REGION
-          value: "EU_AMSTERDAM_1"
-        - name: OCI_PUBLIC_STATIC_IP
-          value: "193.123.39.86"
-        - name: OCI_INSTANCE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
   service:
     type: ClusterIP
     enabled: true

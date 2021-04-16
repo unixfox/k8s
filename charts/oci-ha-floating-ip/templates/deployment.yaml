@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{  .Release.Name }}-deployment"
+  labels:
+    chart: '{{ .Release.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: "{{  .Release.Name }}-selector"
+      version: "current"
+  template:
+    metadata:
+      labels:
+        app: "{{  .Release.Name }}-selector"
+        version: "current"
+    spec:
+    {{- if .Values.nodeSelector }}
+      nodeSelector: {{ toYaml .Values.nodeSelector | nindent 8 }}
+    {{- end }}
+    {{- if .Values.affinity }}
+      affinity: {{ toYaml .Values.affinity | nindent 8 }}
+    {{- end }}
+    {{- if .Values.tolerations }}
+      tolerations: {{ toYaml .Values.tolerations | nindent 8 }}
+    {{- end }}
+      initContainers:
+      - name: "oci-ha-floating-ip"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- if .Values.resources }}
+        resources: {{ toYaml .Values.resources | nindent 12 }}
+        {{- end }}
+        securityContext:
+          capabilities:
+              drop:
+              - ALL
+          runAsUser: {{ .Values.image.runAsUser }}
+          allowPrivilegeEscalation: {{ .Values.image.allowPrivilegeEscalation }}
+        env:
+          - name: OCI_TENANCY
+            valueFrom:
+              secretKeyRef:
+                key:  OCI_TENANCY
+                name: "{{ .Release.Name }}-secrets"
+          - name: OCI_USER
+            valueFrom:
+              secretKeyRef:
+                key:  OCI_USER
+                name: "{{ .Release.Name }}-secrets"
+          - name: OCI_FINGERPRINT
+            valueFrom:
+              secretKeyRef:
+                key:  OCI_FINGERPRINT
+                name: "{{ .Release.Name }}-secrets"
+          - name: OCI_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                key:  OCI_PRIVATE_KEY
+                name: "{{ .Release.Name }}-secrets"
+          - name: OCI_REGION
+            value: "{{ .Values.config.region }}"
+          - name: OCI_SUBNET
+            value: "{{ .Values.config.subnet }}"
+          {{- if .Values.config.publicIpv4Address }}
+          - name: OCI_PUBLIC_IPV4_ADDRESS
+            value: "{{ .Values.config.publicIpv4Address }}"
+          {{- end }}
+          {{- if .Values.config.publicIpv6Address }}
+          - name: OCI_PUBLIC_IPV6_ADDRESS
+            value: "{{ .Values.config.publicIpv6Address }}"
+          {{- end }}
+          - name: OCI_INSTANCE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+      containers:
+      - name: pause
+        image: gcr.io/google_containers/pause
+        resources:
+          limits:
+            cpu: 50m
+            memory: 50Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi

@@ -1,0 +1,7 @@
+config:
+  region: EU_AMSTERDAM_1
+  publicIpv4Address: 193.123.39.86
+  publicIpv6Address: "2603:c022:c002:3500::dead:beef"
+  subnet: "ocid1.subnet.oc1.eu-amsterdam-1.aaaaaaaasc4xzk3tl7xnlufxflspcny5okl27cdqts2bxbwrzqbdyfwfqgpq"
+nodeSelector:
+  unixfox/oci-ha-floating-ip: "true"

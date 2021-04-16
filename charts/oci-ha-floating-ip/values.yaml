@@ -1,13 +1,15 @@
 config:
-  tenancy: "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  user: "ocid1.user.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  tenancy: ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  user: ocid1.user.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   fingerprint: 8c:bf:17:7b:5f:e0:7d:13:75:11:d6:39:0d:e2:84:74
   privateKey: |
     -----BEGIN RSA PRIVATE KEY-----
     <snip>
     -----END RSA PRIVATE KEY-----
   region: EU_AMSTERDAM_1
-  publicStaticIp: 9.9.9.9
+  publicIpv4Address: 9.9.9.9 # optional
+  publicIpv6Address: "fe80::1" # optional
+  subnet: ocid1.subnet.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 nodeSelector:
   kubernetes.io/os: linux
 affinity: {}
@@ -28,7 +30,7 @@ resources: {}
 #   cpu: 10m
 #   memory: 20Mi
 image:
-  repository: "unixfox/oci-ha-floating-ip"
+  repository: unixfox/oci-ha-floating-ip
   tag: "latest"
   pullPolicy: IfNotPresent
   runAsUser: 10001

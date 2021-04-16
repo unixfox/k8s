@@ -1,3 +1,2 @@
 helmfiles:
-  - oci-ha-floating-ip/main.yaml
   - ingress-nginx/main.yaml

@@ -1,6 +1,7 @@
 helmfiles:
   - kilo/main.yaml
   - coredns/main.yaml
+  - oci-ha-floating-ip/main.yaml
   - local-path/main.yaml
   #- nfs-server-provisioner/main.yaml
   #- flannel-fixer/main.yaml
