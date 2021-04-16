@@ -5,8 +5,6 @@ metadata:
   labels:
 {{ include "powerdns.labels" . | indent 4 }}
 spec:
-  strategy:
-    type: Recreate
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:

@@ -124,9 +124,20 @@ powerdnsadmin:
 nameOverride: ""
 fullnameOverride: ""
 
+replicaCount: 2
+
 nodeSelector:
   topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
 
 tolerations: []
 
-affinity: {}
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: app.kubernetes.io/name
+          operator: In
+          values:
+          - coredns
+      topologyKey: kubernetes.io/hostname
