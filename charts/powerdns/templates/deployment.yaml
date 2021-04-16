@@ -29,6 +29,9 @@ spec:
             exit 0 ; # XXX hack
         securityContext:
           privileged: True
+      {{- if .Values.affinity }}
+      affinity: {{ toYaml .Values.affinity | nindent 8 }}
+      {{- end }}
       nodeSelector: 
 {{ toYaml .Values.nodeSelector | indent 8 }}
       containers:
