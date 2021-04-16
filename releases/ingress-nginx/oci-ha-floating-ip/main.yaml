@@ -5,8 +5,8 @@ bases:
 releases:
 - name: oci-ha-floating-ip
   labels:
-    parent: kube-system
-  namespace: kube-system
+    parent: ingress-nginx
+  namespace: ingress-nginx
   chart: ../../../charts/oci-ha-floating-ip
   values:
   - "values.yaml"

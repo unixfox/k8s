@@ -7,7 +7,6 @@ helmfiles:
   - metrics-server/main.yaml
   - keel/main.yaml
   #- netdata/main.yaml
-  #- botkube/main.yaml
+  - botkube/main.yaml
   - kured/main.yaml
   #- stash/main.yaml
-  - oci-ha-floating-ip

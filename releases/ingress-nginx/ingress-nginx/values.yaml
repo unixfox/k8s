@@ -1,4 +1,8 @@
 controller:
+  nodeSelector:
+    unixfox/oci-ha-floating-ip: "true"
+  updateStrategy:
+    type: Recreate
   config:
     ssl-protocols: "TLSv1.2 TLSv1.3"
     ssl-ciphers: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
@@ -6,27 +10,57 @@ controller:
     disable-access-log: "true"
   hostPort:
     enabled: true
-  hostNetwork: true
-  kind: DaemonSet
+  tolerations:
+  - key: "node.kubernetes.io/unreachable"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationSeconds: 5
+  - key: "node.kubernetes.io/not-ready"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationSeconds: 5
+  extraInitContainers:
+    - name: oci-ha-floating-ip
+      image: unixfox/oci-ha-floating-ip
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        runAsUser: 10001
+      env:
+        - name: OCI_TENANCY
+          valueFrom:
+            secretKeyRef:
+              key:  OCI_TENANCY
+              name: "oci-ha-floating-ip-secrets"
+        - name: OCI_USER
+          valueFrom:
+            secretKeyRef:
+              key:  OCI_USER
+              name: "oci-ha-floating-ip-secrets"
+        - name: OCI_FINGERPRINT
+          valueFrom:
+            secretKeyRef:
+              key:  OCI_FINGERPRINT
+              name: "oci-ha-floating-ip-secrets"
+        - name: OCI_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key:  OCI_PRIVATE_KEY
+              name: "oci-ha-floating-ip-secrets"
+        - name: OCI_REGION
+          value: "EU_AMSTERDAM_1"
+        - name: OCI_PUBLIC_STATIC_IP
+          value: "193.123.39.86"
+        - name: OCI_INSTANCE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
   service:
     type: ClusterIP
     enabled: true
-# TCP service key:value pairs
-# Ref: https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx/examples/tcp
-##
 tcp:
-  # 25: "mail/mailu-front:smtp::PROXY"
   53: "dns/powerdns-service-dns:dns-tcp::PROXY"
-  # 110: "mail/mailu-front:pop3::PROXY"
-  # 143: "mail/mailu-front:imap::PROXY"
-  # 465: "mail/mailu-front:smtps::PROXY"
-  # 587: "mail/mailu-front:smtpd::PROXY"
-  # 993: "mail/mailu-front:imaps::PROXY"
-  # 995: "mail/mailu-front:pop3s::PROXY"
-  # 10025: "mail/mailu-front:smtp-auth::PROXY"
-
-# UDP service key:value pairs
-# Ref: https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx/examples/udp
-##
 udp:
   53: "dns/powerdns-service-dns:dns-udp"
