@@ -7,6 +7,6 @@ releases:
   labels:
     parent: kube-system
   namespace: kube-system
-  chart: stable/coredns
+  chart: coredns/coredns
   values:
   - "values.yaml"
