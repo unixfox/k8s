@@ -10,4 +10,5 @@ helmfiles:
   #- netdata/main.yaml
   - botkube/main.yaml
   - kured/main.yaml
+  - logdna
   #- stash/main.yaml

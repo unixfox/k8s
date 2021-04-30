@@ -1,0 +1,27 @@
+image:
+  name: logdna/logdna-agent
+  # tag is defined by the appVersion in the Chart file
+  pullPolicy: IfNotPresent
+
+logdna:
+  name: logdna-agent
+
+resources:
+  requests:
+    cpu: 20m
+  limits:
+    memory: 75Mi
+
+daemonset:
+  tolerations: []
+
+priorityClassName: ""
+extraEnv:
+  - name: LOGDNA_LOG_DIRS
+    value: "/var/log/containers"
+extraVolumeMounts: []
+extraVolumes: []
+
+serviceAccount:
+  create: true
+  name:

@@ -3,13 +3,12 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: searx
+- name: logdna
   labels:
-    parent: searx
-  namespace: searx
-  chart: ../../../charts/searx
+    parent: kube-system
+  namespace: kube-system
+  chart: ../../../charts/logdna
   values:
   - "values.yaml"
   secrets:
   - "secrets.yaml"
-  - "secrets-filtron.yaml"
