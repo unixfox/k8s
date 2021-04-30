@@ -1,0 +1,31 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  concurrencyPolicy: Forbid
+  schedule: '{{ .Values.cron }}'
+  jobTemplate:
+    spec:
+      backoffLimit: 2 # this has very low chance of failing, as all this does
+                      # is prompt kubernetes to schedule new replica set for
+                      # the deployment
+      activeDeadlineSeconds: 600 # timeout, makes most sense with 
+                                 # "waiting for rollout" variant specified below
+      template:
+        spec:
+          serviceAccountName: {{ .Release.Name }} # name of the service
+                                                 # account configured above
+          restartPolicy: Never
+          containers:
+            - name: kubectl
+              image: bitnami/kubectl # probably any kubectl image will do,
+                                     # optionaly specify version, but this
+                                     # should not be necessary, as long the
+                                     # version of kubectl is new enough to
+                                     # have `rollout restart`
+              command:
+                - 'kubectl'
+                - 'rollout'
+                - 'restart'
+                - 'deployment/{{ .Values.deploymentName }}'

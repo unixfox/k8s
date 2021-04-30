@@ -1,0 +1,4 @@
+apiVersion: v2
+name: cron-restart-deployment
+description: Restart a deployment automatically
+version: 1.0.0

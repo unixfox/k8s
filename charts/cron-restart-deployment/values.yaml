@@ -1,0 +1,2 @@
+cron: "0 8 * * *"
+deploymentName: "test"

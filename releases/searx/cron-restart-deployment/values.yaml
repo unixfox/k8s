@@ -1,0 +1,2 @@
+deploymentName: "searx-searx"
+cron: "0 */12 * * *"

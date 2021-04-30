@@ -2,4 +2,5 @@ helmfiles:
   - imagepullsecrets/main.yaml
   #- searx-main-proxy/main.yaml
   #- searx-caddy-proxy/main.yaml
-  - searx/main.yaml
+  #- searx/main.yaml
+  - cron-restart-deployment
