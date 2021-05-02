@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}
 spec:
   concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
   schedule: '{{ .Values.cron }}'
   jobTemplate:
     spec:
