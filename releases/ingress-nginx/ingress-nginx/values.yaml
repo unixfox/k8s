@@ -22,14 +22,6 @@ controller:
   service:
     type: ClusterIP
     enabled: true
-  extraVolumes:
-    - name: antiddos
-      hostPath:
-        path: /etc/nginx/lua/plugins
-  extraVolumeMounts:
-    - name: antiddos
-      mountPath: /usr/local/nginx/anti_ddos_challenge.lua
-      subPath: anti_ddos_challenge.lua
 tcp:
   53: "dns/powerdns-service-dns:dns-tcp::PROXY"
 udp:

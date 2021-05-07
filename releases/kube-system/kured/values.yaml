@@ -1,3 +1,8 @@
 configuration:
   slackUsername: "kured"
   annotationTtl: "30m"
+tolerations:
+  - effect: NoSchedule
+    operator: Exists
+  - effect: NoExecute
+    operator: Exists
