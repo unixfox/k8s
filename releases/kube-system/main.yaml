@@ -3,6 +3,7 @@ helmfiles:
   - coredns/main.yaml
   - oci-ha-floating-ip/main.yaml
   - local-path/main.yaml
+  - descheduler/main.yaml
   #- nfs-server-provisioner/main.yaml
   #- flannel-fixer/main.yaml
   - metrics-server/main.yaml
@@ -10,5 +11,5 @@ helmfiles:
   #- netdata/main.yaml
   - botkube/main.yaml
   - kured/main.yaml
-  - logdna
+  - logdna/main.yaml
   #- stash/main.yaml

@@ -1,0 +1,6 @@
+successfulJobsHistoryLimit: 1
+schedule: "*/10 * * * *"
+deschedulerPolicy:
+  strategies:
+    RemoveDuplicates:
+      enabled: false

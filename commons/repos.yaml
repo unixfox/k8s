@@ -31,3 +31,5 @@ repositories:
     url: https://kubernetes.github.io/ingress-nginx
   - name: coredns
     url: https://coredns.github.io/helm
+  - name: descheduler
+    url: https://kubernetes-sigs.github.io/descheduler/

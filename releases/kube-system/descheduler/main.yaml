@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: descheduler
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: descheduler/descheduler
+  values:
+  - "values.yaml"
