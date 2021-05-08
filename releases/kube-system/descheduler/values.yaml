@@ -1,6 +1,8 @@
 successfulJobsHistoryLimit: 1
 schedule: "*/10 * * * *"
 deschedulerPolicy:
+  LowNodeUtilization:
+    enabled: false
   strategies:
     RemoveDuplicates:
       enabled: false

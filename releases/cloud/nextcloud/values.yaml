@@ -8,11 +8,11 @@ persistence:
     "helm.sh/resource-policy": keep
 
 externalDatabase:
-  enabled: true
+  enabled: false
   type: mysql
 
 internalDatabase:
-  enabled: false
+  enabled: true
 
 nextcloud:
   host: "cloud.unixfox.eu"
@@ -28,6 +28,19 @@ nextcloud:
     - name: slab
       hostPath:
         path: /data/nextcloud
+
+cronjob:
+  enabled: true
+  resources:
+    requests:
+      memory: 10Mi
+  nodeSelector:
+    kubernetes.io/hostname: nextfox
+  tolerations:
+    - key: app-nextcloud
+      operator: Equal
+      value: "true"
+      effect: NoExecute
 
 resources:
   limits:
@@ -50,6 +63,22 @@ readinessProbe:
 
 nginx:
   enabled: true
+
+mariadb:
+  enabled: true
+  master:
+    tolerations:
+    - key: app-nextcloud
+      operator: Equal
+      value: "true"
+      effect: NoExecute
+    nodeSelector:
+      kubernetes.io/hostname: nextfox
+    persistence:
+      storageClass: "local-path"
+      annotations:
+        "helm.sh/resource-policy": keep
+      enabled: true
 
 ingress:
   enabled: true
@@ -99,7 +128,8 @@ redis:
         value: "true"
         effect: NoExecute
     persistence:
-      enabled: false
+      enabled: true
+      storageClass: "local-path"
 
 keel:
   # keel policy (all/major/minor/patch/force)
