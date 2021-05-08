@@ -58,12 +58,13 @@ powerdns:
       value: "true"
     - name: PDNS_server_id
       value: "powerdns"
-  requests:
-    memory: "512Mi"
-    cpu: "300m"
-  limits:
-    memory: "512Mi"
-    cpu: "300m"
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "300m"
+    limits:
+      memory: "512Mi"
+      cpu: "300m"
 
 mariadb:
   enabled: false
@@ -114,12 +115,13 @@ powerdnsadmin:
     - secretName: chart-powerdnsadmin-tls
       hosts:
       - admin.dns.unixfox.eu
-  requests:
-    memory: "512Mi"
-    cpu: "300m"
-  limits:
-    memory: "512Mi"
-    cpu: "300m"
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "300m"
+    limits:
+      memory: "512Mi"
+      cpu: "1000m"
 
 nameOverride: ""
 fullnameOverride: ""

@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name }}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}
+    spec:
+      nodeSelector:
+        unixfox/oci-ha-floating-ip: "true"
+      initContainers:
+      - name: iptables
+        image: wpengine/iptables:latest
+        command: [ "/bin/ash", "-cx" ]
+        args:
+          # Source: https://github.com/path-network/go-mmproxy#routing-setup
+          - iptables -t nat -A PREROUTING -p tcp --dport 3306 -j DNAT --to-destination 10.0.0.51:3306;
+            iptables -t nat -A PREROUTING -p tcp --dport 111 -j DNAT --to-destination 10.0.0.195:111;
+            iptables -t nat -A PREROUTING -p tcp --dport 2048 -j DNAT --to-destination 10.0.0.195:2048;
+            iptables -t nat -A PREROUTING -p tcp --dport 2049 -j DNAT --to-destination 10.0.0.195:2049;
+            iptables -t nat -A PREROUTING -p tcp --dport 2050 -j DNAT --to-destination 10.0.0.195:2050;
+            iptables -t nat -A PREROUTING -p udp --dport 111 -j DNAT --to-destination 10.0.0.51:111;
+            iptables -t nat -A PREROUTING -p udp --dport 2048 -j DNAT --to-destination 10.0.0.51:2048;
+            iptables -t nat -A POSTROUTING -j MASQUERADE;
+            exit 0;
+        securityContext:
+          privileged: True
+      containers:
+      - name: pause
+        image: gcr.io/google_containers/pause
+        ports:
+        - containerPort: 3306
+          name: mysql
+          protocol: TCP
+        - containerPort: 111
+          name: nfs-111-tcp
+          protocol: TCP
+        - containerPort: 2048
+          name: nfs-2048-tcp
+          protocol: TCP
+        - containerPort: 2049
+          name: nfs-2049
+          protocol: TCP
+        - containerPort: 2050
+          name: nfs-2050
+          protocol: TCP
+        - containerPort: 111
+          name: nfs-111-udp
+          protocol: UDP
+        - containerPort: 2048
+          name: nfs-2048-udp
+          protocol: UDP
+        resources:
+          limits:
+            cpu: 50m
+            memory: 50Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+      restartPolicy: Always

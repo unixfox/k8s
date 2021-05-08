@@ -1,0 +1,4 @@
+name: iptables-redirect
+description: A generated Helm Chart for iptables-redirect
+version: 0.1
+apiVersion: v1

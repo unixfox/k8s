@@ -4,6 +4,7 @@ helmfiles:
   - oci-ha-floating-ip/main.yaml
   - local-path/main.yaml
   - descheduler/main.yaml
+  - oracle-redirect/main.yaml
   #- nfs-server-provisioner/main.yaml
   #- flannel-fixer/main.yaml
   - metrics-server/main.yaml

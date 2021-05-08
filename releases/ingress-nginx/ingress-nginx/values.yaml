@@ -8,8 +8,6 @@ controller:
   hostPort:
     enabled: true
   hostNetwork: true
-  nodeSelector:
-    unixfox/oci-ha-floating-ip: "true"
   tolerations:
   - key: "node.kubernetes.io/unreachable"
     operator: "Exists"
@@ -19,6 +17,10 @@ controller:
     operator: "Exists"
     effect: "NoExecute"
     tolerationSeconds: 5
+  - key: app-nextcloud
+    operator: Equal
+    value: "true"
+    effect: NoExecute
   service:
     type: ClusterIP
     enabled: true

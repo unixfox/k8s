@@ -1,20 +1,15 @@
 image:
-  tag: 20.0.4-apache
+  tag: 21.0.1-fpm-alpine
 
 persistence:
   enabled: true
+  storageClass: "local-path"
   annotations:
     "helm.sh/resource-policy": keep
 
-mariadb:
+externalDatabase:
   enabled: true
-  master:
-    nodeSelector:
-      kubernetes.io/hostname: oraclenonfree
-    persistence:
-      annotations:
-        "helm.sh/resource-policy": keep
-      enabled: true
+  type: mysql
 
 internalDatabase:
   enabled: false
@@ -23,29 +18,38 @@ nextcloud:
   host: "cloud.unixfox.eu"
   extraEnv:
     - name: NEXTCLOUD_DATA_DIR
-      value: "/mnt/nextcloud-data"
+      value: "/data/nextcloud"
     - name: APACHE_DISABLE_REWRITE_IP
       value: "1"
   extraVolumeMounts:
-    - name: rclone-data
-      mountPath: /mnt/nextcloud-data
+    - name: slab
+      mountPath: /data/nextcloud
   extraVolumes:
-    - name: rclone-data
+    - name: slab
       hostPath:
-        path: /mnt/nextcloud-data
+        path: /data/nextcloud
 
 resources:
   limits:
-    memory: 640Mi
+    memory: 250Mi
+
+tolerations:
+  - key: app-nextcloud
+    operator: Equal
+    value: "true"
+    effect: NoExecute
 
 nodeSelector:
-  kubernetes.io/hostname: oraclenonfree
+  kubernetes.io/hostname: nextfox
 
 livenessProbe:
   initialDelaySeconds: 1800
   timeoutSeconds: 30
 readinessProbe:
   timeoutSeconds: 30
+
+nginx:
+  enabled: true
 
 ingress:
   enabled: true
@@ -83,10 +87,17 @@ ingress:
     - cloud.unixfox.eu
 
 redis:
-  enabled: false
+  enabled: true
   cluster:
     enabled: false
   master:
+    nodeSelector:
+      kubernetes.io/hostname: nextfox
+    tolerations:
+      - key: app-nextcloud
+        operator: Equal
+        value: "true"
+        effect: NoExecute
     persistence:
       enabled: false
 

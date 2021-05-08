@@ -1,0 +1,10 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: oracle-redirect
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: ../../../charts/oracle-redirect
