@@ -3,7 +3,7 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: nfs-subdir-external-provisioner
+- name: nfs-oracle
   labels:
     parent: kube-system
   namespace: kube-system
