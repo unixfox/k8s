@@ -29,8 +29,11 @@ nextcloud:
       hostPath:
         path: /data/nextcloud
 
+lifecycle:
+  postStartCommand: ["/bin/ash", "-c", "echo '0 1 * * * PHP_MEMORY_LIMIT=512M /var/www/html/occ preview:pre-generate' >> /var/spool/cron/crontabs/www-data; crond"]
+
 cronjob:
-  enabled: true
+  enabled: false
   resources:
     requests:
       memory: 10Mi

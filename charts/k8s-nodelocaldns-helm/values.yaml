@@ -1,0 +1,73 @@
+---
+image:
+  repository: k8s.gcr.io/k8s-dns-node-cache
+  pullPolicy: IfNotPresent
+  tag: 1.15.13
+
+imagePullSecrets: []
+
+config:
+  clusterDomain: cluster.local
+  localDnsIp: 169.254.20.10
+  kubeDnsSvcIp: 10.100.0.10
+  nodeLocalSvcIp: __PILLAR__CLUSTER__DNS__   # random IP, could be changed to static
+  upstreamDns: __PILLAR__UPSTREAM__SERVERS__ # defaults to /etc/resolv.conf
+  upstreamDnsUseTcp: false
+
+useHostNetwork: true
+
+service:
+  type: ClusterIP
+  udpPort: 53
+  tcpPort: 53
+  upstreamSelector:
+    app.kubernetes.io/name: node-local-dns
+
+updateStrategy:
+  rollingUpdate:
+    maxUnavailable: 10%
+
+priorityClassName: system-node-critical
+podAnnotations: {}
+podSecurityContext: {}
+
+securityContext:
+  privileged: true
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+nodeSelector: {}
+affinity: {}
+
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+  - effect: NoExecute
+    operator: Exists
+  - effect: NoSchedule
+    operator: Exists
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 5Mi
+  limits:
+    cpu: 50m
+    memory: 20Mi

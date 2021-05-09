@@ -1,0 +1,22 @@
+apiVersion: v1
+entries:
+  node-local-dns:
+  - apiVersion: v2
+    appVersion: 1.15.13
+    created: "2020-06-18T00:12:08.956873423+03:00"
+    description: NodeLocal DNS Cache
+    digest: 47c930b2c83bc19cfa58b23f8cb2a44ae08b2be5e64f6cf83ecbc6f0254ce619
+    keywords:
+    - node
+    - dns
+    - cache
+    maintainers:
+    - email: valerius257@gmail.com
+      name: valerius257
+    name: node-local-dns
+    sources:
+    - https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/dns/nodelocaldns
+    urls:
+    - https://github.com/valerius257/k8s-nodelocaldns-helm/releases/download/node-local-dns-1.0.0/node-local-dns-1.0.0.tgz
+    version: 1.0.0
+generated: "2020-06-18T00:12:08.576981399+03:00"

@@ -1,0 +1,31 @@
+config:
+  clusterDomain: cluster.local
+  kubeDnsSvcIp: "10.43.0.53"
+  nodeLocalSvcIp: "10.43.0.53"
+  upstreamDns: "9.9.9.9"
+  upstreamDnsUseTcp: false
+
+useHostNetwork: false
+
+service:
+  clusterIP: 10.43.0.10
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 5Mi
+  limits:
+    cpu: 1000m
+    memory: 500Mi
+
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+  - effect: NoExecute
+    operator: Exists
+  - effect: NoSchedule
+    operator: Exists
+  - key: app-nextcloud
+    operator: Equal
+    value: "true"
+    effect: NoExecute

@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: nodelocaldns
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: ../../../charts/k8s-nodelocaldns-helm
+  values:
+  - "values.yaml"
