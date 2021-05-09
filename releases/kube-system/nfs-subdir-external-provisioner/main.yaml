@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: nfs-subdir-external-provisioner
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+  values:
+  - "values.yaml"

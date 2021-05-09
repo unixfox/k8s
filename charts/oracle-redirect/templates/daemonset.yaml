@@ -27,8 +27,8 @@ spec:
             iptables -t nat -A PREROUTING -p tcp --dport 2048 -j DNAT --to-destination 10.0.0.195:2048;
             iptables -t nat -A PREROUTING -p tcp --dport 2049 -j DNAT --to-destination 10.0.0.195:2049;
             iptables -t nat -A PREROUTING -p tcp --dport 2050 -j DNAT --to-destination 10.0.0.195:2050;
-            iptables -t nat -A PREROUTING -p udp --dport 111 -j DNAT --to-destination 10.0.0.51:111;
-            iptables -t nat -A PREROUTING -p udp --dport 2048 -j DNAT --to-destination 10.0.0.51:2048;
+            iptables -t nat -A PREROUTING -p udp --dport 111 -j DNAT --to-destination 10.0.0.195:111;
+            iptables -t nat -A PREROUTING -p udp --dport 2048 -j DNAT --to-destination 10.0.0.195:2048;
             iptables -t nat -A POSTROUTING -j MASQUERADE;
             exit 0;
         securityContext:

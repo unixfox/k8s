@@ -2,9 +2,10 @@ helmfiles:
   - kilo/main.yaml
   - coredns/main.yaml
   - oci-ha-floating-ip/main.yaml
-  - local-path/main.yaml
-  #- descheduler/main.yaml
   - oracle-redirect/main.yaml
+  - local-path/main.yaml
+  - nfs-subdir-external-provisioner/main.yaml
+  #- descheduler/main.yaml
   #- nfs-server-provisioner/main.yaml
   #- flannel-fixer/main.yaml
   - metrics-server/main.yaml
