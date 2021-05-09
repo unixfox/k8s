@@ -1,0 +1,7 @@
+services:
+  toogoodtogo:
+    image: marklagendijk/toogoodtogo-watcher
+    environment:
+      - TZ=Europe/Brussels
+    volumes:
+      - /home/node/.config/toogoodtogo-watcher-nodejs

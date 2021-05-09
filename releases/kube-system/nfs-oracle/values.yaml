@@ -3,3 +3,4 @@ nfs:
   path: "/FileSystem-20210411-1447-11"
 storageClass:
   name: "nfs-oracle"
+  defaultClass: true
