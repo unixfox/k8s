@@ -11,7 +11,7 @@ metadata:
     io.kompose.service: nitter
   name: nitter
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       io.kompose.service: nitter
@@ -28,16 +28,15 @@ spec:
         io.kompose.service: nitter
     spec:
       affinity:
-        nodeAffinity:
+        podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: NotIn
+          - labelSelector:
+              matchExpressions:
+              - key: io.kompose.service
+                operator: In
                 values:
-                - azurefreeelgasse
-                - oraclefree3
-                - oraclefree4
+                - nitter
+            topologyKey: kubernetes.io/hostname
       containers:
         - image: unixfox/nitter
           env:
