@@ -30,7 +30,7 @@ nextcloud:
         path: /data/nextcloud
 
 lifecycle:
-  postStartCommand: ["/bin/ash", "-c", "echo '0 1 * * * PHP_MEMORY_LIMIT=512M /var/www/html/occ preview:pre-generate' >> /var/spool/cron/crontabs/www-data; crond"]
+  postStartCommand: ["/bin/ash", "-c", "echo '*/15 * * * * php -f /var/www/html/cron.php\n0 1 * * * PHP_MEMORY_LIMIT=512M /var/www/html/occ preview:pre-generate' >> /var/spool/cron/crontabs/www-data; crond"]
 
 cronjob:
   enabled: false
