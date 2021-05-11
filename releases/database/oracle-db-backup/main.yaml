@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: oracle-db-backup
+  labels:
+    parent: database
+  namespace: database
+  chart: ../../../charts/backup-rclone-restic
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"

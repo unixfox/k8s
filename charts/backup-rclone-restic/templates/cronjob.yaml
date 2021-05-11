@@ -1,0 +1,72 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
+  startingDeadlineSeconds: {{ .Values.cronjob.startingDeadlineSeconds }}
+  schedule: {{ .Values.cronjob.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: rclone
+            image: "{{ .Values.rclone.image.repository }}:{{ .Values.rclone.image.tag }}"
+            imagePullPolicy: {{ .Values.rclone.image.pullPolicy }}
+            resources: {{ toYaml .Values.rclone.resources }}
+            command: ["/usr/local/bin/supervisord"]
+            volumeMounts:
+            - mountPath: /config/rclone/rclone.conf
+              name: "{{ .Release.Name }}"
+              subPath: rclone.conf
+            - mountPath: /etc/supervisord.conf
+              name: "{{ .Release.Name }}"
+              subPath: supervisord.conf
+            securityContext:
+              capabilities:
+                  drop:
+                  - ALL
+              runAsUser: {{ .Values.rclone.image.runAsUser }}
+              allowPrivilegeEscalation: {{ .Values.rclone.image.allowPrivilegeEscalation }}
+          - name: brudi
+            image: "{{ .Values.brudi.image.repository }}:{{ .Values.brudi.image.tag }}"
+            imagePullPolicy: {{ .Values.brudi.image.pullPolicy }}
+            resources: {{ toYaml .Values.brudi.resources }}
+            command:
+{{ toYaml .Values.brudi.command | indent 12 }}
+            env:
+            - name: "RESTIC_REPOSITORY"
+              value: "rest:http://localhost:8080/"
+            - name: "RESTIC_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}"
+                  key: restic-password
+            volumeMounts:
+            - mountPath: /etc/brudi.yml
+              name: "{{ .Release.Name }}"
+              subPath: brudi.yml
+            securityContext:
+              capabilities:
+                  drop:
+                  - ALL
+              runAsUser: {{ .Values.brudi.image.runAsUser }}
+              allowPrivilegeEscalation: {{ .Values.brudi.image.allowPrivilegeEscalation }}
+          restartPolicy: Never
+          {{- if .Values.nodeSelector }}
+          nodeSelector: {{ toYaml .Values.nodeSelector | nindent 12 }}
+          {{- end }}
+          {{- if .Values.affinity }}
+          affinity: {{ toYaml .Values.affinity | nindent 12 }}
+          {{- end }}
+          {{- if .Values.tolerations }}
+          tolerations: {{ toYaml .Values.tolerations | nindent 12 }}
+          {{- end }}
+          volumes:
+          - secret:
+              secretName: "{{ .Release.Name }}"
+              optional: false
+            name: "{{ .Release.Name }}"

@@ -1,0 +1,4 @@
+name: backup-rclone-restic
+description: A generated Helm Chart for backup with rclone and restic
+version: 0.1
+apiVersion: v1

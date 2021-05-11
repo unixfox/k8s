@@ -1,0 +1,25 @@
+brudi:
+  command:
+  - /bin/ash
+  - -cx
+  - "until nc -z 127.0.0.1 8080; do echo waiting for rclone; sleep 2; done;
+    brudi -c /etc/brudi.yml mysqldump --restic --cleanup;
+    echo -ne 'PUT /supervisor/shutdown HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n' | nc 127.0.0.1 9001"
+  config:
+    mysqldump:
+      options:
+        flags:
+          databases: ["k3s", "powerdns"]
+          resultFile: /tmp/oracledb.sqldump
+    restic:
+      forget:
+        flags:
+          keepLast: 48
+          keepHourly: 24
+          keepDaily: 7
+          keepWeekly: 2
+          keepMonthly: 6
+          keepYearly: 2
+
+nodeSelector:
+  unixfox/oci-ha-floating-ip: "true"
