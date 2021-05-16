@@ -119,7 +119,7 @@ ingress:
     - cloud.unixfox.eu
 
 redis:
-  enabled: true
+  enabled: false
   cluster:
     enabled: false
   master:
