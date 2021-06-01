@@ -10,5 +10,5 @@ releases:
   chart: ingress-nginx/ingress-nginx
   values:
   - "values.yaml"
-  # secrets:
-  # - "secrets.yaml"
+  secrets:
+  - "secrets.yaml"
