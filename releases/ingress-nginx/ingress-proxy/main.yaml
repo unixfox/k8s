@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: ingress-proxy
+  labels:
+    parent: ingress-nginx
+  namespace: ingress-nginx
+  values:
+  - "values.yaml"
+  chart: ../../../charts/ingress-proxy

@@ -27,16 +27,6 @@ spec:
       labels:
         io.kompose.service: nitter
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: io.kompose.service
-                operator: In
-                values:
-                - nitter
-            topologyKey: kubernetes.io/hostname
       containers:
         - image: unixfox/nitter
           env:

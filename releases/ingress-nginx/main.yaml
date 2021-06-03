@@ -1,2 +1,3 @@
 helmfiles:
   - ingress-nginx/main.yaml
+  - ingress-proxy/main.yaml

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: ingress-proxy
+description: A Helm chart for proxying External Name
+type: application
+version: 0.1.0

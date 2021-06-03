@@ -1,0 +1,40 @@
+{{ if .Values.toProxy }}
+{{- range $name, $config := .Values.toProxy }}
+{{ if $config.externalName }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: "{{ $name | replace "." "-" }}-proxy"
+spec:
+  type: ExternalName
+  externalName: "{{ $config.externalName }}"
+  ports:
+  - port: {{ $config.servicePort }}
+{{ end }}
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "{{ $name | replace "." "-" }}-proxy"
+  {{- with $config.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if $config.tls }}
+  tls:
+    - hosts:
+        - "{{ $name }}"
+      secretName: "{{ $name | replace "." "-" }}-tls"
+  {{- end }}
+  rules:
+  - host: "{{ $name }}"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: "{{ $name | replace "." "-" }}-proxy"
+          servicePort: {{ default 80 $config.servicePort }}
+{{- end }}
+{{ end }}

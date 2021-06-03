@@ -1,0 +1,10 @@
+# toProxy:
+#   example.org:
+#     externalName: "somethingtoproxy.com"
+#     tls: true
+#     servicePort: 443
+#     annotations:
+#       nginx.ingress.kubernetes.io/upstream-vhost: "somethingtoproxy.com"
+#       nginx.ingress.kubernetes.io/backend-protocol: "https"
+#       kubernetes.io/ingress.class: nginx
+#       kubernetes.io/tls-acme: "true"

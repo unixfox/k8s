@@ -86,4 +86,4 @@ ingress:
    - secretName: chart-searx-tls
      hosts:
      - searx.be
-     - www.sarx.be
+     - www.searx.be

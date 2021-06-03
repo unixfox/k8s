@@ -21,16 +21,5 @@ redis:
     persistence:
       enabled: false
   master:
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: NotIn
-              values:
-              - azurefreeelgasse
-              - oraclefree3
-              - oraclefree4
     persistence:
       enabled: false

@@ -1,0 +1,8 @@
+toProxy:
+  status.unixfox.eu:
+    tls: true
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: "https://stats.uptimerobot.com/zpQZqTxR7/"
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: buypass-prod
