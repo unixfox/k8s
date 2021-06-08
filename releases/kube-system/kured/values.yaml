@@ -6,3 +6,5 @@ tolerations:
     operator: Exists
   - effect: NoExecute
     operator: Exists
+image:
+  repository: "quay.io/paulfantom/kured"
