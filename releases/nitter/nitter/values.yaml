@@ -9,7 +9,7 @@ keel:
 
 nitter:
   image:
-    repository: unixfox/nitter
+    repository: epenguincom/nitter
     tag: latest
 
 redis:

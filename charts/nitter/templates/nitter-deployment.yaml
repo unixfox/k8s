@@ -27,12 +27,22 @@ spec:
       labels:
         io.kompose.service: nitter
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: io.kompose.service
+                operator: In
+                values:
+                - nitter
+            topologyKey: kubernetes.io/hostname
       containers:
-        - image: unixfox/nitter
+        - image: epenguincom/nitter
           env:
             - name: NITTER_HOST
               value: "nitter.unixfox.eu"
-            - name: TITLE
+            - name: NITTER_NAME
               value: "nitter-unixfox"
             - name: REDIS_HOST
               value: "nitter-redis-headless"
