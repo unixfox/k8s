@@ -1,0 +1,61 @@
+# -- The security context for the pods
+podSecurityContext:
+  fsGroup: 2000
+
+# -- The security context for the application container
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 2000
+
+service:
+  # -- Kubernetes Service type
+  type: ClusterIP
+  # -- Kubernetes Service port
+  port: 8080
+
+ingress:
+  # -- Enable the use of the ingress controller to access the web UI
+  enabled: true
+  # -- Annotations for the Ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: buypass-prod
+  # -- Hosts for the ingress
+  hosts:
+    - host: dl.unixfox.eu
+      paths:
+        - /
+  # -- TLS configuration for ingress
+  tls:
+   - secretName: filebrowser-tls
+     hosts:
+       - dl.unixfox.eu
+
+# -- Node labels for pod assignment
+nodeSelector:
+  topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+
+persistence:
+  db:
+    # -- Storage class name for the database PVC
+    storageClassName: "nfs-oracle"
+  rootDir:
+    # -- Storage class name for the root directory PVC
+    storageClassName: "nfs-oracle"
+    # -- Size for the root directory PVC
+    size: 500Gi
+
+# -- File Browser application specific configuration
+config:
+  port: 8080
+  baseURL: "/"
+  address: ""
+  log: stdout
+  database: /db/database.db
+  root: /rootdir
+  noauth: true

@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: filebrowser
+  labels:
+    parent: cloud
+  namespace: cloud
+  chart: utkuozdemir/filebrowser
+  values:
+  - "values.yaml"
