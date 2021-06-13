@@ -1,4 +1,4 @@
 helmfiles:
   #- nextcloud-data/main.yaml
   - nextcloud/main.yaml
-  - filebrowser/main.yaml
+  #- filebrowser/main.yaml
