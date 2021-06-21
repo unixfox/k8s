@@ -18,6 +18,8 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
       labels:
         app: {{ template "searx.name" . }}
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
@@ -59,7 +61,7 @@ spec:
         - containerPort: 8888
         volumeMounts:
         - name: config-searx
-          mountPath: /data/settings.yml
+          mountPath: /usr/local/searx/searx/settings.yml
           subPath: settings.yml
         securityContext:
           capabilities:
