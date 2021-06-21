@@ -84,10 +84,4 @@ spec:
           httpGet:
             port: 8888
             path: /
-        startupProbe:
-          httpGet:
-            port: 8888
-            path: /
-          failureThreshold: 5
-          periodSeconds: 20
       restartPolicy: Always
