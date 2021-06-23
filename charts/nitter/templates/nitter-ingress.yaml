@@ -7,11 +7,11 @@ metadata:
     #nginx.ingress.kubernetes.io/proxy-next-upstream: "http_429"
     #nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      if ($request_uri = "/robots.txt") { return 200 "User-agent: *\nDisallow: /"; }
+      if ($uri = "/robots.txt") { return 200 "User-agent: *\nDisallow: /"; }
       if ($http_Accept_Language = "") { set $block true; }
       if ($http_Accept = "") { set $block true; }
       if ($http_Accept_Encoding = "") { set $block true; }
-      if ($request_uri = "/") { set $block false; }
+      if ($uri = "/") { set $block false; }
       if ($block = true) {
           return 403;
       }
