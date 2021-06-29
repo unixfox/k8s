@@ -38,7 +38,7 @@ spec:
                 - nitter
             topologyKey: kubernetes.io/hostname
       containers:
-        - image: epenguincom/nitter
+        - image: epenguincom/nitter:build-20210614
           env:
             - name: NITTER_HOST
               value: "nitter.unixfox.eu"
