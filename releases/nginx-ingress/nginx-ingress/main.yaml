@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: nginx-ingress
+  labels:
+    parent: nginx-ingress
+  namespace: nginx-ingress
+  chart: nginx-stable/nginx-ingress
+  values:
+  - "values.yaml"
+  #secrets:
+  #- "secrets.yaml"

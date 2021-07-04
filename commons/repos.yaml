@@ -37,3 +37,5 @@ repositories:
     url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
   - name: utkuozdemir
     url: https://utkuozdemir.org/helm-charts
+  - name: nginx-stable
+    url: https://helm.nginx.com/stable

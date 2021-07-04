@@ -1,0 +1,36 @@
+controller:
+  kind: "daemonset"
+  enableSnippets: "true"
+  hostNetwork: "true"
+  image:
+    tag: "1.12.0-alpine"
+  config:
+    entries:
+      ssl-protocols: "TLSv1.2 TLSv1.3"
+      ssl-ciphers: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
+      hsts: "true"
+      hsts-include-subdomains: "true"
+      http2: "true"
+      access-log-off: "true"
+      error-log-level: "error"
+      redirect-to-https: "true"
+      server-tokens: "false"
+      proxy-hide-headers: "server"
+      server-snippets: |
+        listen [::]:80;
+        listen [::]:443 ssl http2;
+  tolerations:
+  - key: "node.kubernetes.io/unreachable"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationSeconds: 5
+  - key: "node.kubernetes.io/not-ready"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationSeconds: 5
+  - key: app-nextcloud
+    operator: Equal
+    value: "true"
+    effect: NoExecute
+  service:
+    type: ClusterIP

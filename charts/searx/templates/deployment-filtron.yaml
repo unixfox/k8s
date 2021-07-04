@@ -1,3 +1,4 @@
+{{- if .Values.filtron.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,8 +15,8 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
-      annotations:
-        rollme: {{ randAlphaNum 5 | quote }}
+      # annotations:
+      #   rollme: {{ randAlphaNum 5 | quote }}
       labels:
         app: {{ template "searx.name" . }}-filtron
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
@@ -66,3 +67,4 @@ spec:
           tcpSocket:
             port: 4004
       restartPolicy: Always
+{{- end }}

@@ -1,0 +1,2 @@
+helmfiles:
+  - "../releases/nginx-ingress/main.yaml"

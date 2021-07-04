@@ -8,7 +8,7 @@ metadata:
     app: {{ template "searx.name" . }}
     chart: {{ .Chart.Name }}
     release: {{ .Release.Name }}
-{{- with .Values.ingress.annotations }}
+{{- with .Values.ingress.annotations.main }}
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
@@ -30,11 +30,41 @@ spec:
         paths:
           - path: /
             backend:
+              {{ if $.Values.filtron.enabled }}
               serviceName: "{{ $fullName }}-filtron"
+              {{ else }}
+              serviceName: "{{ $fullName }}"
+              {{ end }}
               servicePort: http
           - path: /morty
             backend:
               serviceName: "{{ $fullName }}-morty"
               servicePort: http
   {{- end }}
+{{- if eq .Values.filtron.enabled false }}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-search
+  labels:
+    app: {{ template "searx.name" . }}
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+{{- with .Values.ingress.annotations.search }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  rules:
+  {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: /search
+            backend:
+              serviceName: "{{ $fullName }}"
+              servicePort: http
+  {{- end }}
+{{- end }}
 {{- end }}
