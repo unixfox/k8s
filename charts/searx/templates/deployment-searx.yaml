@@ -18,8 +18,8 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
-      # annotations:
-      #   rollme: {{ randAlphaNum 5 | quote }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
       labels:
         app: {{ template "searx.name" . }}
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
