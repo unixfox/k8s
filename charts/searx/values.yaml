@@ -5,14 +5,23 @@ searx:
     repository: unixfox/searx-custom
     tag: latest
     pullPolicy: Always
-  replicaCount: 3
+  replicaCount: 4
   autoscaling:
     enabled: false
     minReplicas: 2
     maxReplicas: 8
     targetCPUUtilizationPercentage: 50
   nodeSelector: {}
-  affinity: {}
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - searx
+        topologyKey: kubernetes.io/hostname
   resources: {}
     #requests:
     #  cpu: 100m
@@ -49,7 +58,7 @@ morty:
     repository: dalf/morty
     tag: latest
     pullPolicy: Always
-  replicaCount: 1
+  replicaCount: 2
   autoscaling:
     enabled: false
     minReplicas: 1
