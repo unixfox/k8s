@@ -30,7 +30,7 @@ resources: {}
 #   cpu: 10m
 #   memory: 20Mi
 image:
-  repository: quay.io/unixfox/oci-ha-floating-ip
+  repository: unixfox/oci-ha-floating-ip
   tag: "latest"
   pullPolicy: IfNotPresent
   runAsUser: 10001

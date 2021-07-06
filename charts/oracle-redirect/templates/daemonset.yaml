@@ -16,6 +16,8 @@ spec:
     spec:
       nodeSelector:
         unixfox/oci-ha-floating-ip: "true"
+        kubernetes.io/arch: amd64
+        topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
       initContainers:
       - name: iptables
         image: wpengine/iptables:latest

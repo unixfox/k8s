@@ -39,3 +39,5 @@ repositories:
     url: https://utkuozdemir.org/helm-charts
   - name: nginx-stable
     url: https://helm.nginx.com/stable
+  - name: stevehipwell
+    url: https://stevehipwell.github.io/helm-charts/

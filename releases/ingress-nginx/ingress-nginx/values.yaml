@@ -17,14 +17,14 @@ controller:
     #     end
     #     return request_headers_all
     #   }
-  extraVolumeMounts:
-  - mountPath: /usr/local/nginx/anti_ddos_challenge.lua
-    name: antiddos
-    subPath: anti_ddos_challenge.lua
-  extraVolumes:
-  - hostPath:
-      path: /etc/nginx/lua/plugins
-    name: antiddos
+  # extraVolumeMounts:
+  # - mountPath: /usr/local/nginx/anti_ddos_challenge.lua
+  #   name: antiddos
+  #   subPath: anti_ddos_challenge.lua
+  # extraVolumes:
+  # - hostPath:
+  #     path: /etc/nginx/lua/plugins
+  #   name: antiddos
   kind: DaemonSet
   hostPort:
     enabled: true

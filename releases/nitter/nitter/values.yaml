@@ -21,5 +21,8 @@ redis:
     persistence:
       enabled: false
   master:
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
     persistence:
       enabled: false

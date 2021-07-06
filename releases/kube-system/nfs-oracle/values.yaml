@@ -1,6 +1,8 @@
 nfs:
   server: "10.43.234.154"
   path: "/FileSystem-20210411-1447-11"
+nodeSelector:
+  topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
 storageClass:
   name: "nfs-oracle"
   defaultClass: true

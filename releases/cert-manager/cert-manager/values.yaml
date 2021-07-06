@@ -1,3 +1,10 @@
+nodeSelector:
+  topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+  kubernetes.io/arch: amd64
+webhook:
+  nodeSelector:
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+    kubernetes.io/arch: amd64
 installCRDs: true
 extraArgs:
   - --dns01-recursive-nameservers=9.9.9.9:53,149.112.​112.112:53
