@@ -8,5 +8,5 @@ releases:
     parent: kube-system
   namespace: kube-system
   chart: ../../../charts/local-path-provisioner
-  values:
-  - "values.yaml"
+  # values:
+  # - "values.yaml"

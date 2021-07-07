@@ -1,3 +1,5 @@
 image:
   repository: bclermont/local-path-provisioner
   tag: b821f90-amd64
+nodeSelector:
+  kubernetes.io/arch: amd64

@@ -204,3 +204,5 @@ communications:
     botid: '737588087261233193'         # BotKube Application Client ID 
     channel: '737592247792566333'   # Discord Channel id for receiving BotKube alerts 
     notiftype: short                # Change notification type short/long you want to receive. notiftype is optional and Default notification type is short (if not specified)
+nodeSelector:
+  kubernetes.io/arch: amd64

@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: {{ .Release.Name }}
   name: {{ .Release.Name }}
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ .Release.Name }}
@@ -15,12 +16,10 @@ spec:
         app.kubernetes.io/name: {{ .Release.Name }}
     spec:
       nodeSelector:
-        unixfox/oci-ha-floating-ip: "true"
-        kubernetes.io/arch: amd64
         topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
       initContainers:
       - name: iptables
-        image: wpengine/iptables:latest
+        image: bgiddings/iptables:latest
         command: [ "/bin/ash", "-cx" ]
         args:
           # Source: https://github.com/path-network/go-mmproxy#routing-setup
@@ -37,7 +36,7 @@ spec:
           privileged: True
       containers:
       - name: pause
-        image: gcr.io/google_containers/pause
+        image: rancher/pause:3.2
         ports:
         - containerPort: 3306
           name: mysql

@@ -4,4 +4,4 @@ config:
   publicIpv6Address: "2603:c022:c002:3500::dead:beef"
   subnet: "ocid1.subnet.oc1.eu-amsterdam-1.aaaaaaaasc4xzk3tl7xnlufxflspcny5okl27cdqts2bxbwrzqbdyfwfqgpq"
 nodeSelector:
-  unixfox/oci-ha-floating-ip: "true"
+  failure-domain.beta.kubernetes.io/zone: "eu-amsterdam-1-AD-1"

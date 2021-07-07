@@ -79,7 +79,7 @@ spec:
                 fieldPath: spec.nodeName
       containers:
       - name: pause
-        image: gcr.io/google_containers/pause
+        image: rancher/pause:3.2
         resources:
           limits:
             cpu: 50m
