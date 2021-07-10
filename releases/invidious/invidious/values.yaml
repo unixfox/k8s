@@ -1,0 +1,122 @@
+keel:
+  # keel policy (all/major/minor/patch/force)
+  policy: force
+  approvals: 0
+  # images to track and update
+  images: 
+    - repository: image.repository
+      tag: image.tag
+    - repository: ytproxy.image.repository
+      tag: ytproxy.image.tag
+
+postgresql:
+  persistence:
+    size: "200Gi"
+  image:
+    repository: library/postgres
+    tag: 10
+
+replicaCount: 10
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: app.kubernetes.io/name
+          operator: In
+          values:
+          - postgresql
+      topologyKey: kubernetes.io/hostname
+
+ytproxy:
+  replicaCount: 2
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - postgresql
+        topologyKey: kubernetes.io/hostname
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: NotIn
+            values:
+            - oraclenonfree2
+            - oraclenonfree3
+
+ingress:
+  enabled: true
+  hosts:
+  - yewtu.be
+  - www.yewtu.be
+  tls:
+   - secretName: chart-invidious-tls
+     hosts:
+     - yewtu.be
+     - www.yewtu.be
+
+config:
+  channel_threads: 0
+  feed_threads: 1
+  output: STDOUT
+  log_level: Error
+  full_refresh: false
+  https_only: true
+  domain: yewtu.be
+  decrypt_polling: true
+  popular_enabled: true
+  captcha_enabled: false
+  login_enabled: true
+  registration_enabled: true
+  statistics_enabled: true
+  external_port: 443
+  default_user_preferences:
+    annotations: false
+    annotations_subscribed: false
+    autoplay: true
+    captions:
+    - ""
+    - ""
+    - ""
+    comments:
+    - youtube
+    - ""
+    continue: false
+    continue_autoplay: true
+    dark_mode: ""
+    latest_only: false
+    listen: false
+    local: false
+    locale: en-US
+    max_results: 40
+    notifications_only: false
+    player_style: invidious
+    quality: hd720
+    quality_dash: auto
+    default_home: Popular
+    feed_menu:
+    - Popular
+    - Trending
+    - Subscriptions
+    - Playlists
+    related_videos: true
+    sort: published
+    thin_mode: false
+    unseen_only: false
+    video_loop: false
+    extend_desc: false
+    volume: 100
+  dmca_content: []
+  check_tables: true
+  cache_annotations: false
+  hsts: true
+  disable_proxy: false
+  port: 3000
+  pool_size: 100

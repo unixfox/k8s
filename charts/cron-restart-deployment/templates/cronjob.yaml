@@ -20,7 +20,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: kubectl
-              image: bitnami/kubectl # probably any kubectl image will do,
+              image: rancher/kubectl:v1.20.2 # probably any kubectl image will do,
                                      # optionaly specify version, but this
                                      # should not be necessary, as long the
                                      # version of kubectl is new enough to

@@ -45,3 +45,5 @@ servers:
     - name: loop
     - name: reload
     - name: loadbalance
+    - name: rewrite
+      parameters: name yewtu.be ingress-nginx-controller.ingress-nginx.svc.cluster.local

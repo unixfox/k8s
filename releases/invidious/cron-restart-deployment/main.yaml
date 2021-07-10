@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: cron-restart-deployment-refresh
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: ../../../charts/cron-restart-deployment
+  values:
+  - "values.yaml"

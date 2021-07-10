@@ -1,0 +1,15 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: invidious
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: ../../../charts/invidious
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"
+  - "secrets-ingress.yaml"

@@ -1,6 +1,6 @@
 nfs:
-  server: "10.43.234.154"
-  path: "/FileSystem-20210411-1447-11"
+  server: "nfs-kubernetes.subnet.vcn.oraclevcn.com"
+  path: "/kubernetes"
 nodeSelector:
   topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
 storageClass:

@@ -1,0 +1,4 @@
+helmfiles:
+  - invidious/main.yaml
+  - cron-restart-deployment/main.yaml
+  - cron-restart-deployment-refresh/main.yaml

@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "invidious.fullname" . }}
+  labels:
+    app: {{ template "invidious.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: {{ template "invidious.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "invidious.name" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: {{ .Release.Name }}
+    spec:
+      {{- if .Values.affinity }}
+      affinity: {{ toYaml .Values.affinity | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.securityContext.runAsGroup }}
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+      initContainers:
+        - name: wait-for-postgresql
+          image: postgres
+          args:
+          - /bin/sh
+          - -c
+          - until pg_isready -h {{ .Values.config.db.host }} -p {{ .Values.config.db.port }} -U {{ .Values.config.db.user }}; do echo waiting for database; sleep 2; done;
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 3000
+        env:
+        - name: INVIDIOUS_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              key: INVIDIOUS_CONFIG
+              name: {{ template "invidious.fullname" . }}
+        securityContext:
+          allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
+          capabilities:
+            drop:
+            - ALL
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /api/v1/stats
+        livenessProbe:
+          httpGet:
+            port: 3000
+            path: /api/v1/stats
+          initialDelaySeconds: 15
+      restartPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "invidious.fullname" . }}-refresh
+  labels:
+    app: {{ template "invidious.name" . }}-refresh
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "invidious.name" . }}-refresh
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "invidious.name" . }}-refresh
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: {{ .Release.Name }}
+    spec:
+      {{- if .Values.affinity }}
+      affinity: {{ toYaml .Values.affinity | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.securityContext.runAsGroup }}
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+      initContainers:
+        - name: wait-for-postgresql
+          image: postgres
+          args:
+          - /bin/sh
+          - -c
+          - until pg_isready -h {{ .Values.config.db.host }} -p {{ .Values.config.db.port }} -U {{ .Values.config.db.user }}; do echo waiting for database; sleep 2; done;
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 3000
+        env:
+        - name: INVIDIOUS_CHANNEL_THREADS
+          value: "1"
+        - name: INVIDIOUS_FEED_THREADS
+          value: "1"
+        - name: INVIDIOUS_USE_PUBSUB_FEEDS
+          value: "true"
+        - name: INVIDIOUS_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              key: INVIDIOUS_CONFIG
+              name: {{ template "invidious.fullname" . }}
+        securityContext:
+          allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
+          capabilities:
+            drop:
+            - ALL
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /api/v1/stats
+        livenessProbe:
+          httpGet:
+            port: 3000
+            path: /api/v1/stats
+          initialDelaySeconds: 15
+      restartPolicy: Always

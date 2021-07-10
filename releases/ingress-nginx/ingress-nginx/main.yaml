@@ -10,3 +10,4 @@ releases:
   chart: ingress-nginx/ingress-nginx
   values:
   - "values.yaml"
+  - "values-lua.yaml"

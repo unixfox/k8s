@@ -1,0 +1,2 @@
+deploymentName: "invidious-invidious-refresh"
+cron: "0 * * * *"

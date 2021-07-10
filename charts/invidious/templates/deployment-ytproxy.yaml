@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ template "invidious.fullname" . }}-ytproxy"
+  labels:
+    app: {{ template "invidious.name" . }}-ytproxy
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.ytproxy.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "invidious.name" . }}-ytproxy
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "invidious.name" . }}-ytproxy
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: {{ .Release.Name }}
+    spec:
+      {{- if .Values.ytproxy.affinity }}
+      affinity: {{ toYaml .Values.ytproxy.affinity | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsUser: {{ .Values.ytproxy.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.ytproxy.securityContext.runAsGroup }}
+        fsGroup: {{ .Values.ytproxy.securityContext.fsGroup }}
+      containers:
+      - name: ytproxy
+        image: "{{ .Values.ytproxy.image.repository }}:{{ .Values.ytproxy.image.tag }}"
+        imagePullPolicy: {{ .Values.ytproxy.image.pullPolicy }}
+        ports:
+        - containerPort: 8080
+        securityContext:
+          allowPrivilegeEscalation: {{ .Values.ytproxy.securityContext.allowPrivilegeEscalation }}
+          capabilities:
+            drop:
+            - ALL
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /
+          initialDelaySeconds: 15
+      restartPolicy: Always
