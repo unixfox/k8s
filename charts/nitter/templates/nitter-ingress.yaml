@@ -12,6 +12,7 @@ metadata:
       if ($http_Accept = "") { set $block true; }
       if ($http_Accept_Encoding = "") { set $block true; }
       if ($uri = "/") { set $block false; }
+      if ($uri ~ "/pic/video(.*)") { set $block false; }
       if ($block = true) { return 403; }
       more_set_headers "X-Content-Type-Options: nosniff";
       more_set_headers "X-Frame-Options: SAMEORIGIN";
