@@ -11,6 +11,7 @@ controller:
       lua_shared_dict limit_api_subscriptions 100m;
       lua_shared_dict limit_feed_channel 100m;
       lua_shared_dict limit_login 100m;
+      lua_shared_dict limit_videoplayback 100m;
       geo $from_cluster {
         default    0;
         10.10.0.0/16 1;
@@ -33,10 +34,20 @@ controller:
   - name: luarestylimitcount
     configMap:
       name: ingress-nginx-controller
+  - name: sharedsock
+    hostPath:
+      path: /tmp/http-socket
+  - name: cache-proxy-temp
+    emptyDir:
+      medium: "Memory"
   extraVolumeMounts:
   - mountPath: /etc/nginx/lua/count.lua
     name: luarestylimitcount
     subPath: luaRestyLimitCount
+  - name: sharedsock
+    mountPath: /app/socket
+  - name: cache-proxy-temp
+    mountPath: /tmp/proxy-temp
   # extraVolumeMounts:
   # - mountPath: /usr/local/nginx/anti_ddos_challenge.lua
   #   name: antiddos

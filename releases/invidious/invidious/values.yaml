@@ -30,7 +30,11 @@ affinity:
       topologyKey: kubernetes.io/hostname
 
 ytproxy:
-  replicaCount: 2
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsUser: 101
+    runAsGroup: 101
+    fsGroup: 101
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -64,7 +68,7 @@ ingress:
 
 config:
   channel_threads: 0
-  feed_threads: 1
+  feed_threads: 0
   output: STDOUT
   log_level: Error
   full_refresh: false

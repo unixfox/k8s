@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: "{{ template "invidious.fullname" . }}-ytproxy"
   labels:
@@ -7,7 +7,6 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.ytproxy.replicaCount }}
   selector:
     matchLabels:
       app: {{ template "invidious.name" . }}-ytproxy
@@ -19,33 +18,33 @@ spec:
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         release: {{ .Release.Name }}
     spec:
-      {{- if .Values.ytproxy.affinity }}
-      affinity: {{ toYaml .Values.ytproxy.affinity | nindent 8 }}
-      {{- end }}
       securityContext:
         runAsUser: {{ .Values.ytproxy.securityContext.runAsUser }}
         runAsGroup: {{ .Values.ytproxy.securityContext.runAsGroup }}
         fsGroup: {{ .Values.ytproxy.securityContext.fsGroup }}
+      hostNetwork: true
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "chmod -R 777 /app/socket"]
+        securityContext:
+          allowPrivilegeEscalation: {{ .Values.ytproxy.securityContext.allowPrivilegeEscalation }}
+          runAsUser: 0
+          runAsGroup: 0
+        volumeMounts:
+        - name: sharedsock
+          mountPath: /app/socket
       containers:
       - name: ytproxy
         image: "{{ .Values.ytproxy.image.repository }}:{{ .Values.ytproxy.image.tag }}"
         imagePullPolicy: {{ .Values.ytproxy.image.pullPolicy }}
-        ports:
-        - containerPort: 8080
         securityContext:
           allowPrivilegeEscalation: {{ .Values.ytproxy.securityContext.allowPrivilegeEscalation }}
-          capabilities:
-            drop:
-            - ALL
-        resources:
-{{ toYaml .Values.resources | indent 10 }}
-        readinessProbe:
-          httpGet:
-            port: 8080
-            path: /
-        livenessProbe:
-          httpGet:
-            port: 8080
-            path: /
-          initialDelaySeconds: 15
+        volumeMounts:
+        - name: sharedsock
+          mountPath: /app/socket
       restartPolicy: Always
+      volumes:
+      - name: sharedsock
+        hostPath:
+          path: /tmp/http-socket

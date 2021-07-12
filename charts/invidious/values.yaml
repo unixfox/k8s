@@ -38,7 +38,6 @@ ytproxy:
     repository: 1337kavin/ytproxy
     tag: latest
     pullPolicy: Always
-  replicaCount: 1
   securityContext:
     allowPrivilegeEscalation: false
     runAsUser: 1000
