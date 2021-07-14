@@ -1,8 +1,29 @@
 toProxy:
   status.unixfox.eu:
+    externalName: "stats.uptimerobot.com"
     tls: true
+    servicePort: 443
     annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: "https://stats.uptimerobot.com/zpQZqTxR7/"
+      nginx.ingress.kubernetes.io/app-root: /zpQZqTxR7
+      nginx.ingress.kubernetes.io/upstream-vhost: stats.uptimerobot.com
+      nginx.ingress.kubernetes.io/backend-protocol: "https"
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        sub_filter_types *;
+        sub_filter_once off;
+        sub_filter "stats.uptimerobot.com" "status.unixfox.eu";
+        sub_filter "www.googletagmanager.com" "";
+        sub_filter "cdn.rollbar.com" "";
+        proxy_ssl_server_name on;
+        proxy_set_header Accept-Encoding "";
+        proxy_ssl_name stats.uptimerobot.com;
+        if ($uri ~ "^/api/(.*)") {
+          more_set_headers "Cache-Control: 'private always'";
+        }
+        more_set_headers "Cache-Control: 'public, max-age=604800'";
+        more_set_headers "content-security-policy: 'default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data:; font-src 'self' fonts.gstatic.com; connect-src 'self';";
+        more_set_headers "x-frame-options: sameorigin";
+        more_set_headers "x-xss-protection: 1; mode=block";
+        more_set_headers "x-content-type-options: nosniff";
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: buypass-prod
