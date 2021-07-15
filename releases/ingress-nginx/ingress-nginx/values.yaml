@@ -6,7 +6,7 @@ controller:
     disable-access-log: "true"
     error-log-level: "error"
     use-gzip: "true"
-    lua-shared-dicts: "limit_api_comments: 100000, limit_api_captions: 100, limit_api_storyboards: 100, limit_api_subscriptions: 100, limit_feed_channel: 100, limit_login: 100, limit_videoplayback: 100"
+    lua-shared-dicts: "limit_api_captions: 100, limit_api_storyboards: 100, limit_api_subscriptions: 100, limit_feed_channel: 100, limit_login: 100, limit_videoplayback: 100"
     worker-shutdown-timeout: "0s"
     http-snippet: |
       geo $from_cluster {
