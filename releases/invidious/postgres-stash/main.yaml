@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: postgres-backup-pvc
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: ../../../charts/stash-config-pvc
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

@@ -1,0 +1,51 @@
+jobs:
+  - name: purge-videos-table
+    image:
+      repository: postgres
+      tag: 10
+      imagePullPolicy: IfNotPresent
+    schedule: "0 1 * * *"
+    failedJobsHistoryLimit: 1
+    successfulJobsHistoryLimit: 1
+    concurrencyPolicy: Forbid
+    restartPolicy: OnFailure
+    env:
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: invidious-postgresql
+          key: postgresql-password
+    command: ["/bin/sh"]
+    args:
+    - '-c'
+    - 'psql -U kemal -h invidious-postgresql -c "TRUNCATE TABLE videos" invidious'
+    tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    nodeSelector:
+      topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+  - name: vaccum-users-table
+    image:
+      repository: postgres
+      tag: 10
+      imagePullPolicy: IfNotPresent
+    schedule: "0 15 * * 1"
+    failedJobsHistoryLimit: 1
+    successfulJobsHistoryLimit: 1
+    concurrencyPolicy: Forbid
+    restartPolicy: OnFailure
+    env:
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: invidious-postgresql
+          key: postgresql-password
+    command: ["/bin/sh"]
+    args:
+    - '-c'
+    - 'psql -U kemal -h invidious-postgresql -c "VACUUM FULL users" invidious'
+    tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    nodeSelector:
+      topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"

@@ -8,7 +8,9 @@ releases:
     parent: kube-system
   namespace: kube-system
   chart: appscode/stash
-  version: v0.11.2
+  version: v2021.06.23
   set:
-    - name: license
+    - name: global.license
       file: license.txt
+    - name: features.community
+      value: "true"

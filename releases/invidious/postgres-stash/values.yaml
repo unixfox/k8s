@@ -2,13 +2,13 @@ Repository:
   backend:
     s3:
       endpoint: "s3.nl-ams.scw.cloud"
-      bucket: "stash-powerdns"
+      bucket: "stash-invidious"
       region: "nl-ams"
 
 BackupConfiguration:
   schedule: "0 */12 * * *"
-  pvcname: "data-nextcloud-mariadb-0"
+  pvcname: "data-invidious-postgresql-0"
   retentionPolicy:
     name: default
-    keepLast: 60
+    keepLast: 2
     prune: true

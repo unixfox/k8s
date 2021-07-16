@@ -8,6 +8,11 @@ spec:
   repository:
     name: "{{ .Release.Name }}-s3-repo"
   schedule: "{{ .Values.BackupConfiguration.schedule | required "check values" }}"
+  runtimeSettings:
+    container:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
   target:
     ref:
       apiVersion: v1
