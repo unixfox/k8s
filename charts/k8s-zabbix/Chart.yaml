@@ -1,0 +1,4 @@
+apiVersion: v2
+name: k8s-zabbix
+description: A Helm chart for k8s-zabbix
+version: 1.0.0

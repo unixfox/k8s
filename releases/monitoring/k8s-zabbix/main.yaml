@@ -1,0 +1,10 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: k8s-zabbix
+  labels:
+    parent: monitoring
+  namespace: monitoring
+  chart: ../../../charts/k8s-zabbix

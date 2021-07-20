@@ -1,0 +1,23 @@
+deployApp: false
+k8sAPI:
+  host: "http://k8s-api.foo.bar/"
+  token: "FAKE-TOKEN"
+zabbix:
+  server: "zabbix.api.foo.bar:10080"
+  host: "k8s-prod-001"
+webAPI:
+  enable: "false"
+  host: "https://example.api.com/api/v1/k8s"
+  token: "17812110692887024374221963068327794883098412835131004"
+  cluster: "k8s-test-cluster"
+image:
+  repository: scoopex666/k8s-zabbix
+  tag: "latest"
+  pullPolicy: Always
+resources: {}
+  # requests:
+  #   memory: "128Mi"
+  #   cpu: "250m"
+  # limits:
+  #   memory: "128Mi"
+  #   cpu: "250m"

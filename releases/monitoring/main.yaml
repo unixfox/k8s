@@ -1,3 +1,4 @@
 helmfiles:
   #- datadog/main.yaml
   #- zabbix/main.yaml
+  - k8s-zabbix
