@@ -8,3 +8,5 @@ tolerations:
     operator: Exists
 image:
   repository: "quay.io/paulfantom/kured"
+configuration:
+  rebootCommand: "/usr/bin/systemctl reboot"
