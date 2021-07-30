@@ -37,8 +37,6 @@ cronjob:
   resources:
     requests:
       memory: 10Mi
-  nodeSelector:
-    kubernetes.io/hostname: nextfox
   tolerations:
     - key: app-nextcloud
       operator: Equal
@@ -56,7 +54,7 @@ tolerations:
     effect: NoExecute
 
 nodeSelector:
-  kubernetes.io/hostname: nextfox
+  kubernetes.io/hostname: "cloud.unixfox.eu"
 
 livenessProbe:
   initialDelaySeconds: 1800
@@ -76,7 +74,7 @@ mariadb:
       value: "true"
       effect: NoExecute
     nodeSelector:
-      kubernetes.io/hostname: nextfox
+      kubernetes.io/hostname: "cloud.unixfox.eu"
     persistence:
       storageClass: "local-path"
       annotations:
@@ -143,12 +141,12 @@ ingress:
     - cloud.unixfox.eu
 
 redis:
-  enabled: false
+  enabled: true
   cluster:
     enabled: false
   master:
     nodeSelector:
-      kubernetes.io/hostname: nextfox
+      kubernetes.io/arch: amd64
     tolerations:
       - key: app-nextcloud
         operator: Equal
@@ -156,7 +154,7 @@ redis:
         effect: NoExecute
     persistence:
       enabled: true
-      storageClass: "local-path"
+      storageClass: "nfs-oracle"
 
 keel:
   # keel policy (all/major/minor/patch/force)
