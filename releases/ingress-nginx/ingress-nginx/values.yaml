@@ -27,6 +27,11 @@ controller:
     #     end
     #     return request_headers_all
     #   }
+  lifecycle:
+    preStop:
+      exec:
+        command:
+          - /bin/echo
   extraVolumes:
   - name: luarestylimitcount
     configMap:
