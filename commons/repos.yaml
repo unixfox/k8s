@@ -41,3 +41,5 @@ repositories:
     url: https://helm.nginx.com/stable
   - name: stevehipwell
     url: https://stevehipwell.github.io/helm-charts/
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/

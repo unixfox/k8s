@@ -54,7 +54,7 @@ tolerations:
     effect: NoExecute
 
 nodeSelector:
-  kubernetes.io/hostname: "cloud.unixfox.eu"
+  kubernetes.io/hostname: "alphavps"
 
 livenessProbe:
   initialDelaySeconds: 1800
@@ -74,7 +74,7 @@ mariadb:
       value: "true"
       effect: NoExecute
     nodeSelector:
-      kubernetes.io/hostname: "cloud.unixfox.eu"
+      kubernetes.io/hostname: "alphavps"
     persistence:
       storageClass: "local-path"
       annotations:
@@ -136,16 +136,17 @@ ingress:
         deny all;
       }
   tls:
-  - secretName: chart-nextcloud-tls
+  - secretName: chart-cloud-tls
     hosts:
     - cloud.unixfox.eu
 
 redis:
-  enabled: true
+  enabled: false
   cluster:
     enabled: false
   master:
     nodeSelector:
+      kubernetes.io/hostname: "alphavps"
       kubernetes.io/arch: amd64
     tolerations:
       - key: app-nextcloud
@@ -154,7 +155,7 @@ redis:
         effect: NoExecute
     persistence:
       enabled: true
-      storageClass: "nfs-oracle"
+      storageClass: "local-path"
 
 keel:
   # keel policy (all/major/minor/patch/force)
