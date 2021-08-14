@@ -1,0 +1,29 @@
+env:
+  DOMAIN: "eternaljukebox.unixfox.eu"
+
+ingress:
+  main:
+    # -- Enables or disables the ingress
+    enabled: true
+
+    # -- Provide additional annotations which may be required.
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: buypass-prod
+
+    ## Configure the hosts for the ingress
+    hosts:
+      -  # -- Host address. Helm template can be passed.
+        host: eternaljukebox.unixfox.eu
+        ## Configure the paths for the host
+        paths:
+          -  # -- Path.  Helm template can be passed.
+            path: /
+            # -- Ignored if not kubeVersion >= 1.14-0
+            pathType: Prefix
+
+    # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+    tls:
+      - secretName: chart-eternaljukebox
+        hosts:
+         - eternaljukebox.unixfox.eu

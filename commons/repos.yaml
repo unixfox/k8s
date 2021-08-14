@@ -9,6 +9,8 @@ repositories:
     url: https://charts.jetstack.io
   - name: keel
     url: https://charts.keel.sh
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
   - name: infracloudio
     url: https://infracloudio.github.io/charts
   - name: kured
@@ -41,5 +43,3 @@ repositories:
     url: https://helm.nginx.com/stable
   - name: stevehipwell
     url: https://stevehipwell.github.io/helm-charts/
-  - name: k8s-at-home
-    url: https://k8s-at-home.com/charts/

@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: eternaljukebox
+  labels:
+    parent: others
+  namespace: others
+  chart: ../../../charts/eternaljukebox
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

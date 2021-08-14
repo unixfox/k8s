@@ -1,0 +1,14 @@
+apiVersion: v2
+description: The internal workings for the Eternal Jukebox, a rehosting of the Infinite Jukebox
+name: eternaljukebox
+version: 1.0.0
+kubeVersion: ">=1.16.0-0"
+sources:
+- https://github.com/UnderMybrella/EternalJukebox
+dependencies:
+- name: common
+  repository: https://library-charts.k8s-at-home.com/
+  version: 4.0.0
+- name: mariadb
+  repository: https://charts.bitnami.com/bitnami
+  version: 9.4.2
