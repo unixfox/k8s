@@ -9,7 +9,7 @@ image:
   # -- image repository
   repository: quay.io/unixfox/eternaljukebox
   # -- image tag
-  tag: latest
+  tag: 7c76ed4
   # -- image pull policy
   pullPolicy: IfNotPresent
 

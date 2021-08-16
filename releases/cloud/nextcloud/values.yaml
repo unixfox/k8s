@@ -1,5 +1,5 @@
 image:
-  tag: 21.0.3-fpm-alpine
+  tag: 21.0.4-fpm-alpine
 
 persistence:
   enabled: true
@@ -59,8 +59,10 @@ nodeSelector:
 livenessProbe:
   initialDelaySeconds: 1800
   timeoutSeconds: 30
+  failureThreshold: 50
 readinessProbe:
   timeoutSeconds: 30
+  failureThreshold: 50
 
 nginx:
   enabled: true

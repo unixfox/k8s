@@ -80,6 +80,7 @@ ingress:
     main:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: buypass-prod
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
     search: {}
   hosts:
   - searx.be
