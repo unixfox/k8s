@@ -1,6 +1,4 @@
 repositories:
-  - name: stable
-    url: https://charts.helm.sh/stable
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
   - name: longhorn
@@ -43,3 +41,7 @@ repositories:
     url: https://helm.nginx.com/stable
   - name: stevehipwell
     url: https://stevehipwell.github.io/helm-charts/
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+  - name: kvaps
+    url: https://kvaps.github.io/charts

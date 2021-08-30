@@ -1,0 +1,43 @@
+grafana:
+  ingress:
+    enabled: true
+    hosts:
+    - grafana.unixfox.eu
+    annotations:
+    main:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: buypass-prod
+    tls:
+    - secretName: chart-grafana-tls
+      hosts:
+      - grafana.unixfox.eu
+  enabled: true
+  nodeSelector:
+    topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+  persistence:
+    enabled: true 
+    storageClassName: nfs-oracle
+prometheus:
+  enabled: true
+  kube-state-metrics:
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+  alertmanager:
+    nodeSelector:
+      topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+    persistentVolume:
+      storageClass: nfs-oracle
+      enabled: true
+  server:
+    nodeSelector:
+      topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+    persistentVolume:
+      enabled: true
+      storageClass: nfs-oracle
+loki:
+  nodeSelector:
+    topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+  persistence:
+    enabled: true 
+    storageClassName: nfs-oracle

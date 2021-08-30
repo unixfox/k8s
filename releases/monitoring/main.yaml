@@ -1,4 +1,5 @@
 helmfiles:
-  #- datadog/main.yaml
+  - datadog/main.yaml
   #- zabbix/main.yaml
-  - k8s-zabbix
+  #- k8s-zabbix
+  #- grafana/main.yaml

@@ -7,6 +7,6 @@ releases:
   labels:
     parent: kube-system
   namespace: kube-system
-  chart: stable/nfs-server-provisioner
+  chart: kvaps/nfs-server-provisioner
   values:
   - "values.yaml"

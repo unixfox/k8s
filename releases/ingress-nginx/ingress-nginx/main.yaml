@@ -8,6 +8,7 @@ releases:
     parent: ingress-nginx
   namespace: ingress-nginx
   chart: ingress-nginx/ingress-nginx
+  version: 3.36.0
   values:
   - "values.yaml"
   - "values-lua.yaml"

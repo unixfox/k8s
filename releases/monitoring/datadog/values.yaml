@@ -2,6 +2,7 @@ datadog:
   clusterName: "default"
   criSocketPath: "/run/k3s/containerd/containerd.sock"
   site: 'datadoghq.com'
+  logLevel: WARN
   logs:
     enabled: true
     containerCollectAll: true
