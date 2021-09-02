@@ -2,7 +2,19 @@ datadog:
   clusterName: "default"
   criSocketPath: "/run/k3s/containerd/containerd.sock"
   site: 'datadoghq.com'
-  logLevel: WARN
+  logLevel: error
   logs:
     enabled: true
     containerCollectAll: true
+agents:
+  tolerations:
+    - key: "k3s-controlplane"
+      operator: "Exists"
+  volumes:
+    - hostPath:
+        path: /run/systemd/
+      name: systemd
+  volumeMounts:
+    - name: systemd
+      mountPath: /host/run/systemd/
+      readOnly: true
