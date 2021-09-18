@@ -40,7 +40,7 @@ spec:
                 - nitter
             topologyKey: kubernetes.io/hostname
       containers:
-        - image: epenguincom/nitter:build-20210614
+        - image: epenguincom/nitter:latest
           resources:
             limits:
               memory: "200Mi"
