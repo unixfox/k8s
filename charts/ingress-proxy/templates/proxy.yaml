@@ -13,7 +13,7 @@ spec:
 {{ end }}
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: "{{ $name | replace "." "-" }}-proxy"
@@ -33,8 +33,11 @@ spec:
     http:
       paths:
       - path: /
+        pathType: ImplementationSpecific
         backend:
-          serviceName: "{{ $name | replace "." "-" }}-proxy"
-          servicePort: {{ default 80 $config.servicePort }}
+          service:
+            name: "{{ $name | replace "." "-" }}-proxy"
+            port:
+              number: {{ default 80 $config.servicePort }}
 {{- end }}
 {{ end }}

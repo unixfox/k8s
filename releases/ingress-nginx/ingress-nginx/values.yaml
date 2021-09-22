@@ -1,4 +1,5 @@
 controller:
+  watchIngressWithoutClass: true
   metrics:
     port: 10254
     enabled: true

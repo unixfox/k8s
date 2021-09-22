@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -34,9 +34,13 @@ spec:
     - host: nitter.unixfox.eu
       http:
         paths:
-          - backend:
-              serviceName: nitter
-              servicePort: 8080
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nitter
+                port: 
+                  number: 8080
   tls:
     - hosts:
         - nitter.unixfox.eu

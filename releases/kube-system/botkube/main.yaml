@@ -8,7 +8,7 @@ releases:
     parent: kube-system
   namespace: kube-system
   chart: infracloudio/botkube
-  version: v0.12.0
+  version: v0.12.3
   values:
   - "values.yaml"
   secrets:
