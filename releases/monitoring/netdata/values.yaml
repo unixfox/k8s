@@ -1,0 +1,13 @@
+parent:
+  claiming:
+    enabled: "true"
+  database:
+    storageclass: "nfs-oracle"
+  alarms:
+    storageclass: "nfs-oracle"
+child:
+  claiming:
+    enabled: "true"
+
+ingress:
+  enabled: "false"

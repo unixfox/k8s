@@ -45,3 +45,5 @@ repositories:
     url: https://grafana.github.io/helm-charts
   - name: kvaps
     url: https://kvaps.github.io/charts
+  - name: netdata
+    url: https://netdata.github.io/helmchart/

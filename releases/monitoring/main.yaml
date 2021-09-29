@@ -1,4 +1,5 @@
 helmfiles:
+  #- netdata/main.yaml
   - datadog/main.yaml
   #- zabbix/main.yaml
   #- k8s-zabbix

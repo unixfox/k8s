@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: netdata
+  labels:
+    parent: monitoring
+  namespace: monitoring
+  chart: netdata/netdata
+  values:
+  - "values.yaml"
+  # secrets:
+  # - "secrets.yaml"
