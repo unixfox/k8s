@@ -1,5 +1,6 @@
 helmfiles:
   #- nextcloud-data/main.yaml
   - nextcloud/main.yaml
-  - syncthing/main.yaml
+  - syncthing-outoracle/main.yaml
+  - syncthing-oracle/main.yaml
   #- filebrowser/main.yaml
