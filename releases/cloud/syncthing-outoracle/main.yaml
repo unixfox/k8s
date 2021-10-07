@@ -3,10 +3,10 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: local-path
+- name: syncthing-outoracle
   labels:
-    parent: kube-system
-  namespace: kube-system
-  chart: ../../../charts/local-path-provisioner
+    parent: cloud
+  namespace: cloud
+  chart: k8s-at-home/syncthing
   values:
   - "values.yaml"

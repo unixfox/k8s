@@ -1,0 +1,41 @@
+nodeSelector:
+  kubernetes.io/hostname: "buyvm"
+  kubernetes.io/arch: amd64
+service:
+  listen:
+    enabled: false
+  discovery:
+    enabled: false
+persistence:
+  nextcloud:
+    config:
+      enabled: true
+      type: pvc
+      existingClaim: cloud-nextcloud-nextcloud
+  data:
+    enabled: true
+    mountPath: /var/syncthing
+    storageClass: "local-path"
+    accessMode: ReadWriteOnce
+    retain: true
+    size: 1Gi
+env:
+  STGUIADDRESS: "127.0.0.1:8384"
+hostNetwork: true
+dnsPolicy: "ClusterFirstWithHostNet"
+tolerations:
+  - key: app-cloud
+    operator: Equal
+    value: "true"
+    effect: NoExecute
+probes:
+  # -- Liveness probe configuration
+  # @default -- See below
+  liveness:
+    enabled: false
+  readiness:
+    # -- Enable the readiness probe
+    enabled: false
+  startup:
+    # -- Enable the startup probe
+    enabled: false

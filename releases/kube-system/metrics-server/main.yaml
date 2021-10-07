@@ -7,6 +7,6 @@ releases:
   labels:
     parent: kube-system
   namespace: kube-system
-  chart: stevehipwell/metrics-server
+  chart: metrics-server/metrics-server
   values:
   - "values.yaml"

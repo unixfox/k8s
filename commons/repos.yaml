@@ -49,3 +49,5 @@ repositories:
     url: https://netdata.github.io/helmchart/
   - name: cert-manager-webhook-powerdns
     url: https://lordofsystem.github.io/cert-manager-webhook-powerdns
+  - name: metrics-server
+    url: https://kubernetes-sigs.github.io/metrics-server/

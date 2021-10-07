@@ -1,12 +1,17 @@
 nodeSelector:
-  kubernetes.io/hostname: "alphavps"
-  kubernetes.io/arch: amd64
+  kubernetes.io/hostname: "buyvm"
 service:
   listen:
     enabled: false
   discovery:
     enabled: false
 persistence:
+  nextcloud:
+    enabled: true
+    storageClass: "local-path"
+    accessMode: ReadWriteOnce
+    retain: true
+    size: 1Gi
   data:
     enabled: true
     mountPath: /var/syncthing
@@ -19,7 +24,7 @@ env:
 hostNetwork: true
 dnsPolicy: "ClusterFirstWithHostNet"
 tolerations:
-  - key: app-nextcloud
+  - key: app-cloud
     operator: Equal
     value: "true"
     effect: NoExecute
