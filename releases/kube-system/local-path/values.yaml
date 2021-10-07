@@ -1,5 +1,7 @@
-image:
-  repository: bclermont/local-path-provisioner
-  tag: b821f90-amd64
-nodeSelector:
-  kubernetes.io/arch: amd64
+nodePathMap:
+  - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
+    paths:
+      - /opt/local-path-provisioner
+  - node: buyvm
+    paths:
+      - /mnt/sda/local-path-provisioner

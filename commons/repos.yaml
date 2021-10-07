@@ -47,3 +47,5 @@ repositories:
     url: https://kvaps.github.io/charts
   - name: netdata
     url: https://netdata.github.io/helmchart/
+  - name: metrics-server
+    url: https://kubernetes-sigs.github.io/metrics-server/
