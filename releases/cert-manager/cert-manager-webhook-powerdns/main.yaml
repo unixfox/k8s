@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: cert-manager-webhook-powerdns
+  labels:
+    parent: cert-manager
+  namespace: cert-manager
+  chart: cert-manager-webhook-powerdns/cert-manager-webhook-powerdns
+  values:
+  - "values.yaml"

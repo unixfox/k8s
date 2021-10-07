@@ -3,31 +3,31 @@ image:
 
 persistence:
   enabled: true
-  storageClass: "local-path"
+  storageClass: "nfs-oracle"
   annotations:
     "helm.sh/resource-policy": keep
 
 externalDatabase:
-  enabled: false
+  enabled: true
   type: mysql
 
 internalDatabase:
-  enabled: true
+  enabled: false
 
 nextcloud:
   host: "cloud.unixfox.eu"
   extraEnv:
-    - name: NEXTCLOUD_DATA_DIR
-      value: "/data/nextcloud"
+    # - name: NEXTCLOUD_DATA_DIR
+    #   value: "/data/nextcloud"
     - name: APACHE_DISABLE_REWRITE_IP
       value: "1"
-  extraVolumeMounts:
-    - name: slab
-      mountPath: /data/nextcloud
-  extraVolumes:
-    - name: slab
-      hostPath:
-        path: /data/nextcloud
+  # extraVolumeMounts:
+  #   - name: slab
+  #     mountPath: /data/nextcloud
+  # extraVolumes:
+  #   - name: slab
+  #     hostPath:
+  #       path: /data/nextcloud
 
 lifecycle:
   postStartCommand: ["/bin/ash", "-c", "echo '*/15 * * * * php -f /var/www/html/cron.php\n0 1 * * * PHP_MEMORY_LIMIT=512M /var/www/html/occ preview:pre-generate' > /var/spool/cron/crontabs/www-data; crond"]
@@ -54,7 +54,7 @@ tolerations:
     effect: NoExecute
 
 nodeSelector:
-  kubernetes.io/hostname: "alphavps"
+  topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
 
 livenessProbe:
   initialDelaySeconds: 1800
@@ -68,7 +68,7 @@ nginx:
   enabled: true
 
 mariadb:
-  enabled: true
+  enabled: false
   master:
     tolerations:
     - key: app-nextcloud
@@ -76,9 +76,9 @@ mariadb:
       value: "true"
       effect: NoExecute
     nodeSelector:
-      kubernetes.io/hostname: "alphavps"
+        topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
     persistence:
-      storageClass: "local-path"
+      storageClass: "nfs-oracle"
       annotations:
         "helm.sh/resource-policy": keep
       enabled: true
@@ -138,7 +138,7 @@ ingress:
         deny all;
       }
   tls:
-  - secretName: chart-cloud-tls
+  - secretName: chart-nextcloud-tls
     hosts:
     - cloud.unixfox.eu
 
@@ -148,7 +148,7 @@ redis:
     enabled: false
   master:
     nodeSelector:
-      kubernetes.io/hostname: "alphavps"
+      topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
       kubernetes.io/arch: amd64
     tolerations:
       - key: app-nextcloud
@@ -157,7 +157,7 @@ redis:
         effect: NoExecute
     persistence:
       enabled: true
-      storageClass: "local-path"
+      storageClass: "nfs-oracle"
 
 keel:
   # keel policy (all/major/minor/patch/force)

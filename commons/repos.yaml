@@ -47,3 +47,5 @@ repositories:
     url: https://kvaps.github.io/charts
   - name: netdata
     url: https://netdata.github.io/helmchart/
+  - name: cert-manager-webhook-powerdns
+    url: https://lordofsystem.github.io/cert-manager-webhook-powerdns

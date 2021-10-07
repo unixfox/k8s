@@ -14,15 +14,6 @@ spec:
           groupName: acme.unixfox.eu
           solverName: pdns
           config:
-            host: http://powerdns-service-api.dns.svc.cluster.local:8081/
-            apiKeySecretRef:
-              name: pdns-api-key
-              key: key
-
-            # Optional config, shown with default values
-            #   all times in seconds
-            ttl: 120
-            timeout: 30
-            propagationTimeout: 120
-            pollingInterval: 2
-
+            secretName: pdns-api-key
+            zoneName: unixfox.eu.
+            apiUrl: http://powerdns-service-api.dns.svc.cluster.local:8081
