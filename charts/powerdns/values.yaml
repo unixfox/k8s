@@ -13,7 +13,7 @@ powerdns:
       port: 8081
   image:
     repository: pschiffe/pdns-mysql
-    tag: alpine
+    tag: 4.3-alpine
     pullPolicy: Always
   domain: unixfox.eu
   master: "yes"
