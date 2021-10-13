@@ -69,6 +69,7 @@ ingress:
 config:
   channel_threads: 0
   feed_threads: 0
+  modified_source_code_url: https://github.com/unixfox/invidious-custom
   output: STDOUT
   log_level: Error
   full_refresh: false
