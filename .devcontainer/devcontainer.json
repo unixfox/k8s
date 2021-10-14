@@ -29,5 +29,6 @@
 	"remoteUser": "vscode",
 	"features": {
 		"git": "latest"
-	}
+	},
+	"postAttachCommand": "/bin/bash -c .devcontainer/post-attach.sh"
 }
