@@ -47,12 +47,6 @@ resources:
   limits:
     memory: 2048Mi
 
-tolerations:
-  - key: app-nextcloud
-    operator: Equal
-    value: "true"
-    effect: NoExecute
-
 nodeSelector:
   topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
 

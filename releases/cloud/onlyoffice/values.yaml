@@ -1,0 +1,16 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: buypass-prod
+  paths: ["/"]
+  ingressClassName: nginx
+  hosts:
+    - "onlyoffice.unixfox.eu"
+  tls:
+  - secretName: chart-onlyoffice-tls
+    hosts:
+    - onlyoffice.unixfox.eu
+
+nodeSelector:
+  kubernetes.io/arch: amd64

@@ -51,3 +51,5 @@ repositories:
     url: https://lordofsystem.github.io/cert-manager-webhook-powerdns
   - name: metrics-server
     url: https://kubernetes-sigs.github.io/metrics-server/
+  - name: kfirfer
+    url: https://kfirfer.github.io/helm/
