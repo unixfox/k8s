@@ -1,5 +1,5 @@
 image:
-  tag: 21.0.5-fpm-alpine
+  tag: 22.2.0-fpm-alpine
 
 persistence:
   enabled: true
@@ -45,7 +45,7 @@ cronjob:
 
 resources:
   limits:
-    memory: 250Mi
+    memory: 2048Mi
 
 tolerations:
   - key: app-nextcloud
