@@ -4,16 +4,55 @@ keel:
   approvals: 0
   # images to track and update
   images: 
-    - repository: nitter.image.repository
-      tag: nitter.image.tag
+    - repository: image.repository
+      tag: image.tag
 
-nitter:
-  image:
-    repository: epenguincom/nitter
-    tag: latest
+controller:
+  replicas: 4
+  
+nodeSelector:
+  kubernetes.io/arch: amd64
+
+env:
+  NITTER_HOST: "nitter.unixfox.eu"
+  NITTER_NAME: "nitter-unixfox"
+  REDIS_HOST: "nitter-redis-headless"
+  REPLACE_TWITTER: "nitter.unixfox.eu"
+  REPLACE_YOUTUBE: "yewtu.be"
+  REPLACE_INSTAGRAM: "bibliogram.snopyta.org"
+  HLS_PLAYBACK: "true"
+  HTTPS: "true"
+
+ingress:
+  main:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: buypass-prod
+      nginx.ingress.kubernetes.io/proxy-next-upstream: "http_429"
+      nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
+    hosts:
+      -  # -- Host address. Helm template can be passed.
+        host: nitter.unixfox.eu
+        ## Configure the paths for the host
+        paths:
+          -  # -- Path.  Helm template can be passed.
+            path: /
+            # -- Ignored if not kubeVersion >= 1.14-0
+            pathType: Prefix
+            service:
+              # -- Overrides the service name reference for this path
+              name:
+              # -- Overrides the service port reference for this path
+              port:
+
+    # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+    tls:
+      - secretName: nitter-tls
+        hosts:
+          - nitter.unixfox.eu
 
 redis:
-  enabled: true
   usePassword: false
   cluster:
     enabled: false

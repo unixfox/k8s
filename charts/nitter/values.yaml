@@ -1,0 +1,56 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
+
+image:
+  # -- image repository
+  repository: epenguincom/nitter
+  # -- image tag
+  tag: latest
+  # -- image pull policy
+  pullPolicy: Always
+
+# @default -- See below
+env:
+  NITTER_HOST: "nitter.net"
+  NITTER_NAME: "nitter"
+  REDIS_HOST: "nitter-redis-headless"
+  REPLACE_TWITTER: "nitter.net"
+  REPLACE_YOUTUBE: "yewtu.be"
+  REPLACE_INSTAGRAM: "bibliogram.snopyta.org"
+  HLS_PLAYBACK: "true"
+  HTTPS: "true"
+
+secret:
+  HMAC_KEY: changeme
+
+# -- Configures service settings for the chart.
+# @default -- See values.yaml
+service:
+  main:
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  main:
+    enabled: false
+
+# -- Configure persistence settings for the chart under this key.
+# @default -- See values.yaml
+persistence:
+  config:
+    enabled: false
+  source:
+    enabled: false
+  backups:
+    enabled: false
+
+redis:
+  enabled: true
+  

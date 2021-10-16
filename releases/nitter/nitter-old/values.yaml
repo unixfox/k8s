@@ -1,0 +1,28 @@
+keel:
+  # keel policy (all/major/minor/patch/force)
+  policy: force
+  approvals: 0
+  # images to track and update
+  images: 
+    - repository: nitter.image.repository
+      tag: nitter.image.tag
+
+nitter:
+  image:
+    repository: epenguincom/nitter
+    tag: latest
+
+redis:
+  enabled: true
+  usePassword: false
+  cluster:
+    enabled: false
+  slave:
+    persistence:
+      enabled: false
+  master:
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+    persistence:
+      enabled: false

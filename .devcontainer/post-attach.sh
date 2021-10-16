@@ -8,6 +8,10 @@ mkdir /home/vscode/.local
 mkdir /home/vscode/.local/share
 ln -s /workspaces/.codespaces/.persistedshare/.helm /home/vscode/.local/share/helm
 ln -s /workspaces/.codespaces/.persistedshare/.k9s /home/vscode/.config/k9s
-echo "export GPG_TTY=\$(tty)" >> /home/vscode/.bashrc
+
+if ! grep -q tty /home/vscode/.bashrc; then
+  echo "export GPG_TTY=\$(tty)" >> /home/vscode/.bashrc
+fi
+
 
 echo "post-start complete" >> ~/status
