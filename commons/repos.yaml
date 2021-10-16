@@ -53,3 +53,5 @@ repositories:
     url: https://kubernetes-sigs.github.io/metrics-server/
   - name: common
     url: https://library-charts.k8s-at-home.com
+  - name: kfirfer
+    url: https://kfirfer.github.io/helm/

@@ -1,5 +1,5 @@
 image:
-  tag: 21.0.5-fpm-alpine
+  tag: 22.2.0-fpm-alpine
 
 persistence:
   enabled: true
@@ -45,13 +45,7 @@ cronjob:
 
 resources:
   limits:
-    memory: 250Mi
-
-tolerations:
-  - key: app-nextcloud
-    operator: Equal
-    value: "true"
-    effect: NoExecute
+    memory: 2048Mi
 
 nodeSelector:
   topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
