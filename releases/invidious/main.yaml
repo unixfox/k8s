@@ -3,4 +3,4 @@ helmfiles:
   - cron-restart-deployment/main.yaml
   - cron-restart-deployment-refresh/main.yaml
   - postgres-maintenance/main.yaml
-  - postgres-stash
+  #- postgres-stash/main.yaml

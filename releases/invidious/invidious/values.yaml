@@ -118,6 +118,7 @@ config:
     video_loop: false
     extend_desc: false
     volume: 100
+    remember_position: true
   dmca_content: []
   check_tables: true
   cache_annotations: false
