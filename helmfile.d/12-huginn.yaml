@@ -1,0 +1,2 @@
+helmfiles:
+  - "../releases/huginn/main.yaml"

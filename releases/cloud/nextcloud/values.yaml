@@ -21,6 +21,8 @@ nextcloud:
     #   value: "/data/nextcloud"
     - name: APACHE_DISABLE_REWRITE_IP
       value: "1"
+    - name: PHP_MEMORY_LIMIT
+      value: "512M"
   # extraVolumeMounts:
   #   - name: slab
   #     mountPath: /data/nextcloud

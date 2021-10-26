@@ -1,0 +1,37 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: buypass-prod
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: hug.unixfox.eu
+      paths:
+        - /
+
+  tls:
+   - secretName: chart-huginn-tls
+     hosts:
+       - hug.unixfox.eu
+
+web:
+  nodeSelector:
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+    kubernetes.io/arch: amd64
+
+worker:
+  nodeSelector:
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+    kubernetes.io/arch: amd64
+
+seed:
+  enabled: true
+
+database:
+  type: "mysql"
+  name: "huginn"
+  username: "huginn"
+  port: 3306
+
+mysql:
+  deployChart: false

@@ -1,0 +1,2 @@
+helmfiles:
+  - huginn/main.yaml

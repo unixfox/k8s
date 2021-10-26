@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huginn.fullname" . }}-worker
+  labels:
+    {{- include "huginn.labels" . | nindent 4 }}
+    app.kubernetes.io/component: worker
+spec:
+  strategy:
+    type: {{ .Values.worker.updateStrategy }}
+  replicas: {{ .Values.worker.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "huginn.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: worker
+  template:
+    metadata:
+      annotations:
+        checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      {{- with .Values.worker.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "huginn.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: worker
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "huginn.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.worker.podSecurityContext | nindent 8 }}
+      {{- if .Values.worker.init.enabled }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          image: "{{ .Values.worker.init.image.repository }}:{{ .Values.worker.init.image.tag }}"
+          envFrom:
+          - configMapRef:
+              name: {{ include "huginn.fullname" . }}
+          resources:
+            {{- toYaml .Values.worker.init.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.worker.init.securityContext | nindent 12 }}
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z -v -w30 {{ include "huginn.fullname" . }} {{ .Values.service.port }}
+              do
+                echo "Waiting for the main instance to start..."
+                sleep 5
+              done
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-worker
+          command:
+            - /scripts/init
+            - bin/threaded.rb
+          securityContext:
+            {{- toYaml .Values.worker.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "huginn.fullname" . }}
+            - secretRef:
+                name: {{ include "huginn.fullname" . }}
+          resources:
+            {{- toYaml .Values.worker.resources | nindent 12 }}
+      {{- with .Values.worker.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.worker.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.worker.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
