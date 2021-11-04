@@ -3,4 +3,4 @@ helmfiles:
   #- searx-main-proxy/main.yaml
   #- searx-caddy-proxy/main.yaml
   - searx/main.yaml
-  #- cron-restart-deployment
+  - cron-restart-deployment/main.yaml
