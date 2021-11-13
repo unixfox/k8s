@@ -50,6 +50,9 @@ spec:
             configMapKeyRef:
               key: INVIDIOUS_CONFIG
               name: {{ template "invidious.fullname" . }}
+        {{- if .Values.extraEnv }}
+{{ toYaml .Values.extraEnv | indent 8 }}
+        {{- end }}
         securityContext:
           allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
           capabilities:
@@ -121,6 +124,9 @@ spec:
             configMapKeyRef:
               key: INVIDIOUS_CONFIG
               name: {{ template "invidious.fullname" . }}
+        {{- if .Values.extraEnv }}
+{{ toYaml .Values.extraEnv | indent 8 }}
+        {{- end }}
         securityContext:
           allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
           capabilities:
