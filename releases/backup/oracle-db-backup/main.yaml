@@ -1,0 +1,59 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: oracle-db-backup-scaleway
+  labels:
+    parent: backup
+  namespace: backup
+  chart: ../../../charts/backup-rclone-restic
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"
+  - "values-scaleway.yaml"
+
+- name: oracle-db-backup-euserv
+  labels:
+    parent: backup
+  namespace: backup
+  chart: ../../../charts/backup-rclone-restic
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"
+  - "values-euserv.yaml"
+
+- name: oracle-db-backup-pulseheberg
+  labels:
+    parent: backup
+  namespace: backup
+  chart: ../../../charts/backup-rclone-restic
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"
+  - "values-pulseheberg.yaml"
+
+- name: oracle-db-backup-oraclefra
+  labels:
+    parent: backup
+  namespace: backup
+  chart: ../../../charts/backup-rclone-restic
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"
+  - "values-oraclefra.yaml"
+
+- name: oracle-db-backup-hubic
+  labels:
+    parent: backup
+  namespace: backup
+  chart: ../../../charts/backup-rclone-restic
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"
+  - "values-hubic.yaml"

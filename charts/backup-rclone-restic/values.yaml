@@ -1,11 +1,6 @@
 brudi:
   resources: {}
-  command:
-  - /bin/ash
-  - -cx
-  - "until nc -z 127.0.0.1 8080; do echo waiting for rclone; sleep 2; done;
-    brudi -c /etc/brudi.yml mysqldump --restic --cleanup;
-    echo -ne 'PUT /supervisor/shutdown HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n' | nc 127.0.0.1 9001"
+  args: ["-c", "/home/brudi/.brudi.yml", "mysqldump", "--restic", "--cleanup"]
   # limits:
   #   cpu: 10m
   #   memory: 20Mi
@@ -14,12 +9,12 @@ brudi:
   #   memory: 20Mi
   envs:
     - name: "RESTIC_REPOSITORY"
-      value: "rest:http://localhost:8080/"
+      value: "rclone:foo:bar"
   image:
-    repository: quay.io/mittwald/brudi
+    repository: quay.io/unixfox/brudi
     tag: "latest"
     pullPolicy: IfNotPresent
-    runAsUser: 10001
+    runAsUser: 1000
     allowPrivilegeEscalation: false
   config:
     mysqldump:
@@ -38,7 +33,7 @@ brudi:
           CacheDir: "/tmp/cache"
       forget:
         flags:
-          keepLast: 48
+          keepLast: 30
           keepHourly: 24
           keepDaily: 7
           keepWeekly: 2
@@ -47,37 +42,13 @@ brudi:
 
 restic:
   password: "yourpassword"
+  repository: "rclone:foo:bar"
 
 rclone:
-  resources: {}
-  # limits:
-  #   cpu: 10m
-  #   memory: 20Mi
-  # requests:
-  #   cpu: 10m
-  #   memory: 20Mi
-  image:
-    repository: unixfox/rclone-with-supervisord
-    tag: "latest"
-    pullPolicy: IfNotPresent
-    runAsUser: 10001
-    allowPrivilegeEscalation: false
   config: |
     [remote]
     type = s3
     provider = Scaleway
-
-supervisord:
-  config: |
-    [inet_http_server]
-    port=localhost:9001
-    [program:rclone]
-    command = /usr/local/bin/rclone serve --retries 999 -vvvvv restic union:/
-    stdout_logfile=/dev/stdout
-    redirect_stderr=true
-    autostart=true
-    autorestart=true
-    startretries=999
 
 cronjob:
   concurrencyPolicy: Forbid
@@ -87,6 +58,7 @@ cronjob:
   schedule: "0 * * * *"
 
 nodeSelector:
+  kubernetes.io/arch: amd64
   kubernetes.io/os: linux
 affinity: {}
 tolerations: []

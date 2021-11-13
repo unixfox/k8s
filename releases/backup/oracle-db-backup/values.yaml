@@ -1,0 +1,11 @@
+brudi:
+  config:
+    mysqldump:
+      options:
+        flags:
+          databases: ["k3s", "powerdns", "huginn", "nextcloud"]
+          resultFile: /tmp/oracledb.sqldump
+
+nodeSelector:
+  topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+  
