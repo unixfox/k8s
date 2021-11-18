@@ -9,6 +9,10 @@ keel:
     - repository: ytproxy.image.repository
       tag: ytproxy.image.tag
 
+image:
+  repository: unixfox/invidious-custom
+  tag: new-latest
+
 postgresql:
   persistence:
     size: "200Gi"
@@ -67,6 +71,7 @@ ingress:
      - www.yewtu.be
 
 config:
+  use_quic: false
   channel_threads: 0
   feed_threads: 0
   modified_source_code_url: https://github.com/unixfox/invidious-custom
