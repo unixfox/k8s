@@ -31,6 +31,8 @@ spec:
         checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum | quote }}
       {{- end }}
     spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       serviceAccountName: {{ template "logdna.serviceAccountName" . }}
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName | quote }}
