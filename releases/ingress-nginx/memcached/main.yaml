@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: memcached
+  labels:
+    parent: ingress-nginx
+  namespace: ingress-nginx
+  chart: bitnami/memcached
+  values:
+  - "values.yaml"

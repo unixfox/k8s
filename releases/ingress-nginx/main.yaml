@@ -1,3 +1,4 @@
 helmfiles:
   - ingress-nginx/main.yaml
+  - memcached/main.yaml
   - ingress-proxy/main.yaml

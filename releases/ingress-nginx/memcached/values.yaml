@@ -1,0 +1,10 @@
+image:
+  repository: "memcached"
+  tag: "1.6-alpine"
+
+arguments: []
+architecture: "high-availability"
+autoscaling:
+  enabled: true
+nodeSelector:
+  kubernetes.io/arch: amd64
