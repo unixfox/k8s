@@ -41,7 +41,9 @@ servers:
         tls_servername dns.quad9.net
         health_check 5s
     - name: cache
-      parameters: 30
+      parameters: 300
+      configBlock: |-
+        serve_stale
     - name: loop
     - name: reload
     - name: loadbalance
