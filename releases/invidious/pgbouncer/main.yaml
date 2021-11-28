@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: pgbouncer
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: ../../../charts/pgbouncer
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"
