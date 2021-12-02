@@ -1,0 +1,15 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: postgresql
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: bitnami/postgresql
+  version: 10.5.2
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

@@ -18,7 +18,7 @@ jobs:
     command: ["/bin/sh"]
     args:
     - '-c'
-    - 'psql -U kemal -h invidious-postgresql -c "TRUNCATE TABLE videos" invidious'
+    - 'psql -U kemal -h postgresql -c "TRUNCATE TABLE videos" invidious'
     tolerations:
     - effect: NoSchedule
       operator: Exists
@@ -43,7 +43,7 @@ jobs:
     command: ["/bin/sh"]
     args:
     - '-c'
-    - 'psql -U kemal -h invidious-postgresql -c "VACUUM FULL users" invidious'
+    - 'psql -U kemal -h postgresql -c "VACUUM FULL users" invidious'
     tolerations:
     - effect: NoSchedule
       operator: Exists

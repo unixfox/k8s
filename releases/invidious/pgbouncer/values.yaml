@@ -5,7 +5,7 @@ nodeSelector:
 config:
   databases:
     invidious:
-      host: invidious-postgresql-headless
+      host: postgresql
       port: 5432
   pgbouncer:
     server_tls_sslmode: prefer
