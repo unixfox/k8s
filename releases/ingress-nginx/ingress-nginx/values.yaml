@@ -1,3 +1,8 @@
+defaultBackend:
+  enabled: true
+  image:
+    registry: k8s.gcr.io
+    image: defaultbackend-arm64
 controller:
   watchIngressWithoutClass: true
   dnsPolicy: ClusterFirstWithHostNet

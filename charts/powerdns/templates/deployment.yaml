@@ -59,7 +59,9 @@ spec:
                 key: MYSQL_PASS
 {{- end }}
           - name: MYSQL_DATABASE
-            value: {{ .Values.powerdns.mysql_database | quote }} 
+            value: {{ .Values.powerdns.mysql_database | quote }}
+          - name: MYSQL_DATABASE
+            value: {{ .Values.powerdns.mysql_database | quote }}
           - name: MYSQL_USER
             value: {{ .Values.powerdns.mysql_user | quote }} 
 {{- if .Values.mariadb.mysql_rootpass }}

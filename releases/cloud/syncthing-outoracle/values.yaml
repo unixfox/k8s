@@ -28,6 +28,7 @@ tolerations:
     operator: Equal
     value: "true"
     effect: NoExecute
+dnsPolicy: "Default"
 probes:
   # -- Liveness probe configuration
   # @default -- See below

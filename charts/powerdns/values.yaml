@@ -127,7 +127,7 @@ powerdnsadmin:
 nameOverride: ""
 fullnameOverride: ""
 
-replicaCount: 2
+replicaCount: 1
 
 nodeSelector:
   topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
