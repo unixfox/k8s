@@ -19,9 +19,7 @@ jobs:
     args:
     - '-c'
     - 'psql -U kemal -h postgresql -c "TRUNCATE TABLE videos" invidious'
-    tolerations:
-    - effect: NoSchedule
-      operator: Exists
+    tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
   - name: vaccum-users-table
@@ -44,8 +42,6 @@ jobs:
     args:
     - '-c'
     - 'psql -U kemal -h postgresql -c "VACUUM FULL users" invidious'
-    tolerations:
-    - effect: NoSchedule
-      operator: Exists
+    tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
