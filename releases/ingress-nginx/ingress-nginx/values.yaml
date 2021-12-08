@@ -94,7 +94,7 @@ controller:
   service:
     type: ClusterIP
     enabled: true
-# tcp:
-#   53: "dns/powerdns-service-dns:dns-tcp::PROXY"
-# udp:
-#   53: "dns/powerdns-service-dns:dns-udp"
+tcp:
+  53: "dns/powerdns-service-dns:dns-tcp::PROXY"
+udp:
+  53: "dns/powerdns-service-dns:dns-udp"
