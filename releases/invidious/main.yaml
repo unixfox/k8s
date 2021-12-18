@@ -3,5 +3,6 @@ helmfiles:
   - pgbouncer/main.yaml
   - cron-restart-deployment/main.yaml
   - cron-restart-deployment-refresh/main.yaml
-  - postgres-maintenance/main.yaml
+  - cron-restart-proxy-eu/main.yaml
+  #- postgres-maintenance/main.yaml
   #- postgres-stash/main.yaml

@@ -1,0 +1,2 @@
+deploymentName: "invidious-proxy-eu-invidious"
+cron: "0 * * * *"

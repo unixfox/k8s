@@ -3,7 +3,7 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: cron-restart-deployment
+- name: cron-restart-deployment-refresh
   labels:
     parent: invidious
   namespace: invidious
