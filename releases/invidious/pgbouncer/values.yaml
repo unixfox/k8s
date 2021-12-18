@@ -1,6 +1,8 @@
-nodeSelector:
-  kubernetes.io/arch: amd64
-  kubernetes.io/os: linux
+image:
+  registry: "quay.io"
+  repository: unixfox/pgbouncer
+  tag: latest
+  pullPolicy: IfNotPresent
 
 config:
   databases:
