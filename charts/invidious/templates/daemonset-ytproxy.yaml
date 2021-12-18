@@ -18,6 +18,12 @@ spec:
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{ toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{ toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
       securityContext:
         runAsUser: {{ .Values.ytproxy.securityContext.runAsUser }}
         runAsGroup: {{ .Values.ytproxy.securityContext.runAsGroup }}

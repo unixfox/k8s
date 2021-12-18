@@ -1,0 +1,28 @@
+jobs:
+  - name: proxy-eu-purge
+    image:
+      repository: postgres
+      tag: 10
+      imagePullPolicy: IfNotPresent
+    schedule: "0 1 * * *"
+    failedJobsHistoryLimit: 1
+    successfulJobsHistoryLimit: 1
+    concurrencyPolicy: Forbid
+    restartPolicy: OnFailure
+    env:
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: invidious-postgresql
+          key: postgresql-password
+    command: ["/bin/sh"]
+    args:
+    - '-c'
+    - 'psql -U kemal -h invidious-proxy-eu-postgresql -c "TRUNCATE TABLE videos" invidious'
+    tolerations:
+      - key: dedicated-server
+        operator: Equal
+        value: "true"
+        effect: NoExecute
+    nodeSelector:
+      kubernetes.io/hostname: walkerservers

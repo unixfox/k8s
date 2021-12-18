@@ -91,6 +91,10 @@ controller:
     operator: Equal
     value: "true"
     effect: NoExecute
+  - key: dedicated-server
+    operator: Equal
+    value: "true"
+    effect: NoExecute
   service:
     type: ClusterIP
     enabled: true

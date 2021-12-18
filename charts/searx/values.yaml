@@ -58,7 +58,7 @@ morty:
     repository: dalf/morty
     tag: latest
     pullPolicy: Always
-  replicaCount: 2
+  replicaCount: 0
   autoscaling:
     enabled: false
     minReplicas: 1

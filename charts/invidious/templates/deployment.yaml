@@ -24,6 +24,12 @@ spec:
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{ toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{ toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
       {{- if .Values.affinity }}
       affinity: {{ toYaml .Values.affinity | nindent 8 }}
       {{- end }}
@@ -70,6 +76,7 @@ spec:
             path: /api/v1/stats
           initialDelaySeconds: 15
       restartPolicy: Always
+{{- if .Values.refresh.enabled }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -92,6 +99,9 @@ spec:
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.tolerations }}
+      tolerations: {{ toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
       {{- if .Values.affinity }}
       affinity: {{ toYaml .Values.affinity | nindent 8 }}
       {{- end }}
@@ -144,3 +154,4 @@ spec:
             path: /api/v1/stats
           initialDelaySeconds: 15
       restartPolicy: Always
+{{ end }}

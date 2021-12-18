@@ -13,6 +13,9 @@ autoscaling:
   maxReplicas: 16
   targetCPUUtilizationPercentage: 50
 
+refresh:
+  enabled: true
+
 ingress:
   enabled: true
   main:
