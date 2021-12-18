@@ -8,10 +8,7 @@ keel:
       tag: image.tag
 
 controller:
-  replicas: 4
-  
-nodeSelector:
-  kubernetes.io/arch: amd64
+  replicas: 3
 
 env:
   NITTER_HOST: "nitter.unixfox.eu"

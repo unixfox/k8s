@@ -17,7 +17,7 @@ spec:
       hostNetwork: true
       containers:
       - name: kilo
-        image: squat/kilo:31744677517b1822f354b585dd98321a7c21f3d2
+        image: squat/kilo:ee480dece4ceab3fd68b1f4a09e4e67da25003a6
         args:
         - --kubeconfig=/etc/kubernetes/kubeconfig
         - --log-level=debug

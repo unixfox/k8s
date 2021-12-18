@@ -12,16 +12,7 @@ searx:
     maxReplicas: 8
     targetCPUUtilizationPercentage: 50
   nodeSelector: {}
-  affinity:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app
-            operator: In
-            values:
-            - searx
-        topologyKey: kubernetes.io/hostname
+  affinity: {}
   resources: {}
     #requests:
     #  cpu: 100m

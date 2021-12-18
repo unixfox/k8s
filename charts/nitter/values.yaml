@@ -7,7 +7,7 @@
 
 image:
   # -- image repository
-  repository: epenguincom/nitter
+  repository: quay.io/unixfox/nitter
   # -- image tag
   tag: latest
   # -- image pull policy
@@ -26,6 +26,9 @@ env:
 
 secret:
   HMAC_KEY: changeme
+
+controller:
+  strategy: "RollingUpdate"
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
@@ -53,4 +56,7 @@ persistence:
 
 redis:
   enabled: true
+  # image:
+  #   repository: "redis"
+  #   tag: "6"
   
