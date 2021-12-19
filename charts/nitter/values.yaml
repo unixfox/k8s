@@ -54,6 +54,26 @@ persistence:
   backups:
     enabled: false
 
+probes:
+  readiness:
+    custom: true
+    spec:
+      httpGet:
+        path: /jack/status/20
+        port: 8080
+  liveness:
+    custom: true
+    spec:
+      httpGet:
+        path: /jack/status/20
+        port: 8080
+  startup:
+    custom: true
+    spec:
+      httpGet:
+        path: /jack/status/20
+        port: 8080
+
 redis:
   enabled: true
   # ports:

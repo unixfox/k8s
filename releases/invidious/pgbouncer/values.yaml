@@ -4,10 +4,12 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+replicaCount: 2
+
 config:
   databases:
     invidious:
-      host: postgresql
+      host: stolon-proxy
       port: 5432
   pgbouncer:
     server_tls_sslmode: prefer

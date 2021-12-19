@@ -1,0 +1,15 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: stolon
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: iomedstolon/stolon
+  version: 1.7.2
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"

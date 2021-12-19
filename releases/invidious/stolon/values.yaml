@@ -1,0 +1,20 @@
+image:
+  repository: quay.io/unixfox/stolon
+  tag: v0.17.0-pg10
+  pullPolicy: IfNotPresent
+
+persistence:
+  enabled: true
+  storageClassName: "local-path"
+
+keeper:
+  nodeSelector:
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+
+proxy:
+  nodeSelector:
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+
+sentinel:
+  nodeSelector:
+    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1

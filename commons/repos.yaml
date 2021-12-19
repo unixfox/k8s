@@ -57,3 +57,5 @@ repositories:
     url: https://kfirfer.github.io/helm/
   - name: utkuozdemir
     url: https://utkuozdemir.org/helm-charts
+  - name: iomedstolon
+    url: https://iomedhealth.github.io/helm_stolon/
