@@ -13,7 +13,7 @@ controller:
 env:
   NITTER_HOST: "nitter.unixfox.eu"
   NITTER_NAME: "nitter-unixfox"
-  REDIS_HOST: "nitter-redis-headless"
+  REDIS_HOST: "nitter-redis"
   REPLACE_TWITTER: "nitter.unixfox.eu"
   REPLACE_YOUTUBE: "yewtu.be"
   REPLACE_INSTAGRAM: "bibliogram.snopyta.org"
@@ -48,17 +48,3 @@ ingress:
       - secretName: nitter-tls
         hosts:
           - nitter.unixfox.eu
-
-redis:
-  usePassword: false
-  cluster:
-    enabled: false
-  slave:
-    persistence:
-      enabled: false
-  master:
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
-    persistence:
-      enabled: false

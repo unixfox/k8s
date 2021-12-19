@@ -3,7 +3,7 @@ dependencies:
   repository: https://library-charts.k8s-at-home.com
   version: 4.0.1
 - name: redis
-  repository: https://charts.bitnami.com/bitnami
-  version: 12.2.4
-digest: sha256:fdf8e211c137e800eac2f72ae1749c3a2c5f69d719ea4729d6a0ac52ba8e25df
-generated: "2021-10-18T18:40:35.074665327+02:00"
+  repository: https://charts.pascaliske.dev
+  version: 0.0.2
+digest: sha256:d7aa4aeebc66b0646971232b3a0292b361372780a52dd715aff090f5005f5f8c
+generated: "2021-12-19T01:30:40.278567338+01:00"

@@ -56,6 +56,9 @@ persistence:
 
 redis:
   enabled: true
+  # ports:
+  #   http:
+  #     enabled: false
   # image:
   #   repository: "redis"
   #   tag: "6"

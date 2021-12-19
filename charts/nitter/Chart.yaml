@@ -12,6 +12,6 @@ dependencies:
     repository: https://library-charts.k8s-at-home.com
     version: 4.0.1
   - name: redis
-    version: ~12.2.3
-    repository: https://charts.bitnami.com/bitnami
+    version: 0.0.2
+    repository: https://charts.pascaliske.dev
     condition: redis.enabled

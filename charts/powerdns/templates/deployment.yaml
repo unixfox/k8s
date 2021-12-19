@@ -32,6 +32,11 @@ spec:
       {{- if .Values.affinity }}
       affinity: {{ toYaml .Values.affinity | nindent 8 }}
       {{- end }}
+      tolerations:
+      - key: dedicated-server
+        operator: Equal
+        value: "true"
+        effect: NoExecute
       nodeSelector: 
 {{ toYaml .Values.nodeSelector | indent 8 }}
       containers:
