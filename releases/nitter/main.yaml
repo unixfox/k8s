@@ -1,2 +1,3 @@
 helmfiles:
   - nitter/main.yaml
+  - cron-restart-deployment/main.yaml

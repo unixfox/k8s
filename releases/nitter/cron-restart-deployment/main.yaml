@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: cron-restart-deployment
+  labels:
+    parent: nitter
+  namespace: nitter
+  chart: ../../../charts/cron-restart-deployment
+  values:
+  - "values.yaml"

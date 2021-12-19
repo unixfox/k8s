@@ -1,0 +1,2 @@
+deploymentName: "nitter"
+cron: "0 12 * * *"

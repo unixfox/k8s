@@ -4,7 +4,7 @@ jobs:
       repository: postgres
       tag: 10
       imagePullPolicy: IfNotPresent
-    schedule: "0 1 * * *"
+    schedule: "0 12 * * *"
     failedJobsHistoryLimit: 1
     successfulJobsHistoryLimit: 1
     concurrencyPolicy: Forbid
