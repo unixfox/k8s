@@ -8,13 +8,22 @@ persistence:
   storageClassName: "local-path"
 
 keeper:
+  extraEnv:
+    - name: STKEEPER_LOG_LEVEL
+      value: "warn"
   nodeSelector:
     topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
 
 proxy:
+  extraEnv:
+    - name: STPROXY_LOG_LEVEL
+      value: "warn"
   nodeSelector:
     topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
 
 sentinel:
   nodeSelector:
     topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+  extraEnv:
+    - name: STSENTINEL_LOG_LEVEL
+      value: "warn"
