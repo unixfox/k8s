@@ -13,12 +13,12 @@ jobs:
     - name: PGPASSWORD
       valueFrom:
         secretKeyRef:
-          name: invidious-postgresql
-          key: postgresql-password
+          name: stolon
+          key: pg_su_password
     command: ["/bin/sh"]
     args:
     - '-c'
-    - 'psql -U kemal -h postgresql -c "TRUNCATE TABLE videos" invidious'
+    - 'psql -U kemal -h stolon-proxy -c "TRUNCATE TABLE videos" invidious'
     tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
@@ -36,12 +36,12 @@ jobs:
     - name: PGPASSWORD
       valueFrom:
         secretKeyRef:
-          name: invidious-postgresql
-          key: postgresql-password
+          name: stolon
+          key: pg_su_password
     command: ["/bin/sh"]
     args:
     - '-c'
-    - 'psql -U kemal -h postgresql -c "VACUUM FULL users" invidious'
+    - 'psql -U kemal -h stolon-proxy -c "VACUUM FULL users" invidious'
     tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"

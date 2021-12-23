@@ -5,6 +5,6 @@ helmfiles:
   - cron-restart-deployment/main.yaml
   - cron-restart-deployment-refresh/main.yaml
   - cron-restart-proxy-eu/main.yaml
-  #- postgres-maintenance/main.yaml
+  - postgres-maintenance/main.yaml
   - postgres-maintenance-proxy-eu/main.yaml
   #- postgres-stash/main.yaml

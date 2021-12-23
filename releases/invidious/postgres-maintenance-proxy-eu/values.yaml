@@ -13,7 +13,7 @@ jobs:
     - name: PGPASSWORD
       valueFrom:
         secretKeyRef:
-          name: invidious-postgresql
+          name: invidious-proxy-eu-postgresql
           key: postgresql-password
     command: ["/bin/sh"]
     args:
