@@ -3,7 +3,7 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: cloud
+- name: nextcloud
   labels:
     parent: cloud
   namespace: cloud

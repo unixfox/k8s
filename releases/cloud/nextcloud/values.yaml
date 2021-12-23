@@ -3,12 +3,12 @@ image:
 
 persistence:
   enabled: true
-  storageClass: "nfs-oracle"
+  storageClass: "local-path"
   annotations:
     "helm.sh/resource-policy": keep
 
 externalDatabase:
-  enabled: true
+  enabled: false
   type: mysql
 
 internalDatabase:
@@ -40,7 +40,7 @@ cronjob:
     requests:
       memory: 10Mi
   tolerations:
-    - key: app-nextcloud
+    - key: dedicated-server
       operator: Equal
       value: "true"
       effect: NoExecute
@@ -50,7 +50,13 @@ resources:
     memory: 2048Mi
 
 nodeSelector:
-  topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+  kubernetes.io/hostname: walkerservers
+
+tolerations:
+  - key: dedicated-server
+    operator: Equal
+    value: "true"
+    effect: NoExecute
 
 livenessProbe:
   initialDelaySeconds: 1800
@@ -64,17 +70,17 @@ nginx:
   enabled: true
 
 mariadb:
-  enabled: false
-  master:
+  enabled: true
+  primary:
     tolerations:
-    - key: app-nextcloud
+    - key: dedicated-server
       operator: Equal
       value: "true"
       effect: NoExecute
     nodeSelector:
-        topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+      kubernetes.io/hostname: walkerservers
     persistence:
-      storageClass: "nfs-oracle"
+      storageClass: "local-path"
       annotations:
         "helm.sh/resource-policy": keep
       enabled: true
@@ -144,16 +150,15 @@ redis:
     enabled: false
   master:
     nodeSelector:
-      topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
-      kubernetes.io/arch: amd64
+      kubernetes.io/hostname: walkerservers
     tolerations:
-      - key: app-nextcloud
+      - key: dedicated-server
         operator: Equal
         value: "true"
         effect: NoExecute
     persistence:
       enabled: true
-      storageClass: "nfs-oracle"
+      storageClass: "local-path"
 
 keel:
   # keel policy (all/major/minor/patch/force)

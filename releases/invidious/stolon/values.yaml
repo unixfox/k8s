@@ -8,11 +8,17 @@ persistence:
   storageClassName: "local-path"
 
 keeper:
+  replicaCount: 3
   extraEnv:
     - name: STKEEPER_LOG_LEVEL
       value: "warn"
   nodeSelector:
     topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+  tolerations:
+    - key: lowvm
+      operator: Equal
+      value: "true"
+      effect: NoExecute
 
 proxy:
   extraEnv:
