@@ -7,7 +7,7 @@ releases:
   labels:
     parent: invidious
   namespace: invidious
-  chart: iomedstolon/stolon
+  chart: ../../../charts/stolon
   version: 1.7.2
   values:
   - "values.yaml"

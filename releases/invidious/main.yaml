@@ -1,5 +1,5 @@
 helmfiles:
-  #- invidious/main.yaml
+  - invidious/main.yaml
   - stolon/main.yaml
   - pgbouncer/main.yaml
   - cron-restart-deployment/main.yaml
