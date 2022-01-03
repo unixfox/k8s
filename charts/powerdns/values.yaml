@@ -75,7 +75,8 @@ mariadb:
   persistence:
     annotations:
       "helm.sh/resource-policy": keep
-    enabled: false
+    enabled: true
+    storageClass: "local-path"
     accessMode: 'ReadWriteOnce'
     size: '1Gi'
   args: "--innodb_use_native_aio=0 --innodb_flush_method=fsync"
