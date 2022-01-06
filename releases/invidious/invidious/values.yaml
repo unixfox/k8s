@@ -11,7 +11,7 @@ keel:
 
 image:
   repository: unixfox/invidious-custom
-  tag: new-build-7d8b3a8372b943f8afbcba058986889a7ec5d41d-821bb8545eb790b5747b8861d6a9d701614ad109
+  tag: new-build-ddc26ed8bef027a48b2906dcecc168e5e6469699-e7e89f59e9e0d925066e4e08f33fb65a63cf9d1f
 
 postgresql:
   persistence:

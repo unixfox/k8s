@@ -45,3 +45,26 @@ jobs:
     tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
+  - name: vaccum-soft-users-table
+    image:
+      repository: postgres
+      tag: 10
+      imagePullPolicy: IfNotPresent
+    schedule: "*/10 * * * *"
+    failedJobsHistoryLimit: 1
+    successfulJobsHistoryLimit: 1
+    concurrencyPolicy: Forbid
+    restartPolicy: OnFailure
+    env:
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: stolon
+          key: pg_su_password
+    command: ["/bin/sh"]
+    args:
+    - '-c'
+    - 'psql -U kemal -h stolon-proxy -c "VACUUM FREEZE users" invidious'
+    tolerations: []
+    nodeSelector:
+      topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
