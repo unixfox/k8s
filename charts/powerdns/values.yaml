@@ -54,6 +54,8 @@ powerdns:
       value: "9.9.9.9,1.1.1.1,8.8.8.8"
     - name: PDNS_expand_alias
       value: "true"
+    - name: PDNS_enable_lua_records
+      value: "true"
     - name: PDNS_outgoing_axfr_expand_alias
       value: "true"
     - name: PDNS_server_id

@@ -9,12 +9,9 @@ image:
   # -- image repository
   repository: quay.io/unixfox/eternaljukebox
   # -- image tag
-  tag: 7c76ed4
+  tag: latest
   # -- image pull policy
   pullPolicy: IfNotPresent
-
-nodeSelector:
-  kubernetes.io/arch: amd64
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
@@ -25,6 +22,7 @@ service:
         port: 8080
 
 mariadb:
+  enabled: false
   auth:
     database: eternaljukebox
     username: eternal_user
