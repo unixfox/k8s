@@ -11,7 +11,7 @@ keel:
 
 image:
   repository: unixfox/invidious-custom
-  tag: api-new-build-ddc26ed8bef027a48b2906dcecc168e5e6469699-e7e89f59e9e0d925066e4e08f33fb65a63cf9d1f
+  tag: api-new-latest
 
 postgresql:
   primary:
