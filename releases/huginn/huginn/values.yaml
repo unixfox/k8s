@@ -14,23 +14,13 @@ ingress:
      hosts:
        - hug.unixfox.eu
 
-web:
-  nodeSelector:
-    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
-    kubernetes.io/arch: amd64
-
-worker:
-  nodeSelector:
-    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
-    kubernetes.io/arch: amd64
-
 seed:
   enabled: true
 
 database:
   type: "mysql"
-  name: "huginn"
-  username: "huginn"
+  name: "lqjpmj_hug"
+  username: "lqjpmj_hug"
   port: 3306
 
 mysql:
