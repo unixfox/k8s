@@ -1,6 +1,6 @@
 config:
   region: EU_AMSTERDAM_1
   publicIpv6Address: "2603:c022:c001:e700::dead:beef"
-  subnet: "ocid1.vcn.oc1.eu-amsterdam-1.amaaaaaaegvoijaab4omgk442iom64ilnjmf77esgi5bgqigdvlkextj4vfq"
+  subnet: "ocid1.subnet.oc1.eu-amsterdam-1.aaaaaaaacv5ryrsms6v4uahcnasa5t4gijmnkj3c446s2en6xanq4gok3ema"
 nodeSelector:
   failure-domain.beta.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
