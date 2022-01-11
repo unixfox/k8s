@@ -7,8 +7,8 @@ config:
     <snip>
     -----END RSA PRIVATE KEY-----
   region: EU_AMSTERDAM_1
-  publicIpv4Address: 9.9.9.9 # optional
-  publicIpv6Address: "fe80::1" # optional
+  #publicIpv4Address: 9.9.9.9 # optional
+  #publicIpv6Address: "fe80::1" # optional
   subnet: ocid1.subnet.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 nodeSelector:
   kubernetes.io/os: linux
