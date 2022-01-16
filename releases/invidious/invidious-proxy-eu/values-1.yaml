@@ -1,0 +1,20 @@
+postgresql:
+  primary:
+    nodeSelector:
+      kubernetes.io/hostname: walkerservers
+
+nodeSelector:
+  kubernetes.io/hostname: walkerservers
+
+
+ingress:
+  enabled: true
+  hosts:
+  - eu1.proxy.yewtu.be
+  tls:
+   - secretName: chart-invidious-eu1-tls
+     hosts:
+     - eu1.proxy.yewtu.be
+  
+config:
+  domain: eu1.proxy.yewtu.be

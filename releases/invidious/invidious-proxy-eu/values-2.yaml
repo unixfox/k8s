@@ -1,0 +1,20 @@
+postgresql:
+  primary:
+    nodeSelector:
+      kubernetes.io/hostname: sd64445
+
+nodeSelector:
+  kubernetes.io/hostname: sd64445
+
+ingress:
+  enabled: true
+  hosts:
+  - eu2.proxy.yewtu.be
+  tls:
+   - secretName: chart-invidious-eu2-tls
+     hosts:
+     - eu2.proxy.yewtu.be
+  
+
+config:
+  domain: eu2.proxy.yewtu.be
