@@ -15,8 +15,6 @@ image:
 
 postgresql:
   primary:
-    nodeSelector:
-      kubernetes.io/hostname: walkerservers
     tolerations:
     - key: dedicated-server
       operator: Equal
@@ -33,9 +31,6 @@ replicaCount: 3
 
 affinity: {}
 
-nodeSelector:
-  kubernetes.io/hostname: walkerservers
-
 tolerations:
   - key: dedicated-server
     operator: Equal
@@ -50,15 +45,6 @@ ytproxy:
     fsGroup: 101
   affinity: {}
 
-ingress:
-  enabled: true
-  hosts:
-  - eu1.proxy.yewtu.be
-  tls:
-   - secretName: chart-invidious-eu1-tls
-     hosts:
-     - eu1.proxy.yewtu.be
-
 refresh:
   enabled: false
 
@@ -71,7 +57,6 @@ config:
   log_level: Error
   full_refresh: false
   https_only: true
-  domain: eu1.proxy.yewtu.be
   decrypt_polling: true
   popular_enabled: true
   captcha_enabled: false
