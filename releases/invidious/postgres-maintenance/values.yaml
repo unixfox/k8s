@@ -41,7 +41,7 @@ jobs:
     command: ["/bin/sh"]
     args:
     - '-c'
-    - 'psql -U kemal -h stolon-proxy -c "VACUUM FULL users" invidious'
+    - 'psql -U kemal -h stolon-proxy -c "VACUUM FULL VERBOSE users" invidious'
     tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
@@ -64,7 +64,7 @@ jobs:
     command: ["/bin/sh"]
     args:
     - '-c'
-    - 'psql -U kemal -h stolon-proxy -c "VACUUM VERBOSE users" invidious'
+    - 'psql -U kemal -h stolon-proxy -c "set vacuum_cost_delay to 50" invidious && psql -U kemal -h stolon-proxy -c "VACUUM FREEZE VERBOSE users" invidious'
     tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
