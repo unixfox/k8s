@@ -1,4 +1,5 @@
 postgresql:
+  enabled: true
   primary:
     nodeSelector:
       kubernetes.io/hostname: sd64445
@@ -18,3 +19,5 @@ ingress:
 
 config:
   domain: eu2.proxy.yewtu.be
+  db:
+    host: invidious-proxy-eu-2-postgresql-headless

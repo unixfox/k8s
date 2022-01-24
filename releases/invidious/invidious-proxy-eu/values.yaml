@@ -49,7 +49,7 @@ refresh:
   enabled: false
 
 config:
-  use_quic: true
+  use_quic: false
   channel_threads: 0
   feed_threads: 0
   modified_source_code_url: https://github.com/unixfox/invidious-custom
