@@ -22,7 +22,8 @@ env:
   REPLACE_YOUTUBE: "yewtu.be"
   REPLACE_INSTAGRAM: "bibliogram.snopyta.org"
   HLS_PLAYBACK: "true"
-  HTTPS: "true"
+  NITTER_HTTPS: "true"
+  REPLACE_REDDIT: "old.reddit.com"
 
 secret:
   HMAC_KEY: changeme
