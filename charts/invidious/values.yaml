@@ -63,6 +63,7 @@ securityContext:
 
 # See https://github.com/helm/charts/tree/master/stable/postgresql
 postgresql:
+  enabled: false
   postgresqlUsername: kemal
   postgresqlPassword: kemal
   postgresqlDatabase: invidious
