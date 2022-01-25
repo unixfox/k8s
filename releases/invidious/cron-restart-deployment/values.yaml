@@ -1,2 +1,2 @@
 deploymentName: "invidious-invidious"
-cron: "40 */3 * * *"
+cron: "40 */1 * * *"
