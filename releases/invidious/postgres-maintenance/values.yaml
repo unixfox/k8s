@@ -27,7 +27,7 @@ jobs:
       repository: postgres
       tag: 10
       imagePullPolicy: IfNotPresent
-    schedule: "0 12 */3 * *"
+    schedule: "0 12 * * MON"
     failedJobsHistoryLimit: 1
     successfulJobsHistoryLimit: 1
     concurrencyPolicy: Forbid
@@ -46,6 +46,7 @@ jobs:
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
   - name: vaccum-soft-users-table
+    suspend: true
     image:
       repository: postgres
       tag: 10
