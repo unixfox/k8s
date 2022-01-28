@@ -3,5 +3,5 @@ helmfiles:
   - nextcloud/main.yaml
   - onlyoffice/main.yaml
   - syncthing-outoracle/main.yaml
-  - syncthing-oracle/main.yaml
+  #- syncthing-oracle/main.yaml
   #- filebrowser/main.yaml
