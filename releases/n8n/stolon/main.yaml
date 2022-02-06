@@ -3,11 +3,12 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: huginn
+- name: n8n-stolon
   labels:
-    parent: huginn
-  namespace: huginn
-  chart: utkuozdemir/huginn
+    parent: n8n
+  namespace: n8n
+  chart: ../../../charts/stolon
+  version: 1.7.2
   values:
   - "values.yaml"
   secrets:

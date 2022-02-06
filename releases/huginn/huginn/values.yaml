@@ -7,7 +7,8 @@ ingress:
   hosts:
     - host: hug.unixfox.eu
       paths:
-        - /
+        - path: /
+          pathType: ImplementationSpecific
 
   tls:
    - secretName: chart-huginn-tls

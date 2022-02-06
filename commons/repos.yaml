@@ -55,7 +55,7 @@ repositories:
     url: https://library-charts.k8s-at-home.com
   - name: kfirfer
     url: https://kfirfer.github.io/helm/
-  - name: utkuozdemir
-    url: https://utkuozdemir.org/helm-charts
   - name: iomedstolon
     url: https://iomedhealth.github.io/helm_stolon/
+  - name: open-8gears
+    url: https://8gears.container-registry.com/chartrepo/library

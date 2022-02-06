@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: n8n
+  labels:
+    parent: n8n
+  namespace: n8n
+  chart: ../../../charts/n8n
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"

@@ -1,0 +1,3 @@
+helmfiles:
+  - stolon/main.yaml
+  - n8n/main.yaml
