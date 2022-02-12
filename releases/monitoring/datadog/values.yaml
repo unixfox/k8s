@@ -8,8 +8,6 @@ datadog:
     containerCollectAll: false
 agents:
   tolerations:
-    - key: "k3s-controlplane"
-      operator: "Exists"
     - key: "dedicated-server"
       operator: "Exists"
   # volumes:
