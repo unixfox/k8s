@@ -1,4 +1,5 @@
 helmfiles:
+  - galera/main.yaml
   - powerdns/main.yaml
   #- powerdns-stash/main.yaml
   #- external-dns/main.yaml

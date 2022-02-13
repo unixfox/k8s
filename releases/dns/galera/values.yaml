@@ -1,0 +1,11 @@
+image:
+  registry: ghcr.io
+  repository: zcube/bitnami-compat/mariadb-galera
+  tag: 10.6-debian-10
+db:
+  user: "powerdns"
+  name: "powerdns"
+galera:
+  name: "powerdns"
+persistence:
+  storageClass: "local-path"
