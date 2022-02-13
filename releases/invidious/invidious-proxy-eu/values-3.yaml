@@ -1,0 +1,23 @@
+postgresql:
+  enabled: true
+  primary:
+    nodeSelector:
+      kubernetes.io/hostname: walker4851
+
+nodeSelector:
+  kubernetes.io/hostname: walker4851
+
+ingress:
+  enabled: true
+  hosts:
+  - eu3.proxy.yewtu.be
+  tls:
+   - secretName: chart-invidious-eu3-tls
+     hosts:
+     - eu3.proxy.yewtu.be
+  
+
+config:
+  domain: eu3.proxy.yewtu.be
+  db:
+    host: invidious-proxy-eu-2-postgresql-headless

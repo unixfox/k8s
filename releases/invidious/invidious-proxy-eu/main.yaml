@@ -25,3 +25,15 @@ releases:
   secrets:
   - "secrets.yaml"
   - "secrets-ingress.yaml"
+
+- name: invidious-proxy-eu-3
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: ../../../charts/invidious
+  values:
+  - "values.yaml"
+  - "values-3.yaml"
+  secrets:
+  - "secrets.yaml"
+  - "secrets-ingress.yaml"
