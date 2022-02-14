@@ -35,7 +35,7 @@ spec:
       affinity: {{ toYaml .Values.affinity | nindent 8 }}
       {{- end }}
       tolerations:
-      - key: dedicated-server
+      - key: lowvm
         operator: Equal
         value: "true"
         effect: NoExecute
@@ -220,9 +220,11 @@ spec:
             capabilities:
               add:
               - NET_ADMIN
+{{- if .Values.mariadb.enabled }}
 {{- if .Values.mariadb.persistence.enabled }}
       volumes:
       - name: data
         persistentVolumeClaim:
           claimName: "pvc-{{ template "powerdns.fullname" . }}-mariadb"
+{{- end }}
 {{- end }}

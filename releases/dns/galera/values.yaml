@@ -5,7 +5,5 @@ image:
 db:
   user: "powerdns"
   name: "powerdns"
-galera:
-  name: "powerdns"
 persistence:
   storageClass: "local-path"

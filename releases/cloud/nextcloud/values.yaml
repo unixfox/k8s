@@ -164,7 +164,7 @@ redis:
       enabled: true
       storageClass: "local-path"
 
-replicaCount: 0
+replicaCount: 1
 
 keel:
   # keel policy (all/major/minor/patch/force)

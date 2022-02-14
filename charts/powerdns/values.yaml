@@ -60,13 +60,7 @@ powerdns:
       value: "true"
     - name: PDNS_server_id
       value: "powerdns"
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "300m"
-    limits:
-      memory: "512Mi"
-      cpu: "300m"
+  resources: {}
 
 mariadb:
   enabled: false
@@ -119,13 +113,7 @@ powerdnsadmin:
     - secretName: chart-powerdnsadmin-tls
       hosts:
       - admin.dns.unixfox.eu
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "300m"
-    limits:
-      memory: "512Mi"
-      cpu: "1000m"
+  resources: {}
 
 nameOverride: ""
 fullnameOverride: ""
@@ -135,7 +123,11 @@ replicaCount: 1
 nodeSelector:
   kubernetes.io/arch: amd64
 
-tolerations: []
+tolerations:
+  - key: lowvm
+    operator: Equal
+    value: "true"
+    effect: NoExecute
 
 affinity:
   podAntiAffinity:

@@ -1,5 +1,5 @@
 mariadb:
-  enabled: true
+  enabled: false
   
 keel:
   # keel policy (all/major/minor/patch/force)

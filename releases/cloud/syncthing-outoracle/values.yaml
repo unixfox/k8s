@@ -1,5 +1,5 @@
 nodeSelector:
-  kubernetes.io/hostname: "buyvm"
+  kubernetes.io/hostname: "walker4851"
 service:
   listen:
     enabled: false
@@ -7,7 +7,7 @@ service:
     enabled: false
 persistence:
   nextcloud:
-    enabled: true
+    enabled: false
     storageClass: "local-path"
     accessMode: ReadWriteOnce
     retain: true
@@ -24,7 +24,7 @@ env:
 hostNetwork: true
 dnsPolicy: "ClusterFirstWithHostNet"
 tolerations:
-  - key: app-cloud
+  - key: dedicated-server
     operator: Equal
     value: "true"
     effect: NoExecute
