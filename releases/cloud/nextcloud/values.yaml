@@ -4,6 +4,7 @@ image:
 persistence:
   enabled: true
   storageClass: "local-path"
+  existingClaim: "nextcloud-nextcloud-0"
   annotations:
     "helm.sh/resource-policy": keep
 
@@ -50,7 +51,7 @@ resources:
     memory: 2048Mi
 
 nodeSelector:
-  kubernetes.io/hostname: walkerservers
+  kubernetes.io/hostname: walker4851
 
 tolerations:
   - key: dedicated-server
@@ -70,6 +71,8 @@ nginx:
   enabled: true
 
 mariadb:
+  image:
+    debug: true
   enabled: true
   primary:
     tolerations:
@@ -78,9 +81,10 @@ mariadb:
       value: "true"
       effect: NoExecute
     nodeSelector:
-      kubernetes.io/hostname: walkerservers
+      kubernetes.io/hostname: walker4851
     persistence:
       storageClass: "local-path"
+      existingClaim: "data-nextcloud-mariadb-1"
       annotations:
         "helm.sh/resource-policy": keep
       enabled: true
@@ -150,7 +154,7 @@ redis:
     enabled: false
   master:
     nodeSelector:
-      kubernetes.io/hostname: walkerservers
+      kubernetes.io/hostname: walker4851
     tolerations:
       - key: dedicated-server
         operator: Equal
@@ -159,6 +163,8 @@ redis:
     persistence:
       enabled: true
       storageClass: "local-path"
+
+replicaCount: 0
 
 keel:
   # keel policy (all/major/minor/patch/force)
