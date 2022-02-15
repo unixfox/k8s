@@ -1,2 +1,3 @@
 helmfiles:
-  - oracle-db-backup/main.yaml
+  - stash/main.yaml
+  #- oracle-db-backup/main.yaml
