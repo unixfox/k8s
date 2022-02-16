@@ -1,0 +1,4 @@
+apiVersion: v2
+name: stash-config-pvc-rclone
+description: A Helm chart for backup PVC using Stash and Rclone
+version: 1.0.0

@@ -1,0 +1,18 @@
+Repository:
+  resticpassword: ""
+  backend:
+    rclone:
+      remote: "ftp:"
+
+BackupConfiguration:
+  schedule: ""
+  pvcname: ""
+  retentionPolicy: {}
+    # name: default
+    # keepLast: 60
+    # prune: true
+
+secrets:
+  resticpassword: ""
+  rclone:
+    RCLONE_CONFIG_FTP_PASS: "ok"
