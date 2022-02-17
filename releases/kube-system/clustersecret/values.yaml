@@ -1,0 +1,3 @@
+image:
+  repository: "quay.io/unixfox/clustersecret"
+  tag: "latest"

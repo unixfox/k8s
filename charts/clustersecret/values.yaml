@@ -1,0 +1,111 @@
+# -- Set to override the chart name part of the release name
+nameOverride: ""
+# -- Set to override the release name
+fullnameOverride: ""
+
+# Service account configuration
+serviceAccount:
+  # -- If true create a ServiceAccount
+  create: true
+  # -- The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the fullname template.
+  name: ""
+  # -- List of imagePullSecret names to use with the service account. Ignored if serviceAccount.create is false.
+  imagePullSecretNames: []
+  # -- Service account annotations. Ignored if serviceAccount.create is false.
+  annotations: {}
+
+# RBAC configuration
+rbac:
+  # -- If true create and use RBAC resources
+  create: true
+
+# Image to use in clustersecret deployment
+image:
+  # -- Image repository to use
+  repository: flag5/clustersecret
+  # -- Image tag to use
+  tag: 0.0.6
+  # -- Image pullPolicy to use
+  pullPolicy: IfNotPresent
+
+# -- Additional clustersecret container arguments
+# Example:
+# extraArgs:
+# - --verbose
+extraArgs: []
+
+# -- Optional environment variables as key-value pairs
+# Example:
+# extraVars:
+#   LANG: en_US.utf8
+extraVars: {}
+
+# -- affinity spec for clustersecret deployment
+affinity: {}
+
+# -- nodeSelector spec for clustersecret deployment
+nodeSelector: {}
+
+# -- Additional labels for clustersecret deployment
+podExtraLabels: {}
+
+# -- Annotations for clustersecret deployment
+podAnnotations: {}
+
+# -- priorityClassName for clustersecret deployment
+priorityClassName: ""
+
+# -- Number of pod replicas in clustersecret deployment
+replicaCount: 1
+
+# -- Pod resources for clustersecret deployment
+# Example:
+# resources:
+#   limits:
+#     cpu: 50m
+#     memory: 200Mi
+#   requests:
+#     cpu: 50m
+#     memory: 200Mi
+resources: {}
+
+# -- Pod security context for clustersecret deployment
+# Example:
+# securityContext:
+#   runAsUser: 1000
+securityContext: {}
+
+# -- strategy spec for clustersecret deployment
+strategy:
+  type: Recreate
+
+# -- tolerations spec for clustersecret deployment
+tolerations: []
+
+# -- Optional clustersecret entities to be managed as part of release
+# For a given clustersecret name and data are the only required fields
+# For details refer to https://github.com/zakkg3/ClusterSecret/tree/master/yaml/Object_example
+# Example:
+# clusterSecrets:
+#- name: global-regcred
+#  labels:
+#    owner: ops
+#  annotations:
+#    rotate: never
+#  matchNamespace:
+#  - workers
+#  - ".*-dev"
+#  avoidNamespaces:
+#  - default
+#  - kube-system
+#  type: "kubernetes.io/dockerconfigjson"
+#  data:
+#    .dockerconfigjson: ZHVtbXk=
+#- name: db-creds
+#  matchNamespace:
+#  - ".*-dev"
+#  data:
+#    user: ZHVtbXk=
+#    password: ZHVtbXk=
+clusterSecrets: []

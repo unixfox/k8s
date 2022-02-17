@@ -1,0 +1,32 @@
+{{- range $name, $config := .Values.targets }}
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupBlueprint
+metadata:
+  name: "{{ .Release.Name }}-{{ $name }}-rclone-backupconfig"
+spec:
+  # ============== Blueprint for Repository ==========================
+  backend:
+    rest:
+      url: {{ .Values.Repository.rclone.remote | required "check values" }}
+      prefix: $config.prefix
+      stash/${TARGET_NAMESPACE}/${TARGET_KIND}/${TARGET_NAME}
+    storageSecretName: gcs-secret
+  # ============== Blueprint for BackupConfiguration =================
+  schedule: "* * * * *"
+  backupHistoryLimit: 3
+  # task: # no task section is required for workload data backup
+  #   name: workload-backup
+  runtimeSettings:
+    container:
+      envFrom:
+        - secretRef:
+          name: "{{ .Release.Name }}-rclone-secret"
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+  {{- with $config.retentionPolicy }}
+  retentionPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+---
+{{- end }}

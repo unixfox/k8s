@@ -1,0 +1,5 @@
+To verify that clustersecret has started, run:
+
+  kubectl --namespace={{ .Release.Namespace }} get pods -l "{{ template "clustersecret.verificationPodLabels" . }}"
+
+More info available at: https://github.com/zakkg3/ClusterSecret

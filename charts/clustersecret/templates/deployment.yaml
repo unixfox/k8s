@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "clustersecret.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ template "clustersecret.defaultLabels" . }}
+{{- with .Values.podExtraLabels }}{{ toYaml . | nindent 4 }}{{- end }}
+{{- with .Values.podAnnotations }}
+  annotations:{{ toYaml . | nindent 4 }}{{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+{{ include  "clustersecret.defaultPodLabels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ include "clustersecret.defaultPodLabels" . | indent 8 }}
+{{- with .Values.podExtraLabels }}{{ toYaml . | nindent 8 }}{{- end }}
+{{- with .Values.podAnnotations }}
+      annotations:{{ toYaml . | nindent 8 }}{{- end }}
+    spec:
+      containers:
+      - name: {{ template "clustersecret.fullname" . }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command:
+        - kopf
+        args:
+        - run
+        - /src/handlers.py
+{{- with .Values.extraArgs }}{{ toYaml . | nindent 8 }}{{- end }}
+{{- with .Values.extraVars }}
+        env:
+{{- range $name, $value := . }}
+        - name: {{ $name }}
+          value: {{ $value }}
+{{- end }}
+{{- end }}
+{{- with .Values.resources }}
+        resources:
+{{ toYaml . | indent 10 }}
+{{- end }}
+{{- with .Values.securityContext }}
+        securityContext:
+{{ toYaml . | indent 10 }}
+{{- end }}
+{{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 6 }}
+{{- end }}
+      serviceAccountName: {{ template "clustersecret.serviceAccountName" . }}
+{{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+{{- end }}
+  strategy:
+{{ .Values.strategy | toYaml | indent 4 }}

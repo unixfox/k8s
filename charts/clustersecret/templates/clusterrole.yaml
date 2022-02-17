@@ -1,0 +1,30 @@
+{{- if .Values.rbac.create }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "clustersecret.fullname" . }}
+  labels:
+{{ template "clustersecret.defaultLabels" . }}
+rules:
+# Framework: knowing which other operators are running (i.e. peering).
+- apiGroups: [clustersecret.io]
+  resources: [customresourcedefinitions]
+  verbs: [list, get, patch]
+# Framework: posting the events about the handlers progress/errors.
+- apiGroups: ["",events.k8s.io]
+  resources: [events]
+  verbs: [create]
+# Application: read-only access for watching cluster-wide.
+- apiGroups: [clustersecret.io]
+  resources: [clustersecrets]
+  verbs: [list, get, watch, patch]
+# Watch namespaces
+- apiGroups: [""]
+  resources: [namespaces, namespaces/status]
+  verbs: [watch, list, get, patch]
+# Handle secrets
+- apiGroups: [""]
+  resources: [secrets]
+  verbs: [watch, list, get, patch, update, create, delete]
+{{- end }}

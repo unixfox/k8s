@@ -3,16 +3,19 @@ Repository:
   backend:
     rclone:
       remote: "ftp:"
+  rclone:
+    remoteName: "ftp"
+    config:
+      RCLONE_CONFIG_FTP_PASS: "ok"
 
-BackupConfiguration:
-  schedule: ""
-  pvcname: ""
+targets:
+  prefix: ""
   retentionPolicy: {}
     # name: default
     # keepLast: 60
     # prune: true
+  schedule: ""
 
 secrets:
   resticpassword: ""
-  rclone:
-    RCLONE_CONFIG_FTP_PASS: "ok"
+  

@@ -1,0 +1,13 @@
+apiVersion: v2
+name: clustersecret
+version: 0.0.4
+kubeVersion: ">= 1.16.0-0"
+description: ClusterSecret Operator
+type: application
+home: https://github.com/patrungel/clustersecret-helm
+sources:
+- https://github.com/zakkg3/ClusterSecret
+- https://github.com/patrungel/helm-charts
+maintainers: 
+- name: patrungel
+  email: patrungel@gmail.com
