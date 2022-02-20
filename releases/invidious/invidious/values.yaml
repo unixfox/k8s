@@ -109,7 +109,7 @@ config:
     notifications_only: false
     player_style: invidious
     quality: hd720
-    quality_dash: best
+    quality_dash: auto
     default_home: Popular
     feed_menu:
     - Popular
