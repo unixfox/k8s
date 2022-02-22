@@ -2,10 +2,10 @@ postgresql:
   enabled: true
   primary:
     nodeSelector:
-      kubernetes.io/hostname: sd64445
+      kubernetes.io/hostname: frhb71656ds
 
 nodeSelector:
-  kubernetes.io/hostname: sd64445
+  kubernetes.io/hostname: frhb71656ds
 
 ingress:
   enabled: true

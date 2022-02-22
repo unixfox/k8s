@@ -20,4 +20,4 @@ ingress:
 config:
   domain: eu3.proxy.yewtu.be
   db:
-    host: invidious-proxy-eu-2-postgresql-headless
+    host: invidious-proxy-eu-3-postgresql-headless

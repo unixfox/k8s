@@ -26,3 +26,57 @@ jobs:
         effect: NoExecute
     nodeSelector:
       kubernetes.io/hostname: walkerservers
+  - name: proxy-eu-2-purge
+    image:
+      repository: postgres
+      tag: 10
+      imagePullPolicy: IfNotPresent
+    schedule: "0 12 * * *"
+    failedJobsHistoryLimit: 1
+    successfulJobsHistoryLimit: 1
+    concurrencyPolicy: Forbid
+    restartPolicy: OnFailure
+    env:
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: invidious-proxy-eu-postgresql
+          key: postgresql-password
+    command: ["/bin/sh"]
+    args:
+    - '-c'
+    - 'psql -U kemal -h invidious-proxy-eu-2-postgresql -c "TRUNCATE TABLE videos" invidious'
+    tolerations:
+      - key: dedicated-server
+        operator: Equal
+        value: "true"
+        effect: NoExecute
+    nodeSelector:
+      kubernetes.io/hostname: frhb71656ds
+  - name: proxy-eu-3-purge
+    image:
+      repository: postgres
+      tag: 10
+      imagePullPolicy: IfNotPresent
+    schedule: "0 12 * * *"
+    failedJobsHistoryLimit: 1
+    successfulJobsHistoryLimit: 1
+    concurrencyPolicy: Forbid
+    restartPolicy: OnFailure
+    env:
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: invidious-proxy-eu-postgresql
+          key: postgresql-password
+    command: ["/bin/sh"]
+    args:
+    - '-c'
+    - 'psql -U kemal -h invidious-proxy-eu-3-postgresql -c "TRUNCATE TABLE videos" invidious'
+    tolerations:
+      - key: dedicated-server
+        operator: Equal
+        value: "true"
+        effect: NoExecute
+    nodeSelector:
+      kubernetes.io/hostname: walker4851

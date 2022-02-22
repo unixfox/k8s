@@ -10,3 +10,28 @@ releases:
   chart: ../../../charts/cron-restart-deployment
   values:
   - "values.yaml"
+  set:
+  - name: deploymentName
+    value: "invidious-proxy-eu-invidious"
+
+- name: cron-restart-proxy-eu-2
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: ../../../charts/cron-restart-deployment
+  values:
+  - "values.yaml"
+  set:
+  - name: deploymentName
+    value: "invidious-proxy-eu-2-invidious"
+
+- name: cron-restart-proxy-eu-3
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: ../../../charts/cron-restart-deployment
+  values:
+  - "values.yaml"
+  set:
+  - name: deploymentName
+    value: "invidious-proxy-eu-3-invidious"
