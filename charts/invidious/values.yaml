@@ -16,6 +16,11 @@ autoscaling:
 refresh:
   enabled: true
 
+hostNetwork: false
+
+ports:
+  - containerPort: 3000
+
 ingress:
   enabled: true
   main:
