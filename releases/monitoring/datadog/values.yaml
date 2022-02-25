@@ -6,10 +6,10 @@ datadog:
   logs:
     enabled: false
     containerCollectAll: false
-agents:
-  tolerations:
-    - key: "dedicated-server"
-      operator: "Exists"
+# agents:
+#   tolerations:
+#     - key: "dedicated-server"
+#       operator: "Exists"
   # volumes:
   #   - hostPath:
   #       path: /run/systemd/
