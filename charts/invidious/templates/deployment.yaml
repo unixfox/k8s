@@ -44,6 +44,7 @@ spec:
           - /bin/sh
           - -c
           - until pg_isready -h {{ .Values.config.db.host }} -p {{ .Values.config.db.port }} -U {{ .Values.config.db.user }}; do echo waiting for database; sleep 2; done;
+      hostNetwork: {{ .Values.hostNetwork }}
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -121,7 +122,7 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
-        - containerPort: 3000
+{{ toYaml .Values.ports | indent 8 }}
         env:
         - name: INVIDIOUS_CHANNEL_THREADS
           value: "1"

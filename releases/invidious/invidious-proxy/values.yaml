@@ -1,0 +1,133 @@
+keel:
+  # keel policy (all/major/minor/patch/force)
+  policy: force
+  approvals: 0
+  # images to track and update
+  images: 
+    - repository: image.repository
+      tag: image.tag
+    - repository: ytproxy.image.repository
+      tag: ytproxy.image.tag
+
+image:
+  repository: unixfox/invidious-custom
+  tag: api-new-latest
+
+postgresql:
+  enabled: true
+  primary:
+    nodeSelector:
+      kubernetes.io/hostname: frhb71656ds
+  primary:
+    tolerations:
+    - key: dedicated-server
+      operator: Equal
+      value: "true"
+      effect: NoExecute
+  persistence:
+    size: "200Gi"
+    storageClass: "local-path"
+  image:
+    repository: library/postgres
+    tag: 10
+
+ingress:
+  enabled: true
+  hosts:
+  - '*.proxy.yewtu.be'
+  tls:
+   - secretName: chart-invidious-proxy-tls
+     hosts:
+     - '*.proxy.yewtu.be'
+
+replicaCount: 3
+
+hostNetwork: true
+
+ports: {}
+
+affinity: {}
+
+nodeSelector:
+  kubernetes.io/hostname: frhb71656ds
+
+tolerations:
+  - key: dedicated-server
+    operator: Equal
+    value: "true"
+    effect: NoExecute
+
+ytproxy:
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsUser: 101
+    runAsGroup: 101
+    fsGroup: 101
+  affinity: {}
+
+refresh:
+  enabled: false
+
+config:
+  use_quic: false
+  domain: eu.proxy.yewtu.be
+  channel_threads: 0
+  feed_threads: 0
+  modified_source_code_url: https://github.com/unixfox/invidious-custom
+  output: STDOUT
+  log_level: Error
+  full_refresh: false
+  https_only: true
+  decrypt_polling: true
+  popular_enabled: true
+  captcha_enabled: false
+  login_enabled: true
+  registration_enabled: true
+  statistics_enabled: true
+  external_port: 443
+  db:
+    host: invidious-proxy-eu-3-postgresql-headless
+  default_user_preferences:
+    annotations: false
+    annotations_subscribed: false
+    autoplay: true
+    captions:
+    - ""
+    - ""
+    - ""
+    comments:
+    - youtube
+    - ""
+    continue: false
+    continue_autoplay: true
+    dark_mode: ""
+    latest_only: false
+    listen: false
+    local: true
+    locale: en-US
+    max_results: 40
+    notifications_only: false
+    player_style: invidious
+    quality: hd720
+    quality_dash: best
+    default_home: Popular
+    feed_menu:
+    - Popular
+    - Trending
+    - Subscriptions
+    - Playlists
+    related_videos: true
+    sort: published
+    thin_mode: false
+    unseen_only: false
+    video_loop: false
+    extend_desc: false
+    volume: 100
+    save_player_pos: false
+  dmca_content: []
+  check_tables: true
+  cache_annotations: false
+  hsts: true
+  disable_proxy: false
+  port: 3000
+  pool_size: 100
