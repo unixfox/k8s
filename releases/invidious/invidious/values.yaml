@@ -124,6 +124,7 @@ config:
     extend_desc: false
     volume: 100
     save_player_pos: false
+    watch_history: false
   dmca_content: []
   check_tables: true
   cache_annotations: false
