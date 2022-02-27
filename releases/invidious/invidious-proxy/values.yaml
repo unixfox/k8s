@@ -11,25 +11,40 @@ keel:
 
 image:
   repository: unixfox/invidious-custom
-  tag: api-new-latest
+  tag: api-new-build-eeb407bfdff8c9617ecdcd340c4c7a06200cca82-f8bd9c7e039f036d40bea260246cc9f3693e116d
+  pullPolicy: IfNotPresent
 
 postgresql:
   enabled: true
   primary:
+    podSecurityContext:
+      fsGroup: 1000
+    containerSecurityContext:
+      runAsUser: 1000
+    initContainers:
+      - name: chmod
+        image: busybox
+        command: ['chmod', '-R', '777', '/var/run/postgresql']
+        volumeMounts:
+        - name: socket
+          mountPath: /var/run/postgresql
+    extraVolumeMounts:
+      - name: socket
+        mountPath: /var/run/postgresql
+    extraVolumes:
+      - name: socket
+        hostPath:
+          path: /var/run/postgresql-invidious-proxy
     nodeSelector:
       kubernetes.io/hostname: frhb71656ds
-  primary:
     tolerations:
     - key: dedicated-server
       operator: Equal
       value: "true"
       effect: NoExecute
-  persistence:
-    size: "200Gi"
-    storageClass: "local-path"
-  image:
-    repository: library/postgres
-    tag: 10
+    persistence:
+      size: "200Gi"
+      storageClass: "local-path"
 
 ingress:
   enabled: true
@@ -43,8 +58,15 @@ ingress:
 replicaCount: 3
 
 hostNetwork: true
+containerPorts: false
 
-ports: {}
+extraVolumesMounts:
+  - name: postgressocket
+    mountPath: /var/run/postgresql
+extraVolumes:
+  - name: postgressocket
+    hostPath:
+      path: /var/run/postgresql-invidious-proxy
 
 affinity: {}
 
@@ -78,6 +100,7 @@ config:
   log_level: Error
   full_refresh: false
   https_only: true
+  force_resolve: ipv6
   decrypt_polling: true
   popular_enabled: true
   captcha_enabled: false
@@ -85,8 +108,6 @@ config:
   registration_enabled: true
   statistics_enabled: true
   external_port: 443
-  db:
-    host: invidious-proxy-eu-3-postgresql-headless
   default_user_preferences:
     annotations: false
     annotations_subscribed: false

@@ -17,9 +17,7 @@ refresh:
   enabled: true
 
 hostNetwork: false
-
-ports:
-  - containerPort: 3000
+containerPorts: true
 
 ingress:
   enabled: true
@@ -69,18 +67,26 @@ securityContext:
 # See https://github.com/helm/charts/tree/master/stable/postgresql
 postgresql:
   enabled: false
-  postgresqlUsername: kemal
-  postgresqlPassword: kemal
-  postgresqlDatabase: invidious
-  postgresqlPostgresPassword: kemal
-  initdbUsername: kemal
-  initdbPassword: kemal
+  auth:
+    username: kemal
+    password: kemal
+    database: invidious
+    postgresPassword: kemal
+  primary:
+    initdb:
+      user: kemal
+      password: kemal
+      scriptsConfigMap: invidious-postgresql-init
+    persistence:
+      mountPath: /data/
   postgresqlDataDir: /data/pgdata
-  persistence:
-    mountPath: /data/
+  
   image:
+    repository: library/postgres
     tag: 10
-  initdbScriptsConfigMap: invidious-postgresql-init
+
+extraVolumesMounts: []
+extraVolumes: []
 
 # Adapted from ../config/config.yml
 config:

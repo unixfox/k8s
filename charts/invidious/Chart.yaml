@@ -17,7 +17,7 @@ maintainers:
   email: mail@leonklingele.de
 dependencies:
 - name: postgresql
-  version: 10.5.2
+  version: 11.1.2
   repository: "https://charts.bitnami.com/bitnami/"
   condition: postgresql.enabled
 engine: gotpl

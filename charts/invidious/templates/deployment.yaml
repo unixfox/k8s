@@ -37,6 +37,7 @@ spec:
         runAsUser: {{ .Values.securityContext.runAsUser }}
         runAsGroup: {{ .Values.securityContext.runAsGroup }}
         fsGroup: {{ .Values.securityContext.fsGroup }}
+      {{- if not (hasKey .Values.config "database_url") }}
       initContainers:
         - name: wait-for-postgresql
           image: postgres
@@ -44,13 +45,20 @@ spec:
           - /bin/sh
           - -c
           - until pg_isready -h {{ .Values.config.db.host }} -p {{ .Values.config.db.port }} -U {{ .Values.config.db.user }}; do echo waiting for database; sleep 2; done;
+      {{- end }}
       hostNetwork: {{ .Values.hostNetwork }}
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- if .Values.containerPorts }}
         ports:
         - containerPort: 3000
+        {{- end }}
+        volumeMounts:
+        {{- if .Values.extraVolumesMounts }}
+{{ toYaml .Values.extraVolumesMounts | indent 8 }}
+        {{- end }}
         env:
         - name: INVIDIOUS_CONFIG
           valueFrom:
@@ -77,6 +85,10 @@ spec:
             path: /api/v1/stats
           initialDelaySeconds: 15
       restartPolicy: Always
+      volumes:
+        {{- if .Values.extraVolumes }}
+{{ toYaml .Values.extraVolumes | indent 8 }}
+        {{- end }}
 {{- if .Values.refresh.enabled }}
 ---
 apiVersion: apps/v1
@@ -121,8 +133,10 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- if .Values.containerPorts }}
         ports:
-{{ toYaml .Values.ports | indent 8 }}
+          - containerPort: 3000
+        {{- end }}
         env:
         - name: INVIDIOUS_CHANNEL_THREADS
           value: "1"
