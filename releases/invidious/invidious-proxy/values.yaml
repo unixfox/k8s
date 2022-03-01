@@ -36,7 +36,7 @@ postgresql:
         hostPath:
           path: /var/run/postgresql-invidious-proxy
     nodeSelector:
-      kubernetes.io/hostname: frhb71656ds
+      kubernetes.io/hostname: par-360167
     tolerations:
     - key: dedicated-server
       operator: Equal
@@ -71,7 +71,7 @@ extraVolumes:
 affinity: {}
 
 nodeSelector:
-  kubernetes.io/hostname: frhb71656ds
+  kubernetes.io/hostname: par-360167
 
 tolerations:
   - key: dedicated-server

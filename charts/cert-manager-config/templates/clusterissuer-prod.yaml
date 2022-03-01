@@ -17,3 +17,23 @@ spec:
             secretName: pdns-api-key
             zoneName: unixfox.eu.
             apiUrl: http://powerdns-service-api.dns.svc.cluster.local:8081
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: certmaster@unixfox.eu
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key
+    solvers:
+    - dns01:
+        webhook:
+          groupName: acme.unixfox.eu
+          solverName: pdns
+          config:
+            secretName: pdns-api-key
+            zoneName: unixfox.eu.
+            apiUrl: http://powerdns-service-api.dns.svc.cluster.local:8081
