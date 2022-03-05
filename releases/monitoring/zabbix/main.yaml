@@ -7,6 +7,6 @@ releases:
   labels:
     parent: monitoring
   namespace: monitoring
-  chart: cetic/zabbix
+  chart: zabbix-chart-6.0/zabbix-helm-chrt
   values:
   - "values.yaml"

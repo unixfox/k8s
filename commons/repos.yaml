@@ -59,3 +59,5 @@ repositories:
     url: https://iomedhealth.github.io/helm_stolon/
   - name: open-8gears
     url: https://8gears.container-registry.com/chartrepo/library
+  - name: zabbix-chart-6.0
+    url: https://cdn.zabbix.com/zabbix/integrations/kubernetes-helm/6.0

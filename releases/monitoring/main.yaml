@@ -1,6 +1,6 @@
 helmfiles:
+  - zabbix/main.yaml
   #- netdata/main.yaml
-  - datadog/main.yaml
-  #- zabbix/main.yaml
+  #- datadog/main.yaml
   #- k8s-zabbix
   #- grafana/main.yaml
