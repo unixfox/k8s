@@ -1,13 +1,245 @@
-ingress:
+##  **Zabbix proxy** configurations
+zabbixProxy:
+  ## Enables use of **Zabbix proxy**
   enabled: true
-  annotations:
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: buypass-prod
-  hosts:
-    - host: zabbix.unixfox.eu
-      paths:
-        - /
-  tls:
-    - secretName: zabbix-tls
-      hosts:
-        - zabbix.unixfox.eu
+  resources: {}
+  image:
+    ## Zabbix proxy Docker image name
+    repository: zabbix/zabbix-proxy-sqlite3
+    ## Tag of Docker image of Zabbix proxy
+    tag: alpine-6.0.0
+    pullPolicy: IfNotPresent
+    ## List of dockerconfig secrets names to use when pulling images
+    pullSecrets: []
+
+  env:
+    ## The variable allows to switch Zabbix proxy mode. Bu default, value is 1 - passive proxy. Allowed values are 0 and 1.
+    - name: ZBX_PROXYMODE
+      value: 1
+    ## Zabbix proxy hostname
+    - name: ZBX_HOSTNAME
+      value: zabbix-proxy
+    ## Zabbix server host
+    ## If ProxyMode is set to active mode:
+    ## IP address or DNS name of Zabbix server to get configuration data from and send data to.
+
+    ## If ProxyMode is set to passive mode:
+    ## List of comma delimited IP addresses, optionally in CIDR notation, or DNS names of Zabbix server. Incoming connections will be accepted only from the addresses listed here. If IPv6 support is enabled then '127.0.0.1', '::127.0.0.1', '::ffff:127.0.0.1' are treated equally and '::/0' will allow any IPv4 or IPv6 address. '0.0.0.0/0' can be used to allow any IPv4 address.
+    ## Example: Server=127.0.0.1,192.168.1.0/24,::1,2001:db8::/32,zabbix.example.com
+    - name: ZBX_SERVER_HOST
+      value: "1.1.1.1"
+    ## Zabbix server port
+    - name: ZBX_SERVER_PORT
+      value: 10051
+    ## The variable is used to specify debug level. By default, value is 3
+    - name: ZBX_DEBUGLEVEL
+      value: 3
+    ## Cache size
+    - name: ZBX_CACHESIZE
+      value: 128M
+    ## The variable enable communication with Zabbix Java Gateway to collect Java related checks
+    - name: ZBX_JAVAGATEWAY_ENABLE
+      value: false
+    ## How often proxy retrieves configuration data from Zabbix server in seconds. Active proxy parameter. Ignored for passive proxies.
+    - name: ZBX_CONFIGFREQUENCY
+      value: 60
+    ## List can be extended with other environment variables listed here: https://github.com/zabbix/zabbix-docker/tree/5.4/agent/alpine#other-variables
+    ## For example:
+    ## The variable is list of comma separated loadable Zabbix modules.
+    ## - name: ZBX_LOADMODULE
+    ##   value : dummy1.so,dummy2.so
+
+
+  service:
+    annotations: {}
+    labels: {}
+    ## Type of service for Zabbix proxy
+    type: NodePort
+    ## Port to expose service
+    port: 10051
+    ## Port of application pod
+    targetPort: 10051
+    ## Zabbix proxy Ingress externalIPs with optional path
+    ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
+    ## Must be provided if ProxyMode is set to passive mode
+    externalIPs: []
+    ## Loadbalancer IP
+    ## Only use if service.type is "LoadBalancer"
+    ##
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+
+
+  ## Node selector for Zabbix proxy
+  nodeSelector: {}
+
+  ## Tolerations configurations for Zabbix proxy
+  tolerations: {}
+
+  ## Affinity configurations for Zabbix proxy
+  affinity: {}
+
+  persistentVolume:
+    ## If true, Zabbix proxy will create/use a Persistent Volume Claim
+    ##
+    enabled: false
+
+    ## Zabbix proxy data Persistent Volume access modes
+    ## Must match those of existing PV or dynamic provisioner
+    ## Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+    ##
+    accessModes:
+      - ReadWriteOnce
+
+    ## Zabbix proxy data Persistent Volume Claim annotations
+    ##
+    annotations: {}
+
+    ## Zabbix proxy data Persistent Volume existing claim name
+    ## Requires zabbixProxy.persistentVolume.enabled: true
+    ## If defined, PVC must be created manually before volume will be bound
+    existingClaim: ""
+
+    ## Zabbix proxy data Persistent Volume mount root path
+    ##
+    mountPath: /data
+
+    ## Zabbix proxy data Persistent Volume size
+    ##
+    size: 2Gi
+
+    ## Zabbix proxy data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass: "-"
+
+    ## Zabbix proxy data Persistent Volume Binding Mode
+    ## If defined, volumeBindingMode: <volumeBindingMode>
+    ## If undefined (the default) or set to null, no volumeBindingMode spec is
+    ##   set, choosing the default mode.
+    ##
+    volumeBindingMode: ""
+
+    ## Subdirectory of Zabbix proxy data Persistent Volume to mount
+    ## Useful if the volume's root directory is not empty
+    ##
+    subPath: ""
+
+## **Zabbix agent** configurations
+zabbixAgent:
+  ## Enables use of Zabbix agent
+  enabled: true
+  resources: {}
+      ##  requests:
+      ##   cpu: 100m
+      ##   memory: 54Mi
+      ##  limits:
+      ##   cpu: 100m
+      ##   memory: 54Mi
+
+  securityContext:
+    fsGroup: 65534
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+
+  containerSecurityContext: {}
+    ## capabilities:
+    ##   add:
+    ##   - SYS_TIME
+
+  ## Expose the service to the host network
+  hostNetwork: true
+
+  ## Share the host process ID namespace
+  hostPID: true
+  ## If true, agent pods mounts host / at /host/root
+  ##
+  hostRootFsMount: true
+  extraHostVolumeMounts: []
+  ##  - name: <mountName>
+  ##    hostPath: <hostPath>
+  ##    mountPath: <mountPath>
+  ##    readOnly: true|false
+  ##    mountPropagation: None|HostToContainer|Bidirectional
+  image:
+    ## Zabbix agent Docker image name
+    repository: zabbix/zabbix-agent2
+    ## Tag of Docker image of Zabbix agent
+    tag: alpine-6.0.0
+    pullPolicy: IfNotPresent
+    ## List of dockerconfig secrets names to use when pulling images
+    pullSecrets: []
+  env:
+      ## Zabbix server host
+    - name: ZBX_SERVER_HOST
+      value: 1.1.1.1/32
+      ## Zabbix server port
+    - name: ZBX_SERVER_PORT
+      value: 10052
+      ## This variable is boolean (true or false) and enables or disables feature of passive checks. By default, value is true
+    - name: ZBX_PASSIVE_ALLOW
+      value: true
+      ## The variable is comma separated list of allowed Zabbix server or proxy hosts for connections to Zabbix agent container.
+    - name: ZBX_PASSIVESERVERS
+      value: 1.1.1.1/32
+      ## This variable is boolean (true or false) and enables or disables feature of active checks
+    - name: ZBX_ACTIVE_ALLOW
+      value: true
+      ## The variable is used to specify debug level, from 0 to 5
+    - name: ZBX_DEBUGLEVEL
+      value: 3
+      ## The variable is used to specify timeout for processing checks. By default, value is 4.
+    - name: ZBX_TIMEOUT
+      value: 4
+    ## List can be extended with other environment variables listed here: https://github.com/zabbix/zabbix-docker/tree/5.4/agent/alpine#other-variables
+    ## For example:
+    ## The variable is comma separated list of allowed Zabbix server or proxy hosts for connections to Zabbix agent container. You may specify port.
+    ## - name: ZBX_ACTIVESERVERS 
+    ##   value: ''
+      ## The variable is list of comma separated loadable Zabbix modules. It works with volume /var/lib/zabbix/modules.
+    ## - name: ZBX_LOADMODULE
+    ##   value: ''
+
+  ## Node selector for Agent. Only supports Linux.
+  nodeSelector:
+    kubernetes.io/os: linux
+
+  ## Tolerations configurations
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+  ## Affinity configurations
+  affinity: {}
+  serviceAccount:
+    ## Specifies whether a ServiceAccount should be created
+    create: true
+    ## The name of the ServiceAccount to use.
+    ## If not set and create is true, a name is generated using the fullname template
+    name: zabbix-agent-service-account
+    annotations: {}
+    imagePullSecrets: []
+    automountServiceAccountToken: false
+
+  service:
+    type: ClusterIP
+    port: 10050
+    targetPort: 10050
+    nodePort: 10050
+    portName: zabbix-agent
+    listenOnAllInterfaces: true
+    annotations:
+      agent.zabbix/monitor: "true"
+
+  rbac:
+    ## If true, create & use RBAC resources
+    ##
+    create: true
+    ## If true, create & use Pod Security Policy resources
+    ## https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+    pspEnabled: true
+    pspAnnotations: {}

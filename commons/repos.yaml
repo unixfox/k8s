@@ -61,3 +61,5 @@ repositories:
     url: https://8gears.container-registry.com/chartrepo/library
   - name: oauth2-proxy
     url: https://oauth2-proxy.github.io/manifests
+  - name: zabbix-chart-6.0
+    url: https://cdn.zabbix.com/zabbix/integrations/kubernetes-helm/6.0
