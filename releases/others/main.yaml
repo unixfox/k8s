@@ -1,3 +1,4 @@
 helmfiles:
+  - oauth2-proxy/main.yaml
   - eternaljukebox/main.yaml
   #- toogoodtogo/main.yaml

@@ -98,6 +98,8 @@ ingress:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: buypass-prod
     kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/auth-url: "https://oauth.unixfox.eu/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth.unixfox.eu/oauth2/start?rd=https://n8n.unixfox.eurequest_uri$is_args$args"
   hosts:
     - host: n8n.unixfox.eu
       paths:

@@ -35,8 +35,17 @@ postgresql:
       - name: socket
         hostPath:
           path: /var/run/postgresql-invidious-proxy
-    nodeSelector:
-      kubernetes.io/hostname: par-360167
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - walker4851
+              - par-360167
+              - ms084
     tolerations:
     - key: dedicated-server
       operator: Equal
@@ -55,7 +64,7 @@ ingress:
      hosts:
      - '*.proxy.yewtu.be'
 
-replicaCount: 3
+replicaCount: 10
 
 hostNetwork: true
 containerPorts: false
@@ -68,10 +77,17 @@ extraVolumes:
     hostPath:
       path: /var/run/postgresql-invidious-proxy
 
-affinity: {}
-
-nodeSelector:
-  kubernetes.io/hostname: par-360167
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - walker4851
+          - par-360167
+          - ms084
 
 tolerations:
   - key: dedicated-server
@@ -85,7 +101,17 @@ ytproxy:
     runAsUser: 101
     runAsGroup: 101
     fsGroup: 101
-  affinity: {}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - walker4851
+            - par-360167
+            - ms084
 
 refresh:
   enabled: false

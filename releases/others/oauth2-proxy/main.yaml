@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: oauth2-proxy
+  labels:
+    parent: others
+  namespace: others
+  chart: oauth2-proxy/oauth2-proxy
+  secrets:
+  - "secrets.yaml"
+  values:
+  - "values.yaml"

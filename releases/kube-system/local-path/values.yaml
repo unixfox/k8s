@@ -2,6 +2,6 @@ nodePathMap:
   - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
     paths:
       - /opt/local-path-provisioner
-  - node: buyvm
+  - node: ms084
     paths:
-      - /mnt/sda/local-path-provisioner
+      - /storage/local-path-provisioner

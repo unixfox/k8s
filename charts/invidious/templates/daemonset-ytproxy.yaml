@@ -29,6 +29,9 @@ spec:
         runAsGroup: {{ .Values.ytproxy.securityContext.runAsGroup }}
         fsGroup: {{ .Values.ytproxy.securityContext.fsGroup }}
       hostNetwork: true
+      {{- if .Values.ytproxy.affinity }}
+      affinity: {{ toYaml .Values.ytproxy.affinity | nindent 8 }}
+      {{- end }}
       initContainers:
       - name: volume-mount-hack
         image: busybox

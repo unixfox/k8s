@@ -1,5 +1,5 @@
 nodeSelector:
-  kubernetes.io/hostname: "walker4851"
+  kubernetes.io/hostname: "ms084"
 service:
   listen:
     enabled: false
