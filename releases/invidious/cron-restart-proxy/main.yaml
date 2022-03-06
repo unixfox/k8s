@@ -3,10 +3,13 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: postgres-maintenance-proxy
+- name: cron-restart-proxy
   labels:
     parent: invidious
   namespace: invidious
-  chart: ../../../charts/cronjobs
+  chart: ../../../charts/cron-restart-deployment
   values:
   - "values.yaml"
+  set:
+  - name: deploymentName
+    value: "invidious-proxy-invidious"

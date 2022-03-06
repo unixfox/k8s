@@ -13,12 +13,12 @@ jobs:
     - name: PGPASSWORD
       valueFrom:
         secretKeyRef:
-          name: invidious-proxy-eu-postgresql
+          name: invidious-proxy-postgresql
           key: postgresql-password
     command: ["/bin/sh"]
     args:
     - '-c'
-    - 'psql -U kemal -h invidious-proxy-eu-postgresql -c "TRUNCATE TABLE videos" invidious'
+    - 'psql -U kemal -h invidious-proxy-postgresql -c "TRUNCATE TABLE videos" invidious'
     tolerations:
       - key: dedicated-server
         operator: Equal
