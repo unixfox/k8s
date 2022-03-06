@@ -12,7 +12,7 @@ persistence:
     accessMode: ReadWriteOnce
     retain: true
     size: 1Gi
-  data:
+  syncthing:
     enabled: true
     mountPath: /var/syncthing
     storageClass: "local-path"
