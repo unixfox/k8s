@@ -59,3 +59,5 @@ repositories:
     url: https://iomedhealth.github.io/helm_stolon/
   - name: open-8gears
     url: https://8gears.container-registry.com/chartrepo/library
+  - name: oauth2-proxy
+    url: https://oauth2-proxy.github.io/manifests
