@@ -43,7 +43,7 @@ postgresql:
             - key: kubernetes.io/hostname
               operator: In
               values:
-              - walker4851
+              - ams-362691
               - par-360167
               - ms084
     tolerations:
@@ -85,7 +85,7 @@ affinity:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - walker4851
+          - ams-362691
           - par-360167
           - ms084
 
@@ -110,7 +110,7 @@ ytproxy:
           - key: kubernetes.io/hostname
             operator: In
             values:
-            - walker4851
+            - ams-362691
             - par-360167
             - ms084
 
