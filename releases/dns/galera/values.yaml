@@ -7,3 +7,9 @@ db:
   name: "powerdns"
 persistence:
   storageClass: "local-path"
+
+replicaCount: 1
+
+service:
+  headless:
+    publishNotReadyAddresses: false

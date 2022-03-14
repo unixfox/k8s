@@ -19,3 +19,124 @@ morty:
   nodeSelector:
     topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
     kubernetes.io/arch: amd64
+
+searxSettings:
+  use_default_settings: true
+
+  general:
+    debug: False # Debug mode, only for development
+    instance_name: "Searx Belgium" # displayed name
+    contact_url: mailto:contact[at]searx.be
+
+  # brand:
+  #   git_url: https://github.com/searxng/searxng
+  #   git_branch: master
+  #   issue_url: https://github.com/searxng/searxng/issues
+  #   new_issue_url: https://github.com/searxng/searxng/issues/new
+  #   docs_url: https://searxng.github.io/searxng
+  #   public_instances: https://searx.space
+  #   wiki_url: https://github.com/searxng/searxng/wiki
+  #   twitter_url: https://twitter.com/Searx_engine
+
+  search:
+    autocomplete: "google" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
+    default_lang: "all" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
+    ban_time_on_fail: 0 # ban time in seconds after engine errors
+    max_ban_time_on_fail: 0 # max ban time in seconds after engine errors
+
+  server:
+    bind_address: "0.0.0.0" # address to listen on
+    base_url: "https://searx.be" # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
+    image_proxy: True # Proxying image results through searx
+    default_http_headers:
+      X-Content-Type-Options : nosniff
+      X-XSS-Protection : 1; mode=block
+      X-Download-Options : noopen
+      X-Robots-Tag : noindex, nofollow
+      Referrer-Policy : no-referrer
+      Content-Security-Policy : "upgrade-insecure-requests; default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'self' https://github.com/searxng/searxng/issues/new; font-src 'self'; frame-ancestors 'self'; base-uri 'self'; connect-src 'self' https://overpass-api.de; img-src 'self' data: https://*.tile.openstreetmap.org; frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com https://www.dailymotion.com https://www.deezer.com https://www.mixcloud.com https://w.soundcloud.com https://embed.spotify.com"
+      Feature-Policy : "accelerometer 'none';ambient-light-sensor 'none'; autoplay 'none';camera 'none';encrypted-media 'none';focus-without-user-activation 'none'; geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';picture-in-picture 'none'; speaker 'none';sync-xhr 'none';usb 'none';vr 'none'"
+      strict-transport-security : max-age=15724800; includeSubDomains; preload
+
+  ui:
+    query_in_title: true
+    default_theme: oscar
+    infinite_scroll: true
+
+  outgoing:
+    enable_http2: false
+  
+  categories_as_tabs:
+    general:
+    images:
+    videos:
+    files:
+    it:
+    news:
+    map:
+    music:
+    science:
+    social media:
+
+  enabled_plugins:
+    - 'Hash plugin'
+    - 'Search on category select' 
+    - 'Self Informations'
+    - 'Tracker URL remover'
+    - 'Hostname replace'  # see hostname_replace configuration below
+
+  hostname_replace:
+    '(.*\.)?youtube\.com$': 'yewtu.be'
+    '(.*\.)?youtu\.be$': 'yewtu.be'
+    '(.*\.)?youtube-noocookie\.com$': 'yewtu.be'
+    '(.*\.)?reddit\.com$': 'old.reddit.com'
+    '(.*\.)?redd\.it$': 'old.reddit.com'
+    '(www\.)?twitter\.com$': 'nitter.unixfox.eu'
+
+  engines:
+    - name: bing
+      disabled: true
+    - name: brave
+      disabled: true
+    - name: qwant
+      disabled: true
+    - name: dictzone
+      disabled: true
+    - name: bing images
+      disabled: true
+    - name: qwant images
+      disabled: true
+    - name: artic
+      disabled: true
+    - name: deviantart
+      disabled: true
+    - name: flickr
+      disabled: true
+    - name: library of congress
+      disabled: true
+    - name: openverse
+      disabled: true
+    - name: unsplash
+      disabled: true
+    - name: unsplash
+      disabled: true
+    - name: bing videos
+      disabled: true
+    - name: qwant videos
+      disabled: true
+    - name: dailymotion
+      disabled: true
+    - name: sepiasearch
+      disabled: true
+    - name: vimeo
+      disabled: true
+    - name: youtube
+      disabled: true
+    - name: google videos
+      disabled: true
+    - name: invidious
+      disabled: false
+      base_url:
+        - https://yewtu.be
+    - name: google
+      use_mobile_ui: true
