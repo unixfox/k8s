@@ -1,3 +1,6 @@
+image:
+  tag: v7.2.1
+
 ingress:
   enabled: true
   path: /
@@ -27,7 +30,7 @@ ingress:
         - oauth.unixfox.eu
 
 nodeSelector:
-  kubernetes.io/arch: amd64
+  kubernetes.io/arch: arm64
 
 tolerations:
   - key: lowvm
