@@ -61,7 +61,7 @@ spec:
         - containerPort: 8888
         volumeMounts:
         - name: config-searx
-          mountPath: /usr/local/searx/searx/settings.yml
+          mountPath: /etc/searxng/settings.yml
           subPath: settings.yml
         securityContext:
           capabilities:
