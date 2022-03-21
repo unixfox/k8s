@@ -134,6 +134,10 @@ searxSettings:
       disabled: true
     - name: google videos
       disabled: true
+    - name: z-library
+      disabled: true
+    - name: btdigg
+      disabled: true
     - name: invidious
       disabled: false
       base_url:
