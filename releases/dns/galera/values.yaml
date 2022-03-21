@@ -2,6 +2,7 @@ image:
   registry: ghcr.io
   repository: zcube/bitnami-compat/mariadb-galera
   tag: 10.6-debian-10
+  pullPolicy: Always
 db:
   user: "powerdns"
   name: "powerdns"
@@ -12,4 +13,4 @@ replicaCount: 1
 
 service:
   headless:
-    publishNotReadyAddresses: false
+    publishNotReadyAddresses: true
