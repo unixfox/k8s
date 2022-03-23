@@ -1,3 +1,7 @@
+image:
+  repository: quay.io/unixfox/onlyoffice
+  tag: "latest"
+
 ingress:
   enabled: true
   annotations:
@@ -13,4 +17,4 @@ ingress:
     - onlyoffice.unixfox.eu
 
 nodeSelector:
-  kubernetes.io/arch: amd64
+  kubernetes.io/arch: arm64
