@@ -1,5 +1,5 @@
 nodeSelector:
-  kubernetes.io/hostname: "ms084"
+  kubernetes.io/hostname: "ams-362691"
 service:
   listen:
     enabled: false
@@ -12,7 +12,7 @@ persistence:
     accessMode: ReadWriteOnce
     retain: true
     size: 1Gi
-  syncthing:
+  syncthing1:
     enabled: true
     mountPath: /var/syncthing
     storageClass: "local-path"
