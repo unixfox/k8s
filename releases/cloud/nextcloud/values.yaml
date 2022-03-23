@@ -4,7 +4,7 @@ image:
 persistence:
   enabled: true
   storageClass: "local-path"
-  #existingClaim: "nextcloud-nextcloud-0"
+  existingClaim: "nextcloud-nextcloud-1"
   annotations:
     "helm.sh/resource-policy": keep
 
@@ -51,7 +51,7 @@ resources:
     memory: 2048Mi
 
 nodeSelector:
-  kubernetes.io/hostname: ms084
+  kubernetes.io/hostname: ams-362691
 
 tolerations:
   - key: dedicated-server
@@ -81,10 +81,10 @@ mariadb:
       value: "true"
       effect: NoExecute
     nodeSelector:
-      kubernetes.io/hostname: ms084
+      kubernetes.io/hostname: ams-362691
     persistence:
       storageClass: "local-path"
-      #existingClaim: "data-nextcloud-mariadb-1"
+      existingClaim: "data-nextcloud-mariadb-1"
       annotations:
         "helm.sh/resource-policy": keep
       enabled: true
@@ -154,7 +154,7 @@ redis:
     enabled: false
   master:
     nodeSelector:
-      kubernetes.io/hostname: ms084
+      kubernetes.io/hostname: ams-362691
     tolerations:
       - key: dedicated-server
         operator: Equal
