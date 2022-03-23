@@ -6,6 +6,11 @@ image:
 basicauth:
   enabled: true
   user: "unixfox"
+tolerations:
+  - key: lowvm
+    operator: Equal
+    value: "true"
+    effect: NoExecute
 service:
   enabled: true
   type: "ClusterIP"
