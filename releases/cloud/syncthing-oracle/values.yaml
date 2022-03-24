@@ -7,7 +7,7 @@ persistence:
   nextcloud:
     enabled: true
     type: pvc
-    existingClaim: cloud-nextcloud-nextcloud
+    existingClaim: nextcloud-nextcloud-1
   data:
     enabled: true
     mountPath: /var/syncthing
