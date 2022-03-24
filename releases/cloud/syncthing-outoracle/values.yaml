@@ -7,11 +7,9 @@ service:
     enabled: false
 persistence:
   nextcloud:
-    enabled: false
-    storageClass: "local-path"
-    accessMode: ReadWriteOnce
-    retain: true
-    size: 1Gi
+    enabled: true
+    type: pvc
+    existingClaim: nextcloud-nextcloud-1
   syncthing1:
     enabled: true
     mountPath: /var/syncthing
@@ -21,6 +19,7 @@ persistence:
     size: 1Gi
 env:
   STGUIADDRESS: "127.0.0.1:8384"
+  PGID: "82"
 hostNetwork: true
 dnsPolicy: "ClusterFirstWithHostNet"
 tolerations:
