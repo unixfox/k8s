@@ -62,18 +62,21 @@ probes:
       httpGet:
         path: /jack/status/20
         port: 8080
+      timeoutSeconds: 5
   liveness:
     custom: true
     spec:
       httpGet:
         path: /jack/status/20
         port: 8080
+      timeoutSeconds: 5
   startup:
     custom: true
     spec:
       httpGet:
         path: /jack/status/20
         port: 8080
+      timeoutSeconds: 5
 
 redis:
   enabled: true
