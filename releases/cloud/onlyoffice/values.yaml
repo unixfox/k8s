@@ -1,5 +1,5 @@
 image:
-  repository: quay.io/unixfox/onlyoffice
+  repository: jiriks74/onlyoffice-documentserver-arm64
   tag: "latest"
 
 ingress:

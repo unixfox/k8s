@@ -63,3 +63,5 @@ repositories:
     url: https://oauth2-proxy.github.io/manifests
   - name: zabbix-chart-6.0
     url: https://cdn.zabbix.com/zabbix/integrations/kubernetes-helm/6.0
+  - name: truecharts
+    url: https://truecharts.org/

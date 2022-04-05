@@ -140,7 +140,8 @@ searxSettings:
       disabled: true
     - name: invidious
       disabled: false
+      enable_http: true
       base_url:
-        - https://yewtu.be
+        - http://invidious-invidious.invidious.svc.cluster.local:3000
     - name: google
       use_mobile_ui: true

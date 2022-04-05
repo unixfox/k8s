@@ -7,7 +7,7 @@ releases:
   labels:
     parent: cloud
   namespace: cloud
-  chart: kfirfer/onlyoffice
+  chart: truecharts/onlyoffice-document-server
   values:
   - "values.yaml"
   secrets:
