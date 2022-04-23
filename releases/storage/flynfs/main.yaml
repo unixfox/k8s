@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: flynfs
+  labels:
+    parent: flynfs
+  namespace: storage
+  chart: ../../../charts/flynfs
+  secrets:
+  - "secrets.yaml"
