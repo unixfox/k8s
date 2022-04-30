@@ -1,0 +1,8 @@
+nfs:
+  server: "10.43.105.196"
+  path: "/"
+nodeSelector:
+  topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+storageClass:
+  name: "nfs-flynfs"
+  defaultClass: false

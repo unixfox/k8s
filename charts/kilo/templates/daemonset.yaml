@@ -17,7 +17,7 @@ spec:
       hostNetwork: true
       containers:
       - name: kilo
-        image: squat/kilo:ee480dece4ceab3fd68b1f4a09e4e67da25003a6
+        image: squat/kilo:0.4.1
         args:
         - --kubeconfig=/etc/kubernetes/kubeconfig
         - --log-level=debug
@@ -54,7 +54,7 @@ spec:
         - name: MASTER_URL
           value: "{{ .Values.masterURL }}"
       - name: install-cni
-        image: squat/kilo:6684d5bca34ad3945daea0de045b0d584af4be55
+        image: squat/kilo:0.4.1
         command:
         - /bin/sh
         - -c

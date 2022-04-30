@@ -1,6 +1,6 @@
 helmfiles:
   - invidious/main.yaml
-  - invidious-proxy/main.yaml
+  #- invidious-proxy/main.yaml
   #- invidious-proxy-eu/main.yaml
   - stolon/main.yaml
   #- pgbouncer/main.yaml

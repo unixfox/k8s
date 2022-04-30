@@ -1,2 +1,3 @@
 helmfiles:
   - flynfs/main.yaml
+  - nfs-flynfs/main.yaml

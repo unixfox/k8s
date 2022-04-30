@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: nfs-flynfs
+  labels:
+    parent: storage
+  namespace: storage
+  chart: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+  values:
+  - "values.yaml"
