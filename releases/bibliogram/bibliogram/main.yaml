@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: bibliogram
+  labels:
+    parent: bibliogram
+  namespace: bibliogram
+  chart: ../../../charts/bibliogram
+  values:
+  - "values.yaml"

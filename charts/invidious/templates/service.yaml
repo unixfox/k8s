@@ -15,3 +15,22 @@ spec:
   selector:
     app: {{ template "invidious.name" . }}
     release: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ template "invidious.fullname" . }}-internal"
+  labels:
+    app: {{ template "invidious.name" . }}
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  internalTrafficPolicy: Local
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000
+  selector:
+    app: {{ template "invidious.name" . }}
+    release: {{ .Release.Name }}
