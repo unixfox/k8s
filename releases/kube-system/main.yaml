@@ -1,4 +1,5 @@
 helmfiles:
+  - kwatch/main.yaml
   - kilo/main.yaml
   - coredns/main.yaml
   #- nodelocaldns/main.yaml

@@ -1,0 +1,14 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: kwatch
+  labels:
+    parent: kube-system
+  namespace: kube-system
+  chart: ../../../charts/kwatch
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"
