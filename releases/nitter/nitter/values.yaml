@@ -10,6 +10,9 @@ keel:
 controller:
   replicas: 3
 
+image:
+  tag: build-20220405
+
 env:
   NITTER_HOST: "nitter.unixfox.eu"
   NITTER_NAME: "nitter-unixfox"
