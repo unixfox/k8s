@@ -2,7 +2,7 @@
 
 ## Installation
 1. Install helm
-2. Install helmfile: https://github.com/roboll/helmfile#installation
+2. Install helmfile: https://github.com/helmfile/helmfile#installation
 3. Install helmfile diff: `helm plugin install https://github.com/databus23/helm-diff`
 4. Install helm-secrets: `helm plugin install https://github.com/futuresimple/helm-secrets`
 
