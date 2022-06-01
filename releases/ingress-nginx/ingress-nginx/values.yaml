@@ -5,6 +5,7 @@ defaultBackend:
     image: defaultbackend-arm64
 controller:
   watchIngressWithoutClass: true
+  terminationGracePeriodSeconds: 0
   dnsPolicy: ClusterFirstWithHostNet
   metrics:
     port: 10254
@@ -59,6 +60,9 @@ controller:
   - name: cache-proxy-temp
     emptyDir:
       medium: "Memory"
+  - hostPath:
+      path: /etc/nginx/lua/plugins
+    name: antiddos
   extraVolumeMounts:
   - mountPath: /etc/nginx/lua/count.lua
     name: luarestylimitcount
@@ -67,14 +71,10 @@ controller:
     mountPath: /app/socket
   - name: cache-proxy-temp
     mountPath: /tmp/proxy-temp
-  # extraVolumeMounts:
-  # - mountPath: /usr/local/nginx/anti_ddos_challenge.lua
-  #   name: antiddos
-  #   subPath: anti_ddos_challenge.lua
-  # extraVolumes:
-  # - hostPath:
-  #     path: /etc/nginx/lua/plugins
-  #   name: antiddos
+  - mountPath: /usr/local/nginx/anti_ddos_challenge.lua
+    name: antiddos
+    subPath: anti_ddos_challenge.lua
+  
   kind: DaemonSet
   hostPort:
     enabled: true

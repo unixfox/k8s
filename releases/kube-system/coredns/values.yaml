@@ -36,7 +36,7 @@ servers:
     - name: prometheus
       parameters: 0.0.0.0:9153
     - name: forward
-      parameters: . tls://9.9.9.9 tls://149.112.112.112
+      parameters: . tls://9.9.9.10 tls://149.112.112.10
       configBlock: |
         tls_servername dns.quad9.net
         health_check 5s

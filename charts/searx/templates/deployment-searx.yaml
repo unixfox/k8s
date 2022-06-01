@@ -49,6 +49,9 @@ spec:
         configMap:
           name: {{ template "searx.fullname" . }}
       containers:
+      - name: "{{ .Chart.Name }}-tor"
+        image: "osminogin/tor-simple"
+        imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
       - name: {{ .Chart.Name }}
         image: "{{ .Values.searx.image.repository }}:{{ .Values.searx.image.tag }}"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}

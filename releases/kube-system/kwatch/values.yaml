@@ -1,2 +1,6 @@
 kwatch:
   image: quay.io/unixfox/kwatch
+  config:
+    configTemplate:
+      ignoreFailedGracefulShutdown: true
+      disableUpdateCheck: true

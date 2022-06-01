@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: crowdsec
+  labels:
+    parent: ingress-nginx
+  namespace: ingress-nginx
+  chart: crowdsec/crowdsec
+  values:
+  - "values.yaml"

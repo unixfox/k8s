@@ -11,7 +11,7 @@ controller:
   replicas: 3
 
 image:
-  tag: build-20220405
+  tag: latest
 
 env:
   NITTER_HOST: "nitter.unixfox.eu"

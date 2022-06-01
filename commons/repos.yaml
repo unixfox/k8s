@@ -65,3 +65,5 @@ repositories:
     url: https://cdn.zabbix.com/zabbix/integrations/kubernetes-helm/6.0
   - name: truecharts
     url: https://truecharts.org/
+  - name: crowdsec
+    url: https://crowdsecurity.github.io/helm-charts
