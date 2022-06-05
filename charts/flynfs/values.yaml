@@ -36,11 +36,21 @@ probes:
   # -- Liveness probe configuration
   # @default -- See below
   liveness:
-    # -- Enable the liveness probe
-    enabled: false
+    # -- Enable the readiness probe
+    enabled: true
+    # -- Set this to `true` if you wish to specify your own readinessProbe
+    custom: true
+    spec:
+      exec:
+        command: [ "/usr/bin/ping", "-c", "1", "nfsfox.internal" ]
   readiness:
     # -- Enable the readiness probe
-    enabled: false
+    enabled: true
+    # -- Set this to `true` if you wish to specify your own readinessProbe
+    custom: true
+    spec:
+      exec:
+        command: [ "/usr/bin/ping", "-c", "1", "nfsfox.internal" ]
   startup:
     # -- Enable the startup probe
     enabled: false

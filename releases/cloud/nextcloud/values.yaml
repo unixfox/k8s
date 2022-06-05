@@ -1,5 +1,5 @@
 image:
-  tag: 22.2.6-fpm-alpine
+  tag: 22.2.8-fpm-alpine
 
 persistence:
   enabled: true
