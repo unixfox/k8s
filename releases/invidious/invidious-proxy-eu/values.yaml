@@ -38,6 +38,7 @@ tolerations:
     effect: NoExecute
 
 ytproxy:
+  disableIpv6: "0"
   securityContext:
     allowPrivilegeEscalation: false
     runAsUser: 101

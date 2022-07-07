@@ -67,3 +67,5 @@ repositories:
     url: https://truecharts.org/
   - name: crowdsec
     url: https://crowdsecurity.github.io/helm-charts
+  - name: vector
+    url: https://helm.vector.dev

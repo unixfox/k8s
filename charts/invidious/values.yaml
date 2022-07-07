@@ -40,8 +40,8 @@ ingress:
      - example.org
 
 ytproxy:
-  disableWebp: true
-  disableIpv6: true
+  disableWebp: "1"
+  disableIpv6: "1"
   hostNetwork: true
   image:
     repository: 1337kavin/ytproxy

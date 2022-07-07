@@ -34,7 +34,7 @@ affinity:
       topologyKey: kubernetes.io/hostname
 
 ytproxy:
-  hostNetwork: false
+  hostNetwork: true
   securityContext:
     allowPrivilegeEscalation: false
     runAsUser: 101
