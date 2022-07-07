@@ -47,6 +47,11 @@ spec:
       - name: ytproxy
         image: "{{ .Values.ytproxy.image.repository }}:{{ .Values.ytproxy.image.tag }}"
         imagePullPolicy: {{ .Values.ytproxy.image.pullPolicy }}
+        env:
+        - name: DISABLE_WEBP
+          value: "{{ .Values.ytproxy.disableWebp }}"
+        - name: DISABLE_IPV6
+          value: "{{ .Values.ytproxy.disableIpv6 }}"
         securityContext:
           allowPrivilegeEscalation: {{ .Values.ytproxy.securityContext.allowPrivilegeEscalation }}
         volumeMounts:
