@@ -4,6 +4,10 @@ defaultBackend:
     registry: k8s.gcr.io
     image: defaultbackend-arm64
 controller:
+  image:
+    registry: quay.io
+    image: unixfox/controller
+    digest: ""
   watchIngressWithoutClass: true
   terminationGracePeriodSeconds: 0
   dnsPolicy: ClusterFirstWithHostNet
@@ -28,6 +32,7 @@ controller:
         10.43.0.0/16 1;
       }
       limit_conn_zone $binary_remote_addr zone=addrvideoplayback:10m;
+      limit_traffic_rate_zone rate $binary_remote_addr 32m;
 
     #log-format-upstream: "$remote_addr - $request - $status - $http_referer - $http_user_agent - $request_headers"
     #log-format-upstream: 'verb="$request_method" request="$uri" response=$status clientip="$remote_addr" scheme="$scheme" bytes=$bytes_sent agent="$http_user_agent" referrer="$http_referer" request_time=$request_time upstream_response=$upstream_status upstream_response_time=$upstream_response_time resource_name="$resource_name" resource_namespace="$resource_namespace" resource_type="$resource_type" http_host="$http_host" request_id="$request_id" time_date="$time_iso8601" request_headers="$request_headers"'
