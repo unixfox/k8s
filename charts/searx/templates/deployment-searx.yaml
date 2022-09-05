@@ -60,6 +60,8 @@ spec:
           value: "991"
         - name: PUID
           value: "991"
+        - name: BIND_ADDRESS
+          value: "0.0.0.0"
         ports:
         - containerPort: 8888
         volumeMounts:
