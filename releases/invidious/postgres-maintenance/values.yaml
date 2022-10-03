@@ -4,7 +4,7 @@ jobs:
       repository: postgres
       tag: 10
       imagePullPolicy: IfNotPresent
-    schedule: "0 12 * * *"
+    schedule: "0 * * * *"
     failedJobsHistoryLimit: 1
     successfulJobsHistoryLimit: 1
     concurrencyPolicy: Forbid
@@ -17,8 +17,8 @@ jobs:
           key: pg_su_password
     command: ["/bin/sh"]
     args:
-    - '-c'
-    - 'psql -U kemal -h stolon-proxy -c "TRUNCATE TABLE videos" invidious'
+    - -c
+    - psql -U kemal -h stolon-proxy -c "DELETE FROM videos * WHERE updated < (now() - interval '6 hours')" invidious
     tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
