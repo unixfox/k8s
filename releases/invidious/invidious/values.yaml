@@ -75,6 +75,13 @@ config:
   use_quic: true
   channel_threads: 0
   feed_threads: 0
+  jobs:
+    clear_expired_items:
+      enable: false
+    refresh_channels:
+      enable: false
+    refresh_feeds:
+      enable: false
   modified_source_code_url: https://github.com/unixfox/invidious-custom
   output: STDOUT
   log_level: Error
