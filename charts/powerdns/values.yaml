@@ -89,7 +89,7 @@ powerdnsadmin:
     type: ClusterIP
     port: 80
   image:
-    repository: ngoduykhanh/powerdns-admin
+    repository: powerdnsadmin/pda-legacy
     tag: latest
     pullPolicy: Always
   extra_envs:

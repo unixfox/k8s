@@ -90,7 +90,7 @@ extraEnv:
 
 image:
   pullPolicy: Always
-  tag: "latest"
+  tag: "0.210.2"
 
 ingress:
   enabled: true
