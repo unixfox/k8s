@@ -43,6 +43,19 @@ searxSettings:
     default_lang: "all" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
     ban_time_on_fail: 0 # ban time in seconds after engine errors
     max_ban_time_on_fail: 0 # max ban time in seconds after engine errors
+    suspend_times:
+      # Engine suspension time after error (in seconds; set to 0 to disable)
+      # For error "Access denied" and "HTTP error [402, 403]"
+      SearxEngineAccessDenied: 0
+      # For error "CAPTCHA"
+      SearxEngineCaptcha: 86400
+      # For error "Too many request" and "HTTP error 429"
+      SearxEngineTooManyRequests: 0
+      # Cloudflare CAPTCHA
+      cf_SearxEngineCaptcha: 1296000
+      cf_SearxEngineAccessDenied: 86400
+      # ReCAPTCHA
+      recaptcha_SearxEngineCaptcha: 0
 
   server:
     bind_address: "0.0.0.0" # address to listen on
@@ -138,8 +151,6 @@ searxSettings:
     - name: youtube
       disabled: true
     - name: google videos
-      disabled: true
-    - name: z-library
       disabled: true
     - name: btdigg
       search_url: http://btdigggink2pdqzqrik3blmqemsbntpzwxottujilcdjfz56jumzfsyd.onion/search?q={search_term}&p={pageno}
