@@ -18,7 +18,7 @@ jobs:
     command: ["/bin/sh"]
     args:
     - -c
-    - psql -U kemal -h stolon-proxy -c "DELETE FROM videos * WHERE updated < (now() - interval '3 hours')" invidious
+    - psql -U kemal -h stolon-proxy -c "TRUNCATE videos" invidious
     tolerations: []
     nodeSelector:
       topology.kubernetes.io/zone: "eu-amsterdam-1-AD-1"
