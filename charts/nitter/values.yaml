@@ -7,7 +7,7 @@
 
 image:
   # -- image repository
-  repository: quay.io/unixfox/nitter-custom
+  repository: quay.io/unixfox/nitter
   # -- image tag
   tag: latest
   # -- image pull policy
@@ -15,14 +15,14 @@ image:
 
 # @default -- See below
 env:
-  NITTER_HOST: "nitter.net"
-  NITTER_NAME: "nitter"
-  REDIS_HOST: "nitter-redis-headless"
+  NITTER_SERVER_NAME: "nitter.net"
+  NITTER_SERVER_TITLE: "nitter"
+  CACHE_REDIS_HOST: "nitter-redis-headless"
   REPLACE_TWITTER: "nitter.net"
   REPLACE_YOUTUBE: "yewtu.be"
   REPLACE_INSTAGRAM: "bibliogram.snopyta.org"
   HLS_PLAYBACK: "true"
-  NITTER_HTTPS: "true"
+  NITTER_USE_HTTPS: "true"
   REPLACE_REDDIT: "old.reddit.com"
 
 secret:

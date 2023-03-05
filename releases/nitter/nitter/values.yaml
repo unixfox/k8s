@@ -14,14 +14,14 @@ image:
   tag: latest
 
 env:
-  NITTER_HOST: "nitter.unixfox.eu"
-  NITTER_NAME: "nitter-unixfox"
-  REDIS_HOST: "nitter-redis"
+  NITTER_SERVER_NAME: "nitter.unixfox.eu"
+  NITTER_SERVER_TITLE: "nitter-unixfox"
+  CACHE_REDIS_HOST: "nitter-redis"
   REPLACE_TWITTER: "nitter.unixfox.eu"
   REPLACE_YOUTUBE: "yewtu.be"
   REPLACE_INSTAGRAM: "bibliogram.snopyta.org"
   HLS_PLAYBACK: "true"
-  HTTPS: "true"
+  NITTER_USE_HTTPS: "true"
 
 ingress:
   main:
@@ -32,6 +32,19 @@ ingress:
       nginx.ingress.kubernetes.io/proxy-next-upstream: "http_429"
       nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
     hosts:
+      -  # -- Host address. Helm template can be passed.
+        host: static.nitter.unixfox.eu
+        ## Configure the paths for the host
+        paths:
+          -  # -- Path.  Helm template can be passed.
+            path: /
+            # -- Ignored if not kubeVersion >= 1.14-0
+            pathType: Prefix
+            service:
+              # -- Overrides the service name reference for this path
+              name:
+              # -- Overrides the service port reference for this path
+              port:
       -  # -- Host address. Helm template can be passed.
         host: nitter.unixfox.eu
         ## Configure the paths for the host
@@ -51,3 +64,4 @@ ingress:
       - secretName: nitter-tls
         hosts:
           - nitter.unixfox.eu
+          - static.nitter.unixfox.eu
