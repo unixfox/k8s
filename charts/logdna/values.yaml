@@ -1,6 +1,7 @@
 image:
   name: logdna/logdna-agent
   # tag is defined by the appVersion in the Chart file
+  tag: "3.8-arm64"
   pullPolicy: IfNotPresent
 
 logdna:

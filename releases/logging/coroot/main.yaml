@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: coroot
+  labels:
+    parent: logging
+  namespace: logging
+  chart: coroot/coroot
+  values:
+  - "values.yaml"

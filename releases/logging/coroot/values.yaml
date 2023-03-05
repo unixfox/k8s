@@ -1,0 +1,11 @@
+corootCE:
+  persistentVolume:
+    size: 10Gi
+    storageClassName: "local-path"
+  nodeSelector:
+    kubernetes.io/arch: arm64
+
+prometheus:
+  server:
+    persistentVolume:
+      storageClass: "local-path"

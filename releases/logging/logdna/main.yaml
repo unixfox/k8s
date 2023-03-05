@@ -5,8 +5,8 @@ bases:
 releases:
 - name: logdna
   labels:
-    parent: kube-system
-  namespace: kube-system
+    parent: logging
+  namespace: logging
   chart: ../../../charts/logdna
   values:
   - "values.yaml"
