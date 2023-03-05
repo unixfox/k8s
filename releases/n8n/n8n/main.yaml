@@ -7,7 +7,7 @@ releases:
   labels:
     parent: n8n
   namespace: n8n
-  chart: ../../../charts/n8n
+  chart: open-8gears/n8n
   secrets:
   - "secrets.yaml"
   values:
