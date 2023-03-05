@@ -30,7 +30,7 @@ spec:
       http:
         paths:
           - path: /
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: "{{ $fullName }}"
@@ -58,7 +58,7 @@ spec:
       http:
         paths:
           - path: {{ $main.path }}
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: "{{ $fullName }}{{ $main.backend.serviceName }}"

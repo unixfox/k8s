@@ -15,9 +15,9 @@ sources:
 maintainers:
 - name: Leon Klingele
   email: mail@leonklingele.de
-dependencies:
-- name: postgresql
-  version: 11.1.2
-  repository: "https://charts.bitnami.com/bitnami/"
-  condition: postgresql.enabled
+# dependencies:
+# - name: postgresql
+#   version: 11.1.2
+#   repository: "https://charts.bitnami.com/bitnami/"
+#   condition: postgresql.enabled
 engine: gotpl

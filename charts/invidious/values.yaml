@@ -24,14 +24,14 @@ ingress:
   main:
     annotations:
       kubernetes.io/tls-acme: "true"
-  others:
-    - path: /videoplayback
-      annotations:
-        nginx.ingress.kubernetes.io/configuration-snippet: |
-          add_header Access-Control-Allow-Origin *;
-          add_header Access-Control-Allow-Headers *;
-      backend:
-        serviceName: ""
+  others: {}
+    # - path: /videoplayback
+    #   annotations:
+    #     nginx.ingress.kubernetes.io/configuration-snippet: |
+    #       add_header Access-Control-Allow-Origin *;
+    #       add_header Access-Control-Allow-Headers *;
+    #   backend:
+    #     serviceName: ""
   hosts:
   - example.org
   tls:
