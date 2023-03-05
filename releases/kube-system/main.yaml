@@ -1,6 +1,6 @@
 helmfiles:
   #- kwatch/main.yaml
-  - kilo/main.yaml
+  #- kilo/main.yaml
   - coredns/main.yaml
   #- nodelocaldns/main.yaml
   #- oci-ha-floating-ip/main.yaml
@@ -13,7 +13,7 @@ helmfiles:
   - metrics-server/main.yaml
   - keel/main.yaml
   #- netdata/main.yaml
-  - botkube/main.yaml
+  #- botkube/main.yaml
   #- kured/main.yaml
   #- logdna/main.yaml
-  - clustersecret/main.yaml
+  #- clustersecret/main.yaml

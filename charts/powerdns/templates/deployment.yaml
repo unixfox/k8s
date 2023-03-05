@@ -53,6 +53,8 @@ spec:
           - {{ .Values.mariadb.args }}
 {{- end }}
           env:
+          - name: MARIADB_AUTO_UPGRADE
+            value: "1"
           - name: MYSQL_INITDB_SKIP_TZINFO
             value: "1"
 {{- if .Values.mariadb.mysql_pass }}
