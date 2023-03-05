@@ -1,0 +1,10 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: redis
+  labels:
+    parent: redis
+  namespace: invidious
+  chart: ../../../charts/redis-daemonset

@@ -1,0 +1,74 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
+
+image:
+  # -- image repository
+  repository: redis
+  # -- image tag
+  tag: "7"
+  # -- image pull policy
+  pullPolicy: Always
+
+args:
+  - --unixsocket
+  - /tmp/redis-invidious/redis.sock
+  - --unixsocketperm
+  - "777"
+  - --save
+  - \"\"
+  - --appendonly
+  - "no"
+  - --maxmemory
+  - "5000mb"
+  - --maxmemory-policy
+  - "volatile-ttl"
+
+controller:
+  type: "daemonset"
+
+# -- Configures service settings for the chart.
+# @default -- See values.yaml
+service:
+  main:
+    ports:
+      http:
+        protocol: TCP
+        port: 6379
+
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  main:
+    enabled: false
+
+initContainers:
+  volume-mount-hack:
+    name: volume-mount-hack
+    image: busybox
+    command: ["sh", "-c", "chmod -R 777 /tmp/redis-invidious"]
+    volumeMounts:
+    - name: redissocket
+      mountPath: /tmp/redis-invidious
+
+# -- Configure persistence settings for the chart under this key.
+# @default -- See values.yaml
+persistence:
+  redissocket:
+    enabled: true
+    type: custom
+    volumeSpec:
+      hostPath:
+        # directory location on host
+        path: /tmp/redis-invidious
+        # this field is optional
+        type: DirectoryOrCreate
+    
+    mountPath: /tmp/redis-invidious
+  source:
+    enabled: false
+  backups:
+    enabled: false

@@ -1,12 +1,15 @@
 helmfiles:
+  - invidious-pg-config/main.yaml
   #- invidious/main.yaml
+  - redis/main.yaml
+  #- cron-restart-deployment/main.yaml
+  #- cron-restart-deployment-refresh/main.yaml
+  #- cron-restart-proxy/main.yaml
+  #- postgres-maintenance/main.yaml
+
+  #- postgres-maintenance-proxy/main.yaml
+  #- postgres-stash/main.yaml
   #- invidious-proxy/main.yaml
   #- invidious-proxy-eu/main.yaml
   #- stolon/main.yaml
   #- pgbouncer/main.yaml
-  - cron-restart-deployment/main.yaml
-  - cron-restart-deployment-refresh/main.yaml
-  - cron-restart-proxy/main.yaml
-  - postgres-maintenance/main.yaml
-  #- postgres-maintenance-proxy/main.yaml
-  #- postgres-stash/main.yaml
