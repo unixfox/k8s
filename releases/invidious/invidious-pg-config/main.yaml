@@ -1,0 +1,12 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: invidious-pg-config
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: .
+  values:
+  - "secrets.yaml"

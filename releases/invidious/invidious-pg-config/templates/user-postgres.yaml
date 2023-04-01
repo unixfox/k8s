@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  password: "{{ .Values.users.postgres.password | b64enc }}"
+  username: "{{ .Values.users.postgres.username | b64enc }}"
+kind: Secret
+metadata:
+  name: invidious-pg-config-user-postgres
+type: kubernetes.io/basic-auth

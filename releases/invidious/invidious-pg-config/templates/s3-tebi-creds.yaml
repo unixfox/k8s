@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backup-s3-tebi-creds
+data:
+  ACCESS_KEY_ID: "{{ .Values.s3.tebi.accesskeyid | b64enc }}"
+  ACCESS_SECRET_KEY: "{{ .Values.s3.tebi.accesssecretkey | b64enc }}"

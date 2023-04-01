@@ -1,3 +1,4 @@
 helmfiles:
+  - cloudnativepg-operator/main.yaml
   #- stolon/main.yaml
   #- oracle-db-backup

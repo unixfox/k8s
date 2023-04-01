@@ -1,0 +1,43 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: invidious-pg
+spec:
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  imageName: ghcr.io/cloudnative-pg/postgresql:11
+  storage:
+    size: 1Gi
+    storageClass: local-path
+  bootstrap:
+    initdb:
+      database: invidious
+      owner: invidious
+      secret:
+        name: invidious-pg-config-user-invidious
+  postgresql:
+    parameters:
+      shared_buffers: 1GB
+      max_connections: "100"
+  superuserSecret:
+    name: invidious-pg-config-user-postgres
+  # backup:
+  #   barmanObjectStore:
+  #     destinationPath: s3://iv-cloudnativepg/
+  #     endpointURL: https://s3.tebi.io
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: backup-s3-tebi-creds
+  #         key: ACCESS_KEY_ID
+  #       secretAccessKey:
+  #         name: backup-s3-tebi-creds
+  #         key: ACCESS_SECRET_KEY
+  #     wal:
+  #       compression: gzip
+  #       encryption: AES256
+  #     data:
+  #       compression: gzip
+  #       encryption: AES256
+  #       immediateCheckpoint: false
+  #       jobs: 2
+  #   retentionPolicy: "7d"

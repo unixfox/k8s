@@ -16,7 +16,7 @@ spec:
           config:
             secretName: pdns-api-key
             zoneName: unixfox.eu.
-            apiUrl: http://powerdns-service-api.dns.svc.cluster.local:8081
+            apiUrl: https://api.dns.unixfox.eu
 ---
 apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
@@ -36,4 +36,4 @@ spec:
           config:
             secretName: pdns-api-key
             zoneName: unixfox.eu.
-            apiUrl: http://powerdns-service-api.dns.svc.cluster.local:8081
+            apiUrl: https://api.dns.unixfox.eu

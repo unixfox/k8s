@@ -1,0 +1,11 @@
+bases:
+  - "../../../commons/repos.yaml"
+  - "../../../commons/general.yaml"
+
+releases:
+- name: cloudnativepg-operator
+  labels:
+    parent: invidious
+  namespace: invidious
+  chart: cloudnative-pg/cloudnative-pg
+  version: 0.17.0
