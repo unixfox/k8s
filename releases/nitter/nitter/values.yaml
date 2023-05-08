@@ -4,27 +4,15 @@ keel:
   approvals: 0
   # images to track and update
   images: 
-    - repository: image.repository
-      tag: image.tag
+    - repository: deployment.image.repository
+      tag: deployment.image.tag
 
-controller:
-  replicas: 3
-
-image:
-  tag: latest
-
-env:
-  NITTER_SERVER_NAME: "nitter.unixfox.eu"
-  NITTER_SERVER_TITLE: "nitter-unixfox"
-  CACHE_REDIS_HOST: "nitter-redis"
-  REPLACE_TWITTER: "nitter.unixfox.eu"
-  REPLACE_YOUTUBE: "yewtu.be"
-  REPLACE_INSTAGRAM: "bibliogram.snopyta.org"
-  HLS_PLAYBACK: "true"
-  NITTER_USE_HTTPS: "true"
-
-ingress:
-  main:
+nitter:
+  deployment:
+    replicas: 3
+    image:
+      tag: latest-arm64
+  ingress:
     enabled: true
     annotations:
       kubernetes.io/tls-acme: "true"

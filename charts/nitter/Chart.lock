@@ -1,9 +1,9 @@
 dependencies:
-- name: common
-  repository: https://library-charts.k8s-at-home.com
-  version: 4.0.1
+- name: application
+  repository: https://stakater.github.io/stakater-charts
+  version: 2.1.10
 - name: redis
   repository: https://charts.pascaliske.dev
-  version: 0.0.2
-digest: sha256:d7aa4aeebc66b0646971232b3a0292b361372780a52dd715aff090f5005f5f8c
-generated: "2023-03-04T20:55:13.291034381+01:00"
+  version: 1.1.3
+digest: sha256:1a03605c4267ed5ea4e8f97612b31af3364a9e48b6e4b72edd89580e9e80d5a9
+generated: "2023-05-08T17:47:34.029529661+02:00"
