@@ -20,18 +20,7 @@ postgresql:
     repository: library/postgres
     tag: 10
 
-replicaCount: 10
-
-affinity:
-  podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchExpressions:
-        - key: app.kubernetes.io/name
-          operator: In
-          values:
-          - postgresql
-      topologyKey: kubernetes.io/hostname
+replicaCount: 6
 
 ytproxy:
   hostNetwork: true
@@ -40,25 +29,6 @@ ytproxy:
     runAsUser: 101
     runAsGroup: 101
     fsGroup: 101
-  affinity:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app.kubernetes.io/name
-            operator: In
-            values:
-            - postgresql
-        topologyKey: kubernetes.io/hostname
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: NotIn
-            values:
-            - oraclenonfree2
-            - oraclenonfree3
 
 ingress:
   enabled: true
