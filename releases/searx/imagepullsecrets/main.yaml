@@ -1,5 +1,4 @@
 bases:
-  - "../../../commons/repos.yaml"
   - "../../../commons/general.yaml"
 
 releases:

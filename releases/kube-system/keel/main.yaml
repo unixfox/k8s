@@ -1,6 +1,9 @@
 bases:
-  - "../../../commons/repos.yaml"
   - "../../../commons/general.yaml"
+
+repositories:
+  - name: keel
+    url: https://charts.keel.sh
 
 releases:
 - name: keel

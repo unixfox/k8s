@@ -10,6 +10,14 @@ releases:
     chart: argo/argo-cd
     version: ~5.36.11
     values:
+      - global:
+          nodeSelector:
+            kubernetes.io/arch: amd64
+          tolerations:
+            - key: tempnode
+              operator: Equal
+              value: "true"
+              effect: NoExecute
       - repoServer:
           volumes:
           - name: age-secret-keys
@@ -23,7 +31,7 @@ releases:
             command: [/var/run/argocd/argocd-cmp-server]
             env:
             - name: SOPS_AGE_KEY_FILE
-              value: /sops/age/keys.txt
+              value: /sops/age/key.txt
             securityContext:
               runAsNonRoot: true
               runAsUser: 999

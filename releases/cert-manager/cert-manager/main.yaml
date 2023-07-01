@@ -1,5 +1,8 @@
+repositories:
+  - name: jetstack
+    url: https://charts.jetstack.io
+
 bases:
-  - "../../../commons/repos.yaml"
   - "../../../commons/general.yaml"
 
 releases:

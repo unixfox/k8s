@@ -12,6 +12,7 @@ helmfiles:
   #- flannel-fixer/main.yaml
   - metrics-server/main.yaml
   - keel/main.yaml
+  - reflector/main.yaml
   #- netdata/main.yaml
   #- botkube/main.yaml
   #- kured/main.yaml

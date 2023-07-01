@@ -1,0 +1,17 @@
+bases:
+  - "../../../commons/general.yaml"
+
+repositories:
+  - name: vector
+    url: https://helm.vector.dev
+
+releases:
+- name: vector
+  labels:
+    parent: monitoring
+  namespace: monitoring
+  chart: vector/vector
+  #values:
+  #- "values.yaml"
+  secrets:
+  - "values.yaml"

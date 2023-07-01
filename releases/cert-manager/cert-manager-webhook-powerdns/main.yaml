@@ -1,6 +1,9 @@
 bases:
-  - "../../../commons/repos.yaml"
   - "../../../commons/general.yaml"
+
+repositories:
+  - name: cert-manager-webhook-powerdns
+    url: https://lordofsystem.github.io/cert-manager-webhook-powerdns
 
 releases:
 - name: cert-manager-webhook-powerdns

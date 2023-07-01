@@ -1,6 +1,9 @@
 bases:
-  - "../../../commons/repos.yaml"
   - "../../../commons/general.yaml"
+
+repositories:
+  - name: open-8gears
+    url: https://8gears.container-registry.com/chartrepo/library
 
 releases:
 - name: n8n

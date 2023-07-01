@@ -1,0 +1,58 @@
+role: "Agent"
+service:
+  enabled: true
+customConfig:
+  api:
+    enabled: true
+    address: 0.0.0.0:8686
+    playground: false
+  sources:
+    kubernetes:
+      type: "kubernetes_logs"
+      data_dir: "/vector-data-dir"
+  transforms:
+    only_nginx:
+      type: filter
+      inputs:
+        - kubernetes
+      condition: .kubernetes.container_name == "controller"
+    filter_garbage_nginx:
+      type: filter
+      inputs:
+        - only_nginx
+      condition:
+        type: "vrl"
+        source: |
+          !contains("controller.go", string!(.message))
+    parse_nginx:
+      type: remap
+      inputs:
+        - filter_garbage_nginx
+      source: |-
+        . |= parse_nginx_log!(.message, "combined")
+  sinks:
+    es_kubernetes:
+      type: elasticsearch
+      endpoint: https://es.logs.unixfox.eu
+      inputs:
+        - parse_nginx
+      bulk:
+        index: "nginx-ingress-logs-%F"
+  # transforms:
+  #   kubernetes_remap:
+  #     type: "remap"
+  #     inputs:
+  #       - kubernetes
+  #     source: |-
+  #       del(.file)
+  #       del(.source_type)
+# extraVolumes:
+#   - hostPath:
+#       path: /home/minecraft/servers/bolt
+#     name: home-minecraft-bolt
+
+# extraVolumeMounts -- Additional Volume to mount into Vector Containers
+# extraVolumeMounts:
+#   - mountPath: /home/minecraft/servers/bolt
+#     name: home-minecraft-bolt
+#     readOnly: true

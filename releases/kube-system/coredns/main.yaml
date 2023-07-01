@@ -1,6 +1,9 @@
 bases:
-  - "../../../commons/repos.yaml"
   - "../../../commons/general.yaml"
+
+repositories:
+  - name: coredns
+    url: https://coredns.github.io/helm
 
 releases:
 - name: coredns
