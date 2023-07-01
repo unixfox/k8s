@@ -1,0 +1,63 @@
+repositories:
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
+
+releases:
+  - name: argocd
+    namespace: argocd
+    labels:
+      app: argocd
+    chart: argo/argo-cd
+    version: ~5.36.11
+    values:
+      - repoServer:
+          volumes:
+          - name: age-secret-keys
+            secret:
+              secretName: argocd-age-secret-keys
+          - emptyDir: {}
+            name: helmfile-cmp-tmp
+          extraContainers:
+          - name: helmfile-plugin
+            image: travisghansen/argo-cd-helmfile:latest
+            command: [/var/run/argocd/argocd-cmp-server]
+            env:
+            - name: SOPS_AGE_KEY_FILE
+              value: /sops/age/keys.txt
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 999
+            volumeMounts:
+              - mountPath: /sops/age
+                name: age-secret-keys
+              - mountPath: /var/run/argocd
+                name: var-files
+              - mountPath: /home/argocd/cmp-server/plugins
+                name: plugins
+              - mountPath: /tmp
+                name: helmfile-cmp-tmp
+    hooks:
+    - events: ["presync"]
+      showlogs: true
+      command: "/bin/bash"
+      args:
+      - "-ec"
+      - |
+        # Create a sops / age secret key if none already exists
+        if [[ -f ./key.txt ]]; then
+          echo "age key.txt file already exists"
+        else
+          age-keygen > ./key.txt
+        fi
+
+        # Create secret to give Argo access to the age key
+        kubectl create ns argocd || true
+        kubectl -n argocd create secret generic argocd-age-secret-keys --from-file=key.txt=./key.txt || true
+    - events: ["postuninstall"]
+      showlogs: true
+      command: "/bin/bash"
+      args:
+      - "-ec"
+      - |
+        # Remove secret created in the presync hook
+        kubectl -n argocd delete secret argocd-age-secret-keys

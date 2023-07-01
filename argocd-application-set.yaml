@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argo-releases
+spec:
+  generators:
+  - git:
+      # git repository to get the variables from
+      repoURL: https://github.com/unixfox/k8s.git
+      # branch used to get the variables from 
+      revision: master
+      directories:
+      # path to the directory that includes directories to read as variables
+      - path: releases/*/*
+  template:
+    metadata:
+      # basename is the name of the directory not the full path
+      name: '{{path[2]}}'
+    spec:
+      project: '{{path[1]}}'
+      source:
+        # source repo, in this example both repositories are the same
+        repoURL: https://github.com/unixfox/k8s.git
+        targetRevision: master
+        # path to read manifests from, here it's the full path not only the name of the directory
+        path: '{{path}}'
+        plugin:
+          env:
+          - name: CLUSTER_ID
+            value: primary
+          - name: HELMFILE_TEMPLATE_OPTIONS
+            value: --include-crds
+          - name: HELM_TEMPLATE_OPTIONS
+            value: --skip-tests
+          - name: HELMFILE_GLOBAL_OPTIONS
+            value: -f main.yaml
+          name: helmfile
+      destination:
+        server: https://kubernetes.default.svc
+        # different namespaces named after the directories names to be used as destinations
+        namespace: '{{path[1]}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true

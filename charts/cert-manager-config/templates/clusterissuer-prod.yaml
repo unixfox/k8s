@@ -1,4 +1,4 @@
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: buypass-prod
@@ -16,9 +16,9 @@ spec:
           config:
             secretName: pdns-api-key
             zoneName: unixfox.eu.
-            apiUrl: https://api.dns.unixfox.eu
+            apiUrl: https://pwrdns.ipv6c.my.id
 ---
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-prod
@@ -36,4 +36,4 @@ spec:
           config:
             secretName: pdns-api-key
             zoneName: unixfox.eu.
-            apiUrl: https://api.dns.unixfox.eu
+            apiUrl: https://pwrdns.ipv6c.my.id

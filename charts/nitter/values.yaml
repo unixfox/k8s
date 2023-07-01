@@ -8,12 +8,11 @@ nitter:
 
   deployment:
     enabled: true
-    # securityContext:
-    #   runAsUser: 10000
-    #   runAsGroup: 10000
+    securityContext:
+      runAsUser: 10000
+      runAsGroup: 10000
     containerSecurityContext:
-      readOnlyRootFilesystem: false
-      runAsNonRoot: false
+      readOnlyRootFilesystem: true
     strategy:
       type: RollingUpdate
     image:

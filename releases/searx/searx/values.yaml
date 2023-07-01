@@ -108,8 +108,18 @@ searxSettings:
     '(www\.)?twitter\.com$': 'nitter.unixfox.eu'
     '(.*\.)?btdigggink2pdqzqrik3blmqemsbntpzwxottujilcdjfz56jumzfsyd.onion$': 'btdig.com'
     '(.*\.)?brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion': 'search.brave.com'
+    '(.*\.)?archiveiya74codqgiixo33q62qlrqtkgmcitqx5u2oeqnmn5bpcbiyd.onion': 'archive.is'
 
   engines:
+    - name: arxiv
+      disabled: true
+    - name: apple maps
+      enable_http2: true
+      disabled: true
+    - name: google scholar
+      disabled: true
+    - name: pubmed
+      disabled: true
     - name: bing
       enable_http2: true
       disabled: true
@@ -151,12 +161,11 @@ searxSettings:
       disabled: true
     - name: youtube
       disabled: true
-    - name: google videos
-      disabled: true
     - name: btdigg
       search_url: http://btdigggink2pdqzqrik3blmqemsbntpzwxottujilcdjfz56jumzfsyd.onion/search?q={search_term}&p={pageno}
       enable_http: true
       retry_on_http_error: true
+      timeout: 5.0
       retries: 2
       proxies:
         all://:
@@ -167,7 +176,10 @@ searxSettings:
       base_url:
         - http://invidious-invidious.invidious.svc.cluster.local:3000
     - name: google
-      use_mobile_ui: true
+      enable_http: true
+      proxies:
+        all://:
+          - http://127.0.0.1:8080
     - name: wikidata
       disabled: true
     - name: solidtorrents
@@ -177,17 +189,26 @@ searxSettings:
       - https://solidtorrents.to
       - https://bitsearch.to
     - name: startpage
-      enable_http2: true
+      enable_http: true
       proxies:
         all://:
-          - socks5://127.0.0.1:9050
+          - http://127.0.0.1:8080
     - name: mojeek
       enable_http2: true
+      timeout: 5.0
       proxies:
         all://:
           - socks5://127.0.0.1:9050
     - name: brave
-      search_url: https://brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion/search?q={query}&offset={pageno}&spellcheck=1
+      timeout: 5.0
+      search_url: https://search.brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion/search?q={query}&offset={pageno}&spellcheck=1
+      proxies:
+        all://:
+          - socks5h://127.0.0.1:9050
+    - name: archive is
+      timeout: 5.0
+      enable_http: true
+      search_url: http://archiveiya74codqgiixo33q62qlrqtkgmcitqx5u2oeqnmn5bpcbiyd.onion/search/?q={query}
       proxies:
         all://:
           - socks5h://127.0.0.1:9050

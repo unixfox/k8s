@@ -49,6 +49,9 @@ spec:
         configMap:
           name: {{ template "searx.fullname" . }}
       containers:
+      - name: "{{ .Chart.Name }}-tlsproxy"
+        image: "ghcr.io/unixfox/gotlsproxy:0.9"
+        imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
       - name: "{{ .Chart.Name }}-tor"
         image: "osminogin/tor-simple"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}

@@ -1,4 +1,4 @@
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: buypass-staging
@@ -14,7 +14,7 @@ spec:
           groupName: acme.unixfox.eu
           solverName: pdns
           config:
-            host: https://api.dns.unixfox.eu
+            host: https://pwrdns.ipv6c.my.id
             apiKeySecretRef:
               name: pdns-api-key
               key: key
@@ -27,7 +27,7 @@ spec:
             pollingInterval: 2
 
 ---
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
@@ -43,7 +43,7 @@ spec:
           groupName: acme.unixfox.eu
           solverName: pdns
           config:
-            host: https://api.dns.unixfox.eu
+            host: https://pwrdns.ipv6c.my.id
             apiKeySecretRef:
               name: pdns-api-key
               key: key
