@@ -8,8 +8,7 @@ keel:
       tag: searx.image.tag
 
 searx:
-  nodeSelector:
-    topology.kubernetes.io/zone: eu-amsterdam-1-AD-1
+  nodeSelector: {}
 
 filtron:
   nodeSelector:
