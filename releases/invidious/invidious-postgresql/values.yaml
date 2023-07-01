@@ -1,5 +1,6 @@
-persistence:
-  size: "200Gi"
-  storageClass: "local-path"
 image:
   tag: 15
+primary:
+  persistence:
+    size: "200Gi"
+    storageClass: "local-path"
