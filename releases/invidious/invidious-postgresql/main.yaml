@@ -11,8 +11,5 @@ releases:
     parent: invidious
   namespace: invidious
   chart: bitnami/postgresql
-  version: 12.6.0
   values:
   - "values.yaml"
-  secrets:
-  - "secrets.yaml"
