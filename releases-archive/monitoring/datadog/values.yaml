@@ -4,8 +4,8 @@ datadog:
   site: 'datadoghq.com'
   logLevel: error
   logs:
-    enabled: false
-    containerCollectAll: false
+    enabled: true
+    containerCollectAll: true
 # agents:
 #   tolerations:
 #     - key: "dedicated-server"
