@@ -1,6 +1,9 @@
 bases:
   - "../../../commons/general.yaml"
 
+repositories:
+  
+
 releases:
 - name: nitter
   labels:
