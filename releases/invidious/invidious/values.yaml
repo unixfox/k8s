@@ -75,10 +75,10 @@ config:
   https_only: true
   domain: yewtu.be
   decrypt_polling: true
-  popular_enabled: true
+  popular_enabled: false
   captcha_enabled: false
   login_enabled: true
-  registration_enabled: true
+  registration_enabled: false
   statistics_enabled: true
   external_port: 443
   default_user_preferences:
@@ -104,7 +104,7 @@ config:
     player_style: invidious
     quality: hd720
     quality_dash: auto
-    default_home: Popular
+    default_home: ""
     feed_menu:
     - Popular
     - Trending
