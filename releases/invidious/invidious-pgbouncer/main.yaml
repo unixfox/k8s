@@ -2,10 +2,12 @@ bases:
   - "../../../commons/general.yaml"
 
 releases:
-- name: postgres-maintenance
+- name: invidious-pgbouncer
   labels:
     parent: invidious
   namespace: invidious
-  chart: ../../../charts/cronjobs
+  chart: ../../../charts/pgbouncer
   values:
   - "values.yaml"
+  secrets:
+  - "secrets.yaml"

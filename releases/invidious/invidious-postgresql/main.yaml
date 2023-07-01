@@ -6,7 +6,7 @@ repositories:
     url: https://charts.bitnami.com/bitnami
 
 releases:
-- name: postgresql
+- name: invidious-postgresql
   labels:
     parent: invidious
   namespace: invidious
