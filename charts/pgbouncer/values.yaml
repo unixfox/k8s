@@ -239,9 +239,9 @@ podSecurityPolicy:
 ## Pod Disturion Budget
 ## https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 ##
-podDisruptionBudget:
-  enabled: true
-  maxUnavailable: 1
+#podDisruptionBudget:
+#  enabled: true
+#  maxUnavailable: 1
 
 ## Service Account for pods
 ## https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
