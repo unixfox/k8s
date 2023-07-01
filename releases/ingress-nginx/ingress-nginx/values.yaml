@@ -109,10 +109,9 @@ controller:
     name: antiddos
     subPath: anti_ddos_challenge.lua
   
-  kind: DaemonSet
+  kind: Deployment
   hostPort:
     enabled: true
-  hostNetwork: true
   tolerations:
   - key: "node.kubernetes.io/unreachable"
     operator: "Exists"
@@ -122,10 +121,6 @@ controller:
     operator: "Exists"
     effect: "NoExecute"
     tolerationSeconds: 5
-  - key: app-nextcloud
-    operator: Equal
-    value: "true"
-    effect: NoExecute
   - key: dedicated-server
     operator: Equal
     value: "true"
