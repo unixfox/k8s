@@ -10,6 +10,18 @@ releases:
     chart: argo/argo-cd
     version: ~5.36.11
     values:
+      - server:
+          ingress:
+            annotations:
+              kubernetes.io/tls-acme: "true"
+              cert-manager.io/cluster-issuer: buypass-prod
+            enabled: true
+            hosts:
+               - argo.unixfox.eu
+            tls:
+              - secretName: argocd-tls
+                hosts:
+                  - argo.unixfox.eu
       - global:
           nodeSelector:
             kubernetes.io/arch: amd64
@@ -52,8 +64,8 @@ releases:
       - "-ec"
       - |
         # Create a sops / age secret key if none already exists
-        if [[ -f ./key.txt ]]; then
-          echo "age key.txt file already exists"
+        if [[ $(kubectl -n argocd get secret argocd-age-secret-keys) ]]; then
+          echo "age secret already exists"
         else
           age-keygen > ./key.txt
         fi
