@@ -11,5 +11,8 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: nitter
-    server: https://kubernetes.default.svc
+  - namespace: '*'
+    server: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'

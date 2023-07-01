@@ -11,5 +11,8 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: n8n
-    server: https://kubernetes.default.svc
+  - namespace: '*'
+    server: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
