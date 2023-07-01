@@ -75,11 +75,7 @@ ingress:
     search: {}
   hosts:
   - searx.be
-  - www.searx.be
-  - sp.searx.be
   tls:
    - secretName: chart-searx-tls
      hosts:
      - searx.be
-     - www.searx.be
-     - sp.searx.be
