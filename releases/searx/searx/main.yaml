@@ -11,4 +11,3 @@ releases:
   - "values.yaml"
   secrets:
   - "secrets.yaml"
-  - "secrets-filtron.yaml"
