@@ -1,9 +1,0 @@
-persistence:
-  size: "200Gi"
-  storageClass: "local-path"
-image:
-  repository: library/postgres
-  tag: 10
-primary:
-  nodeSelector:
-    kubernetes.io/hostname: oraclenonfree8

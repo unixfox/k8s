@@ -1,0 +1,5 @@
+persistence:
+  size: "200Gi"
+  storageClass: "local-path"
+image:
+  tag: 15
