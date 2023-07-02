@@ -106,7 +106,6 @@ config:
     quality_dash: auto
     default_home: ""
     feed_menu:
-    - Popular
     - Trending
     - Subscriptions
     - Playlists
