@@ -10,6 +10,9 @@ releases:
     chart: argo/argo-cd
     version: ~5.36.11
     values:
+      - configs:
+          params:
+            server.insecure: "true"
       - server:
           ingress:
             annotations:

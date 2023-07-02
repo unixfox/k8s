@@ -58,7 +58,7 @@ extraVolumesMounts:
 config:
   enable_user_notifications: false
   redis_socket: "/tmp/redis-invidious/redis.sock"
-  use_quic: true
+  use_quic: false
   channel_threads: 0
   feed_threads: 0
   jobs:
