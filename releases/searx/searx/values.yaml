@@ -174,11 +174,6 @@ searxSettings:
       enable_http: true
       base_url:
         - http://invidious-invidious.invidious.svc.cluster.local:3000
-    - name: google
-      enable_http: true
-      proxies:
-        all://:
-          - http://127.0.0.1:8080
     - name: wikidata
       disabled: true
     - name: solidtorrents
@@ -187,11 +182,6 @@ searxSettings:
       - https://solidtorrents.net
       - https://solidtorrents.to
       - https://bitsearch.to
-    - name: startpage
-      enable_http: true
-      proxies:
-        all://:
-          - http://127.0.0.1:8080
     - name: mojeek
       enable_http2: true
       timeout: 5.0
