@@ -10,7 +10,7 @@ sources:
 dependencies:
   - name: application
     repository: https://stakater.github.io/stakater-charts
-    version: 2.1.10
+    version: 2.1.18
     alias: nitter
   - name: redis
     version: 1.1.3
