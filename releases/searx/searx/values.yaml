@@ -110,6 +110,18 @@ searxSettings:
     '(.*\.)?archiveiya74codqgiixo33q62qlrqtkgmcitqx5u2oeqnmn5bpcbiyd.onion': 'archive.is'
 
   engines:
+    - name: wikibooks
+      disabled: true
+    - name: wikipecies
+      disabled: true
+    - name: wikiquote
+      disabled: true
+    - name: wikisource
+      disabled: true
+    - name: wikiversity
+      disabled: true
+    - name: wikivoyage
+      disabled: true
     - name: arxiv
       disabled: true
     - name: apple maps
