@@ -33,12 +33,12 @@ controller:
           const keyValue = hmac.update(r.remoteAddress).digest('hex');
 
           if (allowedIPs.includes(keyValue)) {
-            r.internalRedirect('/nitter' + r.uri);
+            r.internalRedirect('@nitter');
           }
           else if (r.args.hasOwnProperty("key") && r.args.key == keyValue) {
             allowedIPs.push(keyValue);
             updateFile(passedChallengeIPs, allowedIPs, r);
-            r.internalRedirect('/nitter' + r.uri);
+            r.internalRedirect('@nitter');
           }
           else {
             r.headersOut['Content-Type'] = "text/html; charset=utf-8";
