@@ -115,6 +115,9 @@ controller:
   - name: cache-proxy-temp
     mountPath: /tmp/proxy-temp
   
+  extraArgs:
+    disable-catch-all: "true"
+
   kind: DaemonSet
   hostNetwork: true
   tolerations:
