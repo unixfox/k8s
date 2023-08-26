@@ -20,7 +20,7 @@ controller:
     enabled: false
   image:
     registry: quay.io
-    image: ingress-nginx-custom
+    image: unixfox/ingress-nginx-custom
   # tag: v1.5.1
     digest: ""
   watchIngressWithoutClass: true
