@@ -90,10 +90,10 @@ controller:
   extraInitContainers:
     - name: nginx-dynamic-modules
       image: nginx:1.21.6-alpine
-      command: ['sh', '-c', 'cp /usr/lib/nginx/modules/ngx_http_js_module.so /etc/nginx/modules/extra']
+      command: ['sh', '-c', 'cp /usr/lib/nginx/modules/ngx_http_js_module.so /usr/local/nginx/modules/extra']
       volumeMounts:
         - name: dynamic-modules
-          mountPath: /etc/nginx/modules/extra
+          mountPath: /usr/local/nginx/modules/extra
   extraVolumes:
   - name: ingress-nginx-controller
     configMap:
@@ -121,7 +121,7 @@ controller:
   - name: cache-proxy-temp
     mountPath: /tmp/proxy-temp
   - name: dynamic-modules
-    mountPath: /etc/nginx/modules/extra
+    mountPath: /usr/local/nginx/modules/extra
   
   kind: DaemonSet
   hostNetwork: true
