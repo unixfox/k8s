@@ -3,7 +3,7 @@ nitter:
 
   rbac:
     serviceAccount:
-      enabled: true
+      enabled: false
       name: "tiny"
 
   deployment:
@@ -15,24 +15,35 @@ nitter:
       readOnlyRootFilesystem: true
     strategy:
       type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
     image:
       repository: zedeus/nitter
       tag: latest
       pullPolicy: Always
     startupProbe:
       enabled: true
+      failureThreshold: 20
+      periodSeconds: 60
+      timeoutSeconds: 60
       httpGet:
         path: /jack/status/20
         port: 8080
 
     readinessProbe:
       enabled: true
+      failureThreshold: 20
+      periodSeconds: 300
+      timeoutSeconds: 60
       httpGet:
         path: /jack/status/20
         port: 8080
 
     livenessProbe:
       enabled: true
+      failureThreshold: 20
+      periodSeconds: 300
+      timeoutSeconds: 60
       httpGet:
         path: /jack/status/20
         port: 8080
@@ -49,11 +60,19 @@ nitter:
       nitter-config:
         secret:
           secretName: '{{ template "application.name" . }}-nitterconf'
-
+      route64-config:
+        secret:
+          secretName: '{{ template "application.name" . }}-route64conf'
+      guest-accounts:
+        emptyDir: {}
+      
     volumeMounts:
       nitter-config:
         mountPath: /src/nitter.conf
         subPath: nitterconf
+      guest-accounts:
+        mountPath: "/src/guest_accounts.json"
+        subPath: "guest_accounts.json"
 
   secret:
     enabled: true
@@ -105,7 +124,6 @@ nitter:
             proxyVideos = true
             hlsPlayback = false
             infiniteScroll = false
-
       
 redis:
   enabled: true

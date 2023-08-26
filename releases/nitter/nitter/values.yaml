@@ -9,9 +9,10 @@ keel:
 
 nitter:
   deployment:
-    replicas: 3
+    replicas: 5
     image:
-      tag: latest-arm64
+      repository: quay.io/unixfox/nitter-tokens
+      tag: latest
   ingress:
     enabled: true
     annotations:

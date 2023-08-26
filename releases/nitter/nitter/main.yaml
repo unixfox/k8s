@@ -2,7 +2,10 @@ bases:
   - "../../../commons/general.yaml"
 
 repositories:
-  
+  - name: stakater
+    url: https://stakater.github.io/stakater-charts
+  - name: pascaliske
+    url: https://charts.pascaliske.dev
 
 releases:
 - name: nitter
@@ -12,5 +15,7 @@ releases:
   chart: ../../../charts/nitter
   secrets:
   - "secrets.yaml"
+  - "values-magicsauce.yaml"
+  - "values-secrets.yaml"
   values:
   - "values.yaml"
