@@ -1,5 +1,5 @@
 defaultBackend:
-  enabled: true
+  enabled: false
   image:
     registry: k8s.gcr.io
     image: defaultbackend-arm64
