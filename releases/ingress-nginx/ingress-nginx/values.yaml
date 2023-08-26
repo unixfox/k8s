@@ -22,7 +22,7 @@ controller:
     registry: quay.io
     image: ingress-nginx-custom
   # tag: v1.5.1
-  # digest: ""
+    digest: ""
   watchIngressWithoutClass: true
   terminationGracePeriodSeconds: 0
   dnsPolicy: ClusterFirstWithHostNet
