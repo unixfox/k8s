@@ -33,15 +33,14 @@ controller:
           const keyValue = hmac.update(r.remoteAddress).digest('hex');
 
           if (allowedIPs.includes(keyValue)) {
-            r.internalRedirect('/nitter');
+            r.internalRedirect('/nitter' + r.uri);
           }
           else if (r.args.hasOwnProperty("key") && r.args.key == keyValue) {
             allowedIPs.push(keyValue);
             updateFile(passedChallengeIPs, allowedIPs, r);
-            r.internalRedirect('/nitter');
+            r.internalRedirect('/nitter' + r.uri);
           }
           else {
-            r.error(JSON.stringify(r.args));
             r.headersOut['Content-Type'] = "text/html; charset=utf-8";
             let queryString = r.args;
             queryString.key = keyValue;
