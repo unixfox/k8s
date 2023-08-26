@@ -18,9 +18,9 @@ controller:
 
   admissionWebhooks:
     enabled: false
-  #image:
-  # registry: quay.io
-  # image: unixfox/controller
+  image:
+    registry: quay.io
+    image: ingress-nginx-custom
   # tag: v1.5.1
   # digest: ""
   watchIngressWithoutClass: true
