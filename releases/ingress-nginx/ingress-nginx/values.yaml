@@ -85,7 +85,7 @@ controller:
         command:
           - /bin/echo
   extraVolumes:
-  - name: luarestylimitcount
+  - name: ingress-nginx-controller
     configMap:
       name: ingress-nginx-controller
   - name: sharedsock
@@ -94,20 +94,20 @@ controller:
   - name: cache-proxy-temp
     emptyDir:
       medium: "Memory"
-  - hostPath:
-      path: /etc/nginx/lua/plugins
-    name: antiddos
   extraVolumeMounts:
   - mountPath: /etc/nginx/lua/count.lua
-    name: luarestylimitcount
-    subPath: luaRestyLimitCount
+    name: ingress-nginx-controller
+    subPath: count.lua
+  - mountPath: /usr/local/nginx/anti_ddos_challenge.lua
+    name: ingress-nginx-controller
+    subPath: anti_ddos_challenge.lua
+  - mountPath: /etc/nginx/antibotsimple.js
+    name: ingress-nginx-controller
+    subPath: antibotsimple.js
   - name: sharedsock
     mountPath: /app/socket
   - name: cache-proxy-temp
     mountPath: /tmp/proxy-temp
-  - mountPath: /usr/local/nginx/anti_ddos_challenge.lua
-    name: antiddos
-    subPath: anti_ddos_challenge.lua
   
   kind: DaemonSet
   hostNetwork: true

@@ -14,4 +14,4 @@ releases:
   version: 4.4.2
   values:
   - "values.yaml"
-  - "values-lua.yaml"
+  - "values-configmap-extra.yaml"
