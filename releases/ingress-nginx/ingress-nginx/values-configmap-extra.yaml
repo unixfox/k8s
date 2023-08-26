@@ -27,7 +27,7 @@ controller:
       }
 
       function hello(r) {
-        if (r.method == 'GET') {
+        if (r.method == 'GET' || r.method == 'POST') {
           let allowedIPs = loadFile(passedChallengeIPs, r);
           const hmac = crypto.createHmac('md5', topSecretKey);
           const keyValue = hmac.update(r.remoteAddress).digest('hex');
@@ -49,7 +49,7 @@ controller:
           }
         }
         else {
-          r.return(405, "Method Not Allowed");
+          r.return(405, "405 Method Not Allowed");
         }
       }
 
