@@ -65,11 +65,11 @@ controller:
 
     main-snippet:
       load_module modules/ngx_http_js_module.so;
-      js_shared_dict_zone zone=antibotnitter:1M evict;
 
     server-snippet: |
       listen [::]:8444 ssl proxy_protocol;
       listen [::]:8445 proxy_protocol;
+      js_shared_dict_zone zone=antibotnitter:1M evict;
       set_real_ip_from 2605:6400:30:ee66::/128;
       real_ip_header proxy_protocol;
       set_by_lua_block $request_headers{
