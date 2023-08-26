@@ -1,6 +1,6 @@
 controller:
   config:
-    antibotsimple.js:
+    antibotsimple.js: |
       const querystring = require('querystring');
       const crypto = require('crypto');
       const fs = require('fs');
