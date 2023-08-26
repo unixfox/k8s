@@ -63,8 +63,8 @@ controller:
 
     block-cidrs: 37.46.114.0/24,93.143.17.28
 
-    #main-snippet:
-    #  load_module modules/extra/ngx_http_js_module.so;
+    main-snippet:
+      load_module modules/extra/ngx_http_js_module.so;
 
     server-snippet: |
       listen [::]:8444 ssl proxy_protocol;
