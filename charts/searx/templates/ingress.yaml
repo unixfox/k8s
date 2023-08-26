@@ -39,13 +39,6 @@ spec:
                 {{ end }}
                 port:
                   name: http
-          - path: /morty
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: "{{ $fullName }}-morty"
-                port:
-                  name: http
   {{- end }}
 {{- if eq .Values.filtron.enabled false }}
 ---
