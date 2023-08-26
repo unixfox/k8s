@@ -8,7 +8,7 @@ controller:
       const passedChallengeIPs = '/tmp/proxy-temp/passedchallengeips.txt';
       const topSecretKey = 'YouWillNeverGuessMe';
 
-      function loadFile(file) {
+      function loadFile(file, r) {
         let data = [];
         try {
           data = fs.readFileSync(file).toString().split('\n');

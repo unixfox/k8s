@@ -83,6 +83,9 @@ controller:
         return request_headers_all
       }
   lifecycle:
+    postStart:
+      exec:
+        command: ["/bin/sh", "-c", "touch /tmp/proxy-temp/passedchallengeips.txt"]
     preStop:
       exec:
         command:
