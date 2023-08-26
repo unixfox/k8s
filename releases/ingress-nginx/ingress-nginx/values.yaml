@@ -1,5 +1,5 @@
 defaultBackend:
-  enabled: false
+  enabled: true
   image:
     registry: k8s.gcr.io
     image: defaultbackend-arm64
@@ -114,9 +114,6 @@ controller:
     mountPath: /app/socket
   - name: cache-proxy-temp
     mountPath: /tmp/proxy-temp
-  
-  extraArgs:
-    disable-catch-all: "true"
 
   kind: DaemonSet
   hostNetwork: true
