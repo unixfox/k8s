@@ -89,7 +89,7 @@ controller:
           - /bin/echo
   extraInitContainers:
     - name: nginx-dynamic-modules
-      image: nginx:1.21.6-alpine
+      image: nginx:alpine
       command: ['sh', '-c', 'cp /usr/lib/nginx/modules/ngx_http_js_module.so /usr/local/nginx/modules/extra']
       volumeMounts:
         - name: dynamic-modules
