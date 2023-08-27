@@ -27,7 +27,7 @@ nitter:
       periodSeconds: 60
       timeoutSeconds: 60
       httpGet:
-        path: /jack/status/20
+        path: /jack/with_replies
         port: 8080
 
     readinessProbe:
@@ -36,7 +36,7 @@ nitter:
       periodSeconds: 60
       timeoutSeconds: 60
       httpGet:
-        path: /jack/status/20
+        path: /jack/with_replies
         port: 8080
 
     livenessProbe:
@@ -45,7 +45,7 @@ nitter:
       periodSeconds: 60
       timeoutSeconds: 60
       httpGet:
-        path: /jack/status/20
+        path: /jack/with_replies
         port: 8080
 
     ports:
