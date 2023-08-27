@@ -110,6 +110,18 @@ searxSettings:
     '(.*\.)?archiveiya74codqgiixo33q62qlrqtkgmcitqx5u2oeqnmn5bpcbiyd.onion': 'archive.is'
 
   engines:
+    - name: z-library
+      disabled: true
+    - name: solidtorrents
+      disabled: true
+    - name: piped
+      disabled: true
+    - name: google videos
+      disabled: true
+    - name: brave.videos
+      disabled: true
+    - name: brave.images
+      disabled: true
     - name: wikibooks
       disabled: true
     - name: wikipecies
