@@ -23,7 +23,7 @@ nitter:
       pullPolicy: Always
     startupProbe:
       enabled: true
-      failureThreshold: 4
+      failureThreshold: 20
       periodSeconds: 60
       timeoutSeconds: 60
       httpGet:
@@ -32,8 +32,8 @@ nitter:
 
     readinessProbe:
       enabled: true
-      failureThreshold: 4
-      periodSeconds: 300
+      failureThreshold: 3
+      periodSeconds: 60
       timeoutSeconds: 60
       httpGet:
         path: /jack/status/20
@@ -41,8 +41,8 @@ nitter:
 
     livenessProbe:
       enabled: true
-      failureThreshold: 4
-      periodSeconds: 300
+      failureThreshold: 3
+      periodSeconds: 60
       timeoutSeconds: 60
       httpGet:
         path: /jack/status/20
@@ -71,8 +71,18 @@ nitter:
         mountPath: /src/nitter.conf
         subPath: nitterconf
       guest-accounts:
-        mountPath: "/src/guest_accounts.json"
-        subPath: "guest_accounts.json"
+        mountPath: "/guest_accounts"
+
+    command:
+      - /bin/ash
+    args:
+      - -ec
+      - |
+        until [ -f /guest_accounts/done ]
+        do
+            sleep 1
+        done
+        NITTER_ACCOUNTS_FILE=/guest_accounts/guest_accounts.json /src/nitter
 
   secret:
     enabled: true
