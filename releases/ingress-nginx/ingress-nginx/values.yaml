@@ -36,7 +36,7 @@ controller:
     ssl-protocols: "TLSv1.2 TLSv1.3"
     ssl-ciphers: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
     hsts-preload: "true"
-    disable-access-log: "true"
+    disable-access-log: "false"
     error-log-level: "error"
     use-gzip: "true"
     lua-shared-dicts: "limit_api_captions: 100, limit_api_storyboards: 100, limit_api_subscriptions: 100, limit_feed_channel: 100, limit_login: 100, limit_videoplayback: 100, limit_main_routes: 100, limit_latest_version: 100, limit_webhooks: 100, limit_search_searx: 100, limit_image_req: 100"
