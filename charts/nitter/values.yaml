@@ -23,7 +23,7 @@ nitter:
       pullPolicy: Always
     startupProbe:
       enabled: true
-      failureThreshold: 20
+      failureThreshold: 4
       periodSeconds: 60
       timeoutSeconds: 60
       httpGet:
@@ -32,7 +32,7 @@ nitter:
 
     readinessProbe:
       enabled: true
-      failureThreshold: 20
+      failureThreshold: 4
       periodSeconds: 300
       timeoutSeconds: 60
       httpGet:
@@ -41,7 +41,7 @@ nitter:
 
     livenessProbe:
       enabled: true
-      failureThreshold: 20
+      failureThreshold: 4
       periodSeconds: 300
       timeoutSeconds: 60
       httpGet:
