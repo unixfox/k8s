@@ -4,25 +4,26 @@ controller:
       const querystring = require('querystring');
       const crypto = require('crypto');
       
-      const topSecretKey = 'YouWillNeverGuessMe';
+      const nowDate = new Date();
+      const topSecretKey = 'YouWillNeverGuessMe' + nowDate.getFullYear() + (nowDate.getMonth()+1) + nowDate.getDate() + nowDate.getHours();
 
       function hello(r) {
         if (r.method == 'GET' || r.method == 'POST') {
-          const hmac = crypto.createHmac('md5', topSecretKey);
-          const keyValue = hmac.update(r.remoteAddress).digest('hex');
-          const allowedIP = ngx.shared.antibotnitter.get(keyValue);
-
+          const allowedIP = ngx.shared.antibotnitter.get(r.remoteAddress);
           if (allowedIP) {
             r.internalRedirect('@finalapp');
           }
-          else if (r.args.hasOwnProperty("key") && r.args.key == keyValue) {
-            ngx.shared.antibotnitter.set(keyValue, "true")
+
+          const hmac = crypto.createHmac('md5', topSecretKey);
+          const keyValue = hmac.update(r.remoteAddress).digest('hex');
+          if (r.args.hasOwnProperty(keyValue) && r.args[keyValue] == keyValue) {
+            ngx.shared.antibotnitter.set(r.remoteAddress, "true")
             r.internalRedirect('@finalapp');
           }
           else {
             r.headersOut['Content-Type'] = "text/html; charset=utf-8";
             let queryString = r.args;
-            queryString.key = keyValue;
+            queryString[keyValue] = keyValue;
             const finalUrl = r.uri + "?" + querystring.stringify(queryString)
             r.return(201, `<html><head><title>Redirecting</title><meta http-equiv="refresh" content="0;URL='${finalUrl}'" /></head><body></body></html>`);
           }
