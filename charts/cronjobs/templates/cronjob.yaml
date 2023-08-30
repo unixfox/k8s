@@ -21,6 +21,9 @@ spec:
             app: {{ $release_name }}
             cron: {{ $job.name }}
         spec:
+        {{- if hasKey $job "hostNetwork" }}
+          hostNetwork: {{ $job.hostNetwork }}
+        {{- end }}
         {{- if hasKey $job "serviceAccount" }}
         {{- if hasKey $job.serviceAccount "name" }}
           serviceAccountName: {{ $job.serviceAccount.name }}
@@ -29,13 +32,13 @@ spec:
         {{- end }}
         {{- end }}
         {{- if hasKey $job "securityContext" }}
-          {{- if $job.securityContext.runAsUser }}
+          {{- if hasKey $job.securityContext "runAsUser" }}
           securityContext:
             runAsUser: {{ $job.securityContext.runAsUser }}
-            {{- if $job.securityContext.runAsGroup }}
+            {{- if hasKey $job.securityContext "runAsGroup" }}
             runAsGroup: {{ $job.securityContext.runAsGroup }}
             {{- end }}
-            {{- if $job.securityContext.fsGroup }}
+            {{- if hasKey $job.securityContext "fsGroup" }}
             fsGroup: {{ $job.securityContext.fsGroup }}
             {{- end }}
           {{- end }}

@@ -1,0 +1,11 @@
+bases:
+  - "../../../commons/general.yaml"
+
+releases:
+- name: nitter-generate-accounts
+  labels:
+    parent: nitter
+  namespace: nitter
+  chart: ../../../charts/cronjobs
+  secrets:
+  - "secrets.yaml"

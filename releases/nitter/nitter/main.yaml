@@ -15,7 +15,7 @@ releases:
   chart: ../../../charts/nitter
   secrets:
   - "secrets.yaml"
-  - "values-magicsauce.yaml"
+  #- "values-magicsauce.yaml"
   - "values-secrets.yaml"
   values:
   - "values.yaml"

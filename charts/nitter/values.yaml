@@ -23,10 +23,10 @@ nitter:
       pullPolicy: Always
     startupProbe:
       enabled: true
-      failureThreshold: 20
-      periodSeconds: 60
+      failureThreshold: 5
+      periodSeconds: 10
       timeoutSeconds: 60
-      initialDelaySeconds: 120
+      initialDelaySeconds: 5
       httpGet:
         path: /jack/with_replies
         port: 8080
@@ -61,11 +61,10 @@ nitter:
       nitter-config:
         secret:
           secretName: '{{ template "application.name" . }}-nitterconf'
-      route64-config:
-        secret:
-          secretName: '{{ template "application.name" . }}-route64conf'
       guest-accounts:
-        emptyDir: {}
+        hostPath:
+          path: /var/tmp/guest-accounts
+          type: DirectoryOrCreate
       
     volumeMounts:
       nitter-config:
@@ -79,11 +78,8 @@ nitter:
     args:
       - -ec
       - |
-        until [ -f /guest_accounts/done ]
-        do
-            sleep 1
-        done
-        NITTER_ACCOUNTS_FILE=/guest_accounts/guest_accounts.json /src/nitter
+        filename=$(ls /guest_accounts | shuf -n 1)
+        NITTER_ACCOUNTS_FILE=/guest_accounts/$filename /src/nitter
 
   secret:
     enabled: true
