@@ -9,15 +9,14 @@ controller:
 
       function hello(r) {
         if (r.method == 'GET' || r.method == 'POST') {
-          const allowedIP = ngx.shared.antibotnitter.get(r.remoteAddress);
+          const hmac = crypto.createHmac('md5', topSecretKey);
+          const keyValue = hmac.update(r.remoteAddress).digest('hex');
+          const allowedIP = ngx.shared.antibotnitter.get(topSecretKey);
           if (allowedIP) {
             r.internalRedirect('@finalapp');
           }
-
-          const hmac = crypto.createHmac('md5', topSecretKey);
-          const keyValue = hmac.update(r.remoteAddress).digest('hex');
-          if (r.args.hasOwnProperty(keyValue) && r.args[keyValue] == keyValue) {
-            ngx.shared.antibotnitter.set(r.remoteAddress, "true")
+          else if (r.args.hasOwnProperty(keyValue) && r.args[keyValue] == keyValue) {
+            ngx.shared.antibotnitter.set(topSecretKey, "true")
             r.internalRedirect('@finalapp');
           }
           else {
