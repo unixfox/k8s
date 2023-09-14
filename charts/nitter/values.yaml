@@ -79,7 +79,8 @@ nitter:
       - -ec
       - |
         filename=$(ls /guest_accounts | shuf -n 1)
-        NITTER_ACCOUNTS_FILE=/guest_accounts/$filename /src/nitter
+        cp /guest_accounts/$filename /dev/shm/guest_accounts.json
+        NITTER_ACCOUNTS_FILE=/dev/shm/guest_accounts.json /src/nitter
 
   secret:
     enabled: true
