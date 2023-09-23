@@ -52,6 +52,7 @@ spec:
       - name: "{{ .Chart.Name }}-tlsproxy"
         image: "quay.io/unixfox/ja3proxy:latest"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
+        command: /app/server
         args:
         - "-client"
         - "Firefox"
