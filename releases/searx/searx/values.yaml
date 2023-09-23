@@ -144,12 +144,26 @@ searxSettings:
     - name: bing
       enable_http2: true
       disabled: true
+      verify: false
+      proxies:
+        all://:
+          - http://127.0.0.1:8080
     - name: duckduckgo
       disabled: true
+      enable_http2: true
+      verify: false
+      proxies:
+        all://:
+          - http://127.0.0.1:8080
     - name: brave
       disabled: true
     - name: qwant
       disabled: true
+      verify: false
+      enable_http2: true
+      proxies:
+        all://:
+          - http://127.0.0.1:8080
     - name: dictzone
       disabled: true
     - name: bing images

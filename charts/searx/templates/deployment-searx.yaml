@@ -50,8 +50,13 @@ spec:
           name: {{ template "searx.fullname" . }}
       containers:
       - name: "{{ .Chart.Name }}-tlsproxy"
-        image: "ghcr.io/unixfox/gotlsproxy:0.9"
+        image: "quay.io/unixfox/ja3proxy:latest"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
+        args:
+        - "-client"
+        - "Firefox"
+        - "-version"
+        - "105"
       - name: "{{ .Chart.Name }}-tor"
         image: "osminogin/tor-simple"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
