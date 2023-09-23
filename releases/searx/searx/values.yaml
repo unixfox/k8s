@@ -217,6 +217,13 @@ searxSettings:
       proxies:
         all://:
           - http://127.0.0.1:8080
+    - name: startpage
+      disabled: true
+      verify: false
+      enable_http2: true
+      proxies:
+        all://:
+          - http://127.0.0.1:8080
     - name: mojeek
       disabled: true
       verify: false
@@ -225,8 +232,9 @@ searxSettings:
         all://:
           - http://127.0.0.1:8080
     - name: brave
-      timeout: 10.0
-      base_url: https://search.brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion/
+      disabled: true
+      verify: false
+      enable_http2: true
       proxies:
         all://:
-          - socks5h://127.0.0.1:9050
+          - http://127.0.0.1:8080
