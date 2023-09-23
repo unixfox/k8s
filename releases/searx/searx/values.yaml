@@ -197,14 +197,12 @@ searxSettings:
     - name: youtube
       disabled: true
     - name: btdigg
-      search_url: http://btdigggink2pdqzqrik3blmqemsbntpzwxottujilcdjfz56jumzfsyd.onion/search?q={search_term}&p={pageno}
-      enable_http: true
-      retry_on_http_error: true
-      timeout: 5.0
-      retries: 2
+      disabled: true
+      verify: false
+      enable_http2: true
       proxies:
         all://:
-          - socks5h://127.0.0.1:9050
+          - http://127.0.0.1:8080
     - name: invidious
       disabled: false
       enable_http: true
@@ -213,17 +211,19 @@ searxSettings:
     - name: wikidata
       disabled: true
     - name: solidtorrents
+      disabled: true
+      verify: false
       enable_http2: true
-      base_url:
-      - https://solidtorrents.net
-      - https://solidtorrents.to
-      - https://bitsearch.to
-    - name: mojeek
-      enable_http2: true
-      timeout: 5.0
       proxies:
         all://:
-          - socks5://127.0.0.1:9050
+          - http://127.0.0.1:8080
+    - name: mojeek
+      disabled: true
+      verify: false
+      enable_http2: true
+      proxies:
+        all://:
+          - http://127.0.0.1:8080
     - name: brave
       timeout: 10.0
       base_url: https://search.brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion/
