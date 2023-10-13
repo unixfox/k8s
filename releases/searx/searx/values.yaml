@@ -42,7 +42,7 @@ searxSettings:
     default_lang: "all" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
     ban_time_on_fail: 0 # ban time in seconds after engine errors
     max_ban_time_on_fail: 0 # max ban time in seconds after engine errors
-    suspend_times:
+    suspended_times:
       # Engine suspension time after error (in seconds; set to 0 to disable)
       # For error "Access denied" and "HTTP error [402, 403]"
       SearxEngineAccessDenied: 0
