@@ -155,8 +155,6 @@ searxSettings:
       proxies:
         all://:
           - http://127.0.0.1:8080
-    - name: brave
-      disabled: true
     - name: qwant
       disabled: true
       verify: false
