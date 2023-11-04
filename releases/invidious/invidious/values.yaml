@@ -118,6 +118,7 @@ config:
     volume: 100
     save_player_pos: false
     watch_history: false
+    force_resolve: ipv6
   dmca_content: []
   check_tables: true
   cache_annotations: false
