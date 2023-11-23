@@ -81,6 +81,7 @@ config:
   registration_enabled: false
   statistics_enabled: true
   external_port: 443
+  use_innertube_for_captions: true
   default_user_preferences:
     annotations: false
     annotations_subscribed: false
@@ -127,4 +128,3 @@ config:
   - downloads
   - livestreams
   port: 3000
-  pool_size: 100
