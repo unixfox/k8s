@@ -73,7 +73,7 @@ searxSettings:
   ui:
     query_in_title: true
     default_theme: oscar
-    infinite_scroll: true
+    infinite_scroll: false
 
   outgoing:
     enable_http2: false
