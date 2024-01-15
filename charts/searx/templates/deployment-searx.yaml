@@ -53,6 +53,7 @@ spec:
         image: "ghcr.io/pufferffish/wireproxy:latest"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
         args:
+        - "-s"
         - "-c"
         - "/wireproxy.conf"
         volumeMounts:
