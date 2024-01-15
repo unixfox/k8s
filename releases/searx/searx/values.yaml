@@ -162,21 +162,21 @@ searxSettings:
       verify: false
       proxies:
         all://:
-          - http://127.0.0.1:8080
+          - http://127.0.0.1:18080
     - name: duckduckgo
       disabled: true
       enable_http2: true
       verify: false
       proxies:
         all://:
-          - http://127.0.0.1:8080
+          - http://127.0.0.1:18080
     - name: qwant
       disabled: true
       verify: false
       enable_http2: true
       proxies:
         all://:
-          - http://127.0.0.1:8080
+          - http://127.0.0.1:18080
     - name: dictzone
       disabled: true
     - name: bing images
@@ -215,7 +215,7 @@ searxSettings:
       enable_http2: true
       proxies:
         all://:
-          - http://127.0.0.1:8080
+          - http://127.0.0.1:18080
     - name: invidious
       disabled: false
       enable_http: true
@@ -229,25 +229,25 @@ searxSettings:
       enable_http2: true
       proxies:
         all://:
-          - http://127.0.0.1:8080
+          - http://127.0.0.1:18080
     - name: startpage
       disabled: true
       verify: false
       enable_http2: true
       proxies:
         all://:
-          - http://127.0.0.1:8080
+          - http://127.0.0.1:18080
     - name: mojeek
       disabled: true
       verify: false
       enable_http2: true
       proxies:
         all://:
-          - http://127.0.0.1:8080
+          - http://127.0.0.1:18080
     - name: brave
       disabled: true
       verify: false
       enable_http2: true
       proxies:
         all://:
-          - http://127.0.0.1:8080
+          - http://127.0.0.1:18080

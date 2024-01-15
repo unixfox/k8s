@@ -9,5 +9,3 @@ metadata:
 data:
   settings.yml: |
 {{ toYaml .Values.searxSettings | indent 4 }}
-  wireproxy.conf: |
-{{ .Values.wireproxy | indent 4 }}
