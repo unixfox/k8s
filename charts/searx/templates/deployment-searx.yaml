@@ -49,17 +49,12 @@ spec:
         configMap:
           name: {{ template "searx.fullname" . }}
       containers:
-      - name: "{{ .Chart.Name }}-wireproxy"
-        image: "ghcr.io/pufferffish/wireproxy:latest"
+      - name: "{{ .Chart.Name }}-operaproxy"
+        image: "yarmak/opera-proxy:latest"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
         args:
-        - "-s"
-        - "-c"
-        - "/wireproxy.conf"
-        volumeMounts:
-        - name: config-searx
-          mountPath: /wireproxy.conf
-          subPath: wireproxy.conf
+        - "-country"
+        - "EU"
       - name: "{{ .Chart.Name }}-tor"
         image: "osminogin/tor-simple"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
