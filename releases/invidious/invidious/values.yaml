@@ -81,6 +81,7 @@ config:
   registration_enabled: false
   statistics_enabled: true
   external_port: 443
+  force_resolve: ipv6
   use_innertube_for_captions: true
   default_user_preferences:
     annotations: false
@@ -119,7 +120,6 @@ config:
     volume: 100
     save_player_pos: false
     watch_history: false
-    force_resolve: ipv6
   dmca_content: []
   check_tables: true
   cache_annotations: false

@@ -8,7 +8,7 @@ releases:
     labels:
       app: argocd
     chart: argo/argo-cd
-    version: ~5.36.11
+    version: ~5.52.2
     values:
       - configs:
           params:
@@ -26,8 +26,6 @@ releases:
                 hosts:
                   - argo.unixfox.eu
       - global:
-          nodeSelector:
-            kubernetes.io/arch: amd64
           tolerations:
             - key: tempnode
               operator: Equal
