@@ -50,7 +50,7 @@ spec:
           name: {{ template "searx.fullname" . }}
       containers:
       - name: "{{ .Chart.Name }}-wireproxy"
-        image: "docker pull ghcr.io/pufferffish/wireproxy:latest"
+        image: "ghcr.io/pufferffish/wireproxy:latest"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
         args:
         - "-c"
