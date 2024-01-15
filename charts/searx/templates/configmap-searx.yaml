@@ -10,4 +10,4 @@ data:
   settings.yml: |
 {{ toYaml .Values.searxSettings | indent 4 }}
   wireproxy.conf: |
-{{ toYaml .Values.wireproxy | indent 4 }}
+{{ .Values.wireproxy | indent 4 }}
