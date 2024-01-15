@@ -55,6 +55,8 @@ spec:
         args:
         - "-country"
         - "EU"
+        - "-verbosity"
+        - "30"
       - name: "{{ .Chart.Name }}-tor"
         image: "osminogin/tor-simple"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
