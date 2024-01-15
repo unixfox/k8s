@@ -49,16 +49,16 @@ spec:
         configMap:
           name: {{ template "searx.fullname" . }}
       containers:
-      - name: "{{ .Chart.Name }}-tlsproxy"
-        image: "quay.io/unixfox/ja3proxy:latest"
+      - name: "{{ .Chart.Name }}-wireproxy"
+        image: "docker pull ghcr.io/pufferffish/wireproxy:latest"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}
-        command:
-        - /app/server
         args:
-        - "-client"
-        - "Firefox"
-        - "-version"
-        - "105"
+        - "-c"
+        - "/wireproxy.conf"
+        volumeMounts:
+        - name: config-searx
+          mountPath: /wireproxy.conf
+          subPath: wireproxy.conf
       - name: "{{ .Chart.Name }}-tor"
         image: "osminogin/tor-simple"
         imagePullPolicy: {{ .Values.searx.image.pullPolicy }}

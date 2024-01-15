@@ -11,3 +11,4 @@ releases:
   - "values.yaml"
   secrets:
   - "secrets.yaml"
+  - "secrets-wireproxy.yaml"
