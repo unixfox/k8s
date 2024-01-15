@@ -116,8 +116,19 @@ searxSettings:
       disabled: true
     - name: piped
       disabled: true
+    - name: google news
+      proxies:
+        all://:
+          - http://127.0.0.1:18080
+    - name: google images
+      proxies:
+        all://:
+          - http://127.0.0.1:18080
     - name: google videos
       disabled: true
+      proxies:
+        all://:
+          - http://127.0.0.1:18080
     - name: brave.videos
       disabled: true
     - name: brave.images
@@ -141,6 +152,10 @@ searxSettings:
       disabled: true
     - name: pubmed
       disabled: true
+    - name: google
+      proxies:
+        all://:
+          - http://127.0.0.1:18080
     - name: bing
       enable_http2: true
       disabled: true
