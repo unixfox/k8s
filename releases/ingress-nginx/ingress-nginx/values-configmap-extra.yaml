@@ -24,7 +24,7 @@ controller:
             let queryString = r.args;
             queryString[keyValue] = keyValue;
             const finalUrl = r.uri + "?" + querystring.stringify(queryString)
-            r.return(201, `<html><head><title>Redirecting</title><meta http-equiv="refresh" content="0;URL='${finalUrl}'" /></head><body></body></html>`);
+            r.return(201, `<html><head><title>Redirecting</title></head><body><meta http-equiv="refresh" content="1;URL='${finalUrl}'" /></body></html>`);
           }
         }
         else {
