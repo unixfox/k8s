@@ -47,9 +47,5 @@ servers:
     - name: loop
     - name: reload
     - name: loadbalance
-    - name: hosts
-      configBlock: |
-        2600:9000:2394:b600:10:3b78:a40:21 api.twitter.com
-        fallthrough
     - name: rewrite
       parameters: name yewtu.be ingress-nginx-controller.ingress-nginx.svc.cluster.local
