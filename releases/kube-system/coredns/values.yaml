@@ -1,14 +1,14 @@
 replicaCount: 1
-affinity:
-  podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchExpressions:
-        - key: app.kubernetes.io/name
-          operator: In
-          values:
-          - coredns
-      topologyKey: kubernetes.io/hostname
+# affinity:
+#   podAntiAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#     - labelSelector:
+#         matchExpressions:
+#         - key: app.kubernetes.io/name
+#           operator: In
+#           values:
+#           - coredns
+#       topologyKey: kubernetes.io/hostname
 
 service:
   clusterIP: 10.43.0.10
