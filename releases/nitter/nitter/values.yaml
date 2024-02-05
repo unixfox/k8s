@@ -18,8 +18,6 @@ nitter:
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: buypass-prod
-      nginx.ingress.kubernetes.io/proxy-next-upstream: "http_429"
-      nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
     hosts:
       -  # -- Host address. Helm template can be passed.
         host: static.nitter.unixfox.eu

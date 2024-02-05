@@ -22,7 +22,7 @@ nitter:
       tag: latest
       pullPolicy: Always
     startupProbe:
-      enabled: true
+      enabled: false
       failureThreshold: 5
       periodSeconds: 10
       timeoutSeconds: 60
@@ -32,7 +32,7 @@ nitter:
         port: 8080
 
     readinessProbe:
-      enabled: true
+      enabled: false
       failureThreshold: 3
       periodSeconds: 60
       timeoutSeconds: 60
@@ -41,7 +41,7 @@ nitter:
         port: 8080
 
     livenessProbe:
-      enabled: true
+      enabled: false
       failureThreshold: 3
       periodSeconds: 60
       timeoutSeconds: 60
