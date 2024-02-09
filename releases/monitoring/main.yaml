@@ -1,0 +1,2 @@
+helmfiles:
+  - netdata/main.yaml

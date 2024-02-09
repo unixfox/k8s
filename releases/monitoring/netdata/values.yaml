@@ -1,0 +1,42 @@
+ingress:
+  enabled: false
+parent:
+  enabled: false
+child:
+  persistence:
+    enabled: false
+  configs:
+    netdata:
+      data: |
+        [db]
+          mode = none
+        [web]
+          mode = none
+k8sState:
+  persistence:
+    enabled: false
+  configs:
+    netdata:
+      data: |
+        [db]
+          mode = none
+        [web]
+          mode = none
+        [plugins]
+          timex = no
+          checks = no
+          idlejitter = no
+          tc = no
+          diskspace = no
+          proc = no
+          cgroups = no
+          enable running new plugins = no
+          slabinfo = no
+          perf = no
+          go.d = yes
+          ioping = no
+          ebpf = no
+          charts.d = no
+          apps = no
+          python.d = no
+          fping = no

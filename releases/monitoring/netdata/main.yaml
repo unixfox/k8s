@@ -1,0 +1,17 @@
+bases:
+  - "../../../commons/general.yaml"
+
+repositories:
+  - name: netdata
+    url: https://netdata.github.io/helmchart/
+
+releases:
+- name: netdata
+  labels:
+    parent: monitoring
+  namespace: monitoring
+  chart: netdata/netdata
+  values:
+  - "values.yaml"
+  secrets:
+  - "secrets.yaml"
