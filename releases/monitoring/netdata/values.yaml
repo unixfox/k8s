@@ -3,14 +3,13 @@ ingress:
 parent:
   enabled: false
 child:
+  hostNetwork: false
   persistence:
     enabled: false
   configs:
     netdata:
       data: |
         [db]
-          mode = none
-        [web]
           mode = none
 k8sState:
   persistence:
@@ -19,8 +18,6 @@ k8sState:
     netdata:
       data: |
         [db]
-          mode = none
-        [web]
           mode = none
         [plugins]
           timex = no
