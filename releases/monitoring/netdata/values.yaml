@@ -3,9 +3,11 @@ ingress:
 parent:
   enabled: false
 child:
-  hostNetwork: false
-  persistence:
-    enabled: false
+  tolerations:
+  - effect: NoSchedule
+    operator: Exists
+  - effect: NoExecute
+    operator: Exists
   configs:
     netdata:
       data: |
@@ -13,10 +15,12 @@ child:
           mode = none
 k8sState:
   persistence:
-    enabled: false
+    storageclass: "local-path"
   configs:
     netdata:
       data: |
+        [global]
+          hostname = k8s-state-invidious
         [db]
           mode = none
         [plugins]
