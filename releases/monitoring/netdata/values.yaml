@@ -13,6 +13,8 @@ child:
       data: |
         [db]
           mode = none
+        [web]
+          allow connections from = 152.53.16.45 10.0.1.13 10.0.1.84
 k8sState:
   persistence:
     storageclass: "local-path"
