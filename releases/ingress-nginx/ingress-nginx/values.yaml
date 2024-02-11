@@ -59,16 +59,14 @@ controller:
     #log-format-upstream: '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" - $request_headers'
     #log-format-upstream: "$remote_addr - $request - $status - $http_referer - $http_user_agent - $request_headers"
     #log-format-upstream: 'verb="$request_method" request="$uri" response=$status clientip="$remote_addr" scheme="$scheme" bytes=$bytes_sent agent="$http_user_agent" referrer="$http_referer" request_time=$request_time upstream_response=$upstream_status upstream_response_time=$upstream_response_time resource_name="$resource_name" resource_namespace="$resource_namespace" resource_type="$resource_type" http_host="$http_host" request_id="$request_id" time_date="$time_iso8601" request_headers="$request_headers"'
-    log-format-upstream: '{"verb": "$request_method","uri": "$uri", "request_uri": "$request_uri", "request": "$request","response": "$status","clientip": "$remote_addr","scheme": "$scheme","bytes": "$bytes_sent","agent": "$http_user_agent","referrer": "$http_referer","request_time": "$request_time","upstream_response": "$upstream_status","upstream_response_time": "$upstream_response_time","http_host": "$http_host","service_name": "$service_name", "ingress_name": "$ingress_name", "status": "$status","request_id": "$request_id","time_date": "$time_iso8601","request_headers": "$request_headers","remote_port": "$remote_port"}'
-    log-format-escape-json: 'true'
+    #log-format-upstream: '{"verb": "$request_method","uri": "$uri", "request_uri": "$request_uri", "request": "$request","response": "$status","clientip": "$remote_addr","scheme": "$scheme","bytes": "$bytes_sent","agent": "$http_user_agent","referrer": "$http_referer","request_time": "$request_time","upstream_response": "$upstream_status","upstream_response_time": "$upstream_response_time","http_host": "$http_host","service_name": "$service_name", "ingress_name": "$ingress_name", "status": "$status","request_id": "$request_id","time_date": "$time_iso8601","request_headers": "$request_headers","remote_port": "$remote_port"}'
+    #log-format-escape-json: 'true'
+    log-format-upstream: '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" - $request_headers'
 
     location-snippet: |
       add_header Alt-Svc 'h2="ingress.yewtu.be:443"; ma=86400';
 
     block-cidrs: 37.46.114.0/24,93.143.17.28
-
-    main-snippet:
-      load_module modules/ngx_http_js_module.so;
 
     server-snippet: |
       listen [::]:8444 ssl proxy_protocol;
