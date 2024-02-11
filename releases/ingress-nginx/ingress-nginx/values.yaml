@@ -116,6 +116,9 @@ controller:
   - mountPath: /etc/nginx/antibotsimple.js
     name: ingress-nginx-controller
     subPath: antibotsimple.js
+  - mountPath: /etc/nginx/bot/botte.js
+    name: ingress-nginx-controller
+    subPath: botte.js
   - name: sharedsock
     mountPath: /app/socket
   - name: cache-proxy-temp
