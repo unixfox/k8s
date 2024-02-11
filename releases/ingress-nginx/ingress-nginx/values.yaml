@@ -40,7 +40,6 @@ controller:
     lua-shared-dicts: "antiddos: 10, limit_api_captions: 100, limit_api_storyboards: 100, limit_api_subscriptions: 100, limit_feed_channel: 100, limit_login: 100, limit_videoplayback: 100, limit_main_routes: 100, limit_latest_version: 100, limit_webhooks: 100, limit_search_searx: 100, limit_image_req: 100"
     worker-shutdown-timeout: "0s"
     http-snippet: |
-      js_shared_dict_zone zone=antibotnitter:1M timeout=7200s evict;
       geo $from_cluster {
         default    0;
         10.10.0.0/16 1;
