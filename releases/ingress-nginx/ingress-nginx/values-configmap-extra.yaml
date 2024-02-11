@@ -3264,7 +3264,7 @@ controller:
             now.setTime(time);
             document.cookie = ']] .. challenge .. [[=]] .. answer .. [[' + '; expires=' + ']] .. ngx.cookie_time(currenttime+expire_time) .. [[' + '; path=/';
             //javascript puzzle for browser to figure out to get answer
-            const botdPromise = import('/botd/v1').then((Botd) => Botd.load())
+            const botdPromise = import('/static/v1').then((Botd) => Botd.load())
             botdPromise
               .then((botd) => botd.detect())
               .then((result) => {
