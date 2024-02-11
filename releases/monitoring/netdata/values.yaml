@@ -16,6 +16,7 @@ child:
         [web]
           allow connections from = 152.53.16.45 10.0.1.13 10.0.1.84
 k8sState:
+  enabled: false
   persistence:
     storageclass: "local-path"
   configs:
