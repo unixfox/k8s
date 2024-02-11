@@ -16,11 +16,6 @@ controller:
   #       $'\n'"$(./kubectl get secrets -n invidious --field-selector metadata.name=chart-invidious-tls -o json -o=jsonpath="{.items[0].data.tls\.crt}" | base64 -d)" > \
   #       /var/tmp/haproxy-temp/full.pem;
 
-  image:
-    registry: quay.io
-    image: unixfox/ingress-nginx-controller-dynamic-modules
-  # tag: v1.5.1
-    digest: ""
   watchIngressWithoutClass: true
   terminationGracePeriodSeconds: 0
   dnsPolicy: ClusterFirstWithHostNet
