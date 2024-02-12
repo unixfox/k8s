@@ -126,4 +126,5 @@ config:
   hsts: true
   disable_proxy:
   - downloads
+  - livestream
   port: 3000

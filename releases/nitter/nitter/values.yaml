@@ -9,10 +9,17 @@ keel:
 
 nitter:
   deployment:
-    replicas: 5
+    replicas: 3
     image:
       repository: quay.io/unixfox/nitter-tokens
       tag: latest
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 0.5
+    requests:
+      memory: 256Mi
+      cpu: 0.5
   ingress:
     enabled: true
     annotations:
