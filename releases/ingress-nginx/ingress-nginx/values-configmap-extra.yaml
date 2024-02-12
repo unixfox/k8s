@@ -3395,10 +3395,10 @@ controller:
       <h1>]] .. title .. [[</h1>
       <p>
       <b>Sorry this pages exists in order to keep the service usable for everyone.</b>
+      <br>
       <b>If you can't pass the test, please whitelist your extensions on this website.</b>
+      <br>
       <b>In case you really can't pass the test then email me at antibot [AT] unixfox [DOT] eu with as much details as possible.</b>
-      <br>
-      <br>
       <br>
       ]] .. top_body_ad_slot .. [[
       <br>
