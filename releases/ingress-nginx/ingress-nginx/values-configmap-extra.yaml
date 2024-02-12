@@ -3268,7 +3268,7 @@ controller:
             botdPromise
               .then((botd) => botd.detect())
               .then((result) => {
-                if (!result.bot && !result.botKind !== "unknown") {
+                if (!result.bot || !result.botKind !== "unknown") {
                   ]] .. JavascriptVars_opening .. [[
                   ]] .. JavascriptPuzzleVariable .. [[
                   ]] .. JavascriptVars_closing .. [[
