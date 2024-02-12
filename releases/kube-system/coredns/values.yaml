@@ -13,6 +13,14 @@ replicaCount: 2
 service:
   clusterIP: 10.43.0.10
 
+resources:
+  limits:
+    cpu: 0.5
+    memory: 128Mi
+  requests:
+    cpu: 0.3
+    memory: 128Mi
+
 servers:
 - zones:
   - zone: .
