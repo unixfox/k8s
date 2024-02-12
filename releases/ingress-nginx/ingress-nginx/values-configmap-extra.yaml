@@ -3170,7 +3170,7 @@ controller:
       Build HTML Template
       ]]
 
-      local title = host .. [[ | Anti-DDoS Flood Protection and Firewall]]
+      local title = host .. [[ | Verifying your request]]
 
       --[[
       Javascript after setting cookie run xmlhttp GET request
@@ -3359,13 +3359,6 @@ controller:
       </div>
       <br>
       <br>
-      <h3 style="color:#bd2426;">Request Details :</h3>
-      IP address : ]] .. remote_addr .. [[
-      <br>
-      Request URL : ]] .. URL .. [[
-      <br>
-      User-Agent : ]] .. user_agent .. [[
-      <br>
       ]]
 
       local style_sheet = [[
@@ -3398,14 +3391,12 @@ controller:
       </head>
       <body style="background-color:#EEEEEE;color:#000000;font-family:Arial,Helvetica,sans-serif;font-size:100%;">
       <div style="width:auto;margin:16px auto;border:1px solid #CCCCCC;background-color:#FFFFFF;border-radius:3px 3px 3px 3px;padding:10px;">
-      <div style="float:right;margin-top:10px;">
-      <br>
-      <h1>Checking your browser</h1>
-      </div>
       <br>
       <h1>]] .. title .. [[</h1>
       <p>
-      <b>Please wait a moment while we verify your request</b>
+      <b>Sorry this pages exists in order to keep the service usable for everyone.</b>
+      <b>If you can't pass the test, please whitelist your extensions on this website.</b>
+      <b>In case you really can't pass the test then email me at antibot [AT] unixfox [DOT] eu with as much details as possible.</b>
       <br>
       <br>
       <br>
