@@ -103,8 +103,6 @@ searxSettings:
     '(.*\.)?youtube-noocookie\.com$': 'yewtu.be'
     '(.*\.)?reddit\.com$': 'old.reddit.com'
     '(.*\.)?redd\.it$': 'old.reddit.com'
-    'mobile\.twitter\.com$': 'nitter.unixfox.eu'
-    '(www\.)?twitter\.com$': 'nitter.unixfox.eu'
     '(.*\.)?btdigggink2pdqzqrik3blmqemsbntpzwxottujilcdjfz56jumzfsyd.onion$': 'btdig.com'
     '(.*\.)?brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion': 'search.brave.com'
     '(.*\.)?archiveiya74codqgiixo33q62qlrqtkgmcitqx5u2oeqnmn5bpcbiyd.onion': 'archive.is'
