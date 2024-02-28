@@ -8,6 +8,15 @@ child:
     operator: Exists
   - effect: NoExecute
     operator: Exists
+  affinity:
+    nodeAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - bootvolume1
   configs:
     netdata:
       data: |
