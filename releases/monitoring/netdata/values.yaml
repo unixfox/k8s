@@ -9,14 +9,15 @@ child:
   - effect: NoExecute
     operator: Exists
   affinity:
-    nodeAntiAffinity:
+    nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
           - key: kubernetes.io/hostname
             operator: In
             values:
-            - bootvolume1
+            - netcup-node02
+            - k3s-master1
   configs:
     netdata:
       data: |
