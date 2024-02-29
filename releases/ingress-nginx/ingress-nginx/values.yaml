@@ -16,6 +16,7 @@ controller:
   #       $'\n'"$(./kubectl get secrets -n invidious --field-selector metadata.name=chart-invidious-tls -o json -o=jsonpath="{.items[0].data.tls\.crt}" | base64 -d)" > \
   #       /var/tmp/haproxy-temp/full.pem;
 
+  allowSnippetAnnotations: true
   watchIngressWithoutClass: true
   terminationGracePeriodSeconds: 0
   dnsPolicy: ClusterFirstWithHostNet
