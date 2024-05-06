@@ -60,6 +60,9 @@ spec:
 {{ toYaml .Values.extraVolumesMounts | indent 8 }}
         {{- end }}
         env:
+        # Max 600MB of memory usage
+        - name: GC_MAXIMUM_HEAP_SIZE
+          value: "600000000"
         - name: INVIDIOUS_CONFIG
           valueFrom:
             configMapKeyRef:
