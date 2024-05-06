@@ -5,7 +5,7 @@ searx:
     repository: unixfox/searx-custom
     tag: latest
     pullPolicy: Always
-  replicaCount: 4
+  replicaCount: 3
   autoscaling:
     enabled: false
     minReplicas: 2

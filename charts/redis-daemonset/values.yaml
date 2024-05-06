@@ -23,7 +23,7 @@ args:
   - --appendonly
   - "no"
   - --maxmemory
-  - "5000mb"
+  - "300mb"
   - --maxmemory-policy
   - "volatile-ttl"
 

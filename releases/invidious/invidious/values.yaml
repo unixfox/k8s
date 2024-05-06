@@ -22,6 +22,12 @@ postgresql:
 
 replicaCount: 6
 
+resources:
+  requests:
+    memory: 64Mi
+  limits:
+    memory: 512Mi
+
 ytproxy:
   hostNetwork: true
   securityContext:
