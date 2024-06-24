@@ -42,14 +42,14 @@ ingress:
   - yewtu.be
   - www.yewtu.be
   - webhook.yewtu.be
-  - wttprx.yewtu.be
+  - cdn.yewtu.be
   tls:
    - secretName: chart-invidious-tls
      hosts:
      - yewtu.be
      - www.yewtu.be
      - webhook.yewtu.be
-     - wttprx.yewtu.be
+     - cdn.yewtu.be
 
 extraVolumes:
   - name: redissocket
