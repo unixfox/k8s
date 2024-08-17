@@ -109,6 +109,14 @@ searxSettings:
       '(.*\.)?archiveiya74codqgiixo33q62qlrqtkgmcitqx5u2oeqnmn5bpcbiyd.onion': 'archive.is'
 
   engines:
+    - name: wikicommons.images
+      disabled: true
+    - name: wikicommons.videos
+      disabled: true
+    - name: wikicommons.audio
+      disabled: true
+    - name: wikicommons.files
+      disabled: true
     - name: z-library
       disabled: true
     - name: solidtorrents
