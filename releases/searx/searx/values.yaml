@@ -72,7 +72,7 @@ searxSettings:
 
   ui:
     query_in_title: true
-    default_theme: oscar
+    default_theme: simple
     infinite_scroll: false
 
   outgoing:
