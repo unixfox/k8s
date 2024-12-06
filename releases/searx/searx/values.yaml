@@ -39,7 +39,7 @@ searxSettings:
 
   search:
     autocomplete: "google" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
-    default_lang: "all" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
+    #default_lang: "all" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
     ban_time_on_fail: 0 # ban time in seconds after engine errors
     max_ban_time_on_fail: 0 # max ban time in seconds after engine errors
     suspended_times:
