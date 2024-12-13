@@ -90,7 +90,8 @@ config:
   force_resolve: ipv6
   use_innertube_for_captions: true
   invidious_companion:
-  - https://eu3-proxy.yewtu.be
+  - private_url: "https://eu3-proxy.yewtu.be"
+    public_url: "https://eu3-proxy.yewtu.be"
   default_user_preferences:
     annotations: false
     annotations_subscribed: false
