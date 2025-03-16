@@ -1054,7 +1054,6 @@ controller:
             "lol",
             "rnd",
             "random",
-            "v", --some urls use ?v1.2 as a file version causing cache busting
             "ver",
             "version",
           },
