@@ -113,7 +113,7 @@ config:
     max_results: 40
     notifications_only: false
     player_style: invidious
-    quality: hd720
+    quality: dash
     quality_dash: auto
     default_home: ""
     feed_menu:
