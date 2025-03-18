@@ -193,7 +193,7 @@ controller:
       --[[
       This is a password that encrypts our puzzle and cookies unique to your sites and servers you should change this from the default.
       ]]
-      local secret = "uziegiegheekao0XeethieXameit0e" --Signature secret key --CHANGE ME FROM DEFAULT!
+      local secret = "Ohl5aegh9xoaquaeseepha3Phioj1x" --Signature secret key --CHANGE ME FROM DEFAULT!
 
       --[[
       Unique id to identify each individual user and machine trying to access your website IP address works well.
@@ -210,7 +210,7 @@ controller:
       remote_addr = "tor" this will mean this script will be functioning for tor users only
       remote_addr = "auto" the script will automatically get the clients IP this is the default it is the smartest and most compatible method with every service proxy etc
       ]]
-      local remote_addr = "auto" --Default Automatically get the Clients IP address
+      local remote_addr = ngx.var.remote_addr --Default Automatically get the Clients IP address
 
       --[[
       How long when a users request is authenticated will they be allowed to browse and access the site until they will see the auth page again.
@@ -239,7 +239,7 @@ controller:
       Timer to refresh auth page
       Time is in seconds only.
       ]]
-      local refresh_auth = 2
+      local refresh_auth = 1
 
       --[[
       Javascript variable checks
@@ -515,6 +515,10 @@ controller:
           "python",
           1,
         },
+        {
+          "python",
+          1,
+        },
       }
 
       --[[
@@ -526,51 +530,10 @@ controller:
       4 regex lower case insensative
 
       I added some examples of user-agents you could whitelist mostly search engine crawlers.
+
       ]]
       local user_agent_whitelist_var = ngx.var.http_user_agent
       local user_agent_whitelist_table = {
-      --[[
-        {
-          "^Mozilla%/5%.0 %(compatible%; Googlebot%/2%.1%; %+http%:%/%/www%.google%.com%/bot%.html%)$",
-          2,
-        },
-        {
-          "^Mozilla%/5%.0 %(compatible%; Bingbot%/2%.0%; %+http%:%/%/www%.bing%.com%/bingbot%.htm%)$",
-          2,
-        },
-        {
-          "^Mozilla%/5%.0 %(compatible%; Yahoo%! Slurp%; http%:%/%/help%.yahoo%.com%/help%/us%/ysearch%/slurp%)$",
-          2,
-        },
-        {
-          "^DuckDuckBot%/1%.0%; %(%+http%:%/%/duckduckgo%.com%/duckduckbot%.html%)$",
-          2,
-        },
-        {
-          "^Mozilla%/5%.0 %(compatible%; Baiduspider%/2%.0%; %+http%:%/%/www%.baidu%.com%/search%/spider%.html%)$",
-          2,
-        },
-        {
-          "^Mozilla%/5%.0 %(compatible%; YandexBot%/3%.0%; %+http%:%/%/yandex%.com%/bots%)$",
-          2,
-        },
-        {
-          "^facebot$",
-          2,
-        },
-        {
-          "^facebookexternalhit%/1%.0 %(%+http%:%/%/www%.facebook%.com%/externalhit_uatext%.php%)$",
-          2,
-        },
-        {
-          "^facebookexternalhit%/1%.1 %(%+http%:%/%/www%.facebook%.com%/externalhit_uatext%.php%)$",
-          2,
-        },
-        {
-          "^ia_archiver %(%+http%:%/%/www%.alexa%.com%/site%/help%/webmasters%; crawler%@alexa%.com%)$",
-          2,
-        },
-      ]]
       }
 
       --[[
@@ -1072,12 +1035,6 @@ controller:
       ]]
       local send_ip_to_backend_custom_headers = {
         {
-          ".*",
-          {
-            {"CF-Connecting-IP",}, --CF-Connecting-IP Cloudflare CDN
-            {"True-Client-IP",}, --True-Client-IP Akamai CDN
-            {"X-Client-IP",} --Amazon Cloudfront
-          },
         },
         --[[
         {
@@ -1103,8 +1060,6 @@ controller:
             {"Server",nil,}, --Server version / identity exposure remove
             {"X-Powered-By",nil,}, --PHP Powered by version / identity exposure remove
             {"X-Content-Encoded-By",nil,}, --Joomla Content encoded by remove
-            {"X-Content-Type-Options","nosniff",}, --block MIME-type sniffing
-            {"X-XSS-Protection","1; mode=block",}, --block cross-site scripting (XSS) attacks
             {"x-turbo-charged-by",nil,}, --remove x-turbo-charged-by LiteSpeed
           },
         },
@@ -2568,7 +2523,7 @@ controller:
           if value[2] == 4 then --regex lower case insensative
             user_agent_whitelist_var = string.lower(user_agent_whitelist_var)
           end
-          if string.match(user_agent_whitelist_var, value[1]) then
+          if user_agent_whitelist_var and string.match(user_agent_whitelist_var, value[1]) then
             local output = ngx.exit(ngx.OK) --Go to content
             return output
           end
@@ -2649,7 +2604,7 @@ controller:
       end
 
       --shuffle table function
-      function shuffle(tbl)
+      local function shuffle(tbl)
         local tbl_length = #tbl
         for i = tbl_length, 2, -1 do
           local j = math.random(i)
@@ -3169,7 +3124,7 @@ controller:
       Build HTML Template
       ]]
 
-      local title = host .. [[ | Verifying your request]]
+      local title = [[ YewTube | Verifying your request]]
 
       --[[
       Javascript after setting cookie run xmlhttp GET request
@@ -3278,7 +3233,6 @@ controller:
             ]] .. javascript_REQUEST_headers .. [[
             ]] .. javascript_POST_headers .. [[
             xhttp.send(]] .. javascript_POST_data .. [[);
-            
           }, ]] .. refresh_auth+1 .. [[000); /*if correct data has been sent then the auth response will allow access*/
         }, false);
       })();
@@ -3346,7 +3300,7 @@ controller:
       <noscript>Please turn JavaScript on and reload the page.<br></noscript>
       This process is automatic. Your browser will redirect to your requested content shortly.
       <br>
-      Please allow up to <span id="countdowntimer">]] .. refresh_auth .. [[</span> seconds&hellip;
+      Please allow up to <span id="countdowntimer">]] .. refresh_auth .. [[</span> second&hellip;
       </div>
       <br>
       <br>
@@ -3354,14 +3308,15 @@ controller:
 
       local style_sheet = [[
       html, body {/*width: 100%; height: 100%;*/ margin: 0; padding: 0; overflow-wrap: break-word; word-wrap: break-word;}
-      body {background-color: #ffffff; font-family: Helvetica, Arial, sans-serif; font-size: 100%;}
-      h1 {font-size: 1.5em; color: #404040; text-align: center;}
-      p {font-size: 1em; color: #404040; text-align: center; margin: 10px 0 0 0;}
+      body {background-color: #1f1f1f; font-family: Helvetica, Arial, sans-serif; font-size: 100%;}
+      h2 {color: #FF6C60;}
+      h1 {font-size: 1.5em; color: #FF6C60; text-align: center;}
+      p {font-size: 1em; color: #FF6C60; text-align: center; margin: 10px 0 0 0;}
       #spinner {margin: 0 auto 30px auto; display: block;}
       .attribution {margin-top: 20px;}
       @-webkit-keyframes bubbles { 33%: { -webkit-transform: translateY(10px); transform: translateY(10px); } 66% { -webkit-transform: translateY(-10px); transform: translateY(-10px); } 100% { -webkit-transform: translateY(0); transform: translateY(0); } }
       @keyframes bubbles { 33%: { -webkit-transform: translateY(10px); transform: translateY(10px); } 66% { -webkit-transform: translateY(-10px); transform: translateY(-10px); } 100% { -webkit-transform: translateY(0); transform: translateY(0); } }
-      .bubbles { background-color: #404040; width:15px; height: 15px; margin:2px; border-radius:100%; -webkit-animation:bubbles 0.6s 0.07s infinite ease-in-out; animation:bubbles 0.6s 0.07s infinite ease-in-out; -webkit-animation-fill-mode:both; animation-fill-mode:both; display:inline-block; }
+      .bubbles { background-color: #FF6C60; width:15px; height: 15px; margin:2px; border-radius:100%; -webkit-animation:bubbles 0.6s 0.07s infinite ease-in-out; animation:bubbles 0.6s 0.07s infinite ease-in-out; -webkit-animation-fill-mode:both; animation-fill-mode:both; display:inline-block; }
       ]]
 
       local anti_ddos_html_output = [[
@@ -3377,30 +3332,28 @@ controller:
       <style type="text/css">
       ]] .. style_sheet .. [[
       </style>
-      ]] .. head_ad_slot .. [[
       ]] .. javascript_anti_ddos .. [[
       </head>
-      <body style="background-color:#EEEEEE;color:#000000;font-family:Arial,Helvetica,sans-serif;font-size:100%;">
-      <div style="width:auto;margin:16px auto;border:1px solid #CCCCCC;background-color:#FFFFFF;border-radius:3px 3px 3px 3px;padding:10px;">
+      <body style="background-color:#1f1f1f;color:#1f1f1f;font-family:Arial,Helvetica,sans-serif;font-size:100%;">
+      <div style="width:auto;margin:16px auto;border:1px solid #FF6C60;background-color:#1f1f1f;border-radius:3px 3px 3px 3px;padding:10px;">
       <br>
       <h1>]] .. title .. [[</h1>
       <p>
-      <b>Sorry this page exists in order to keep the service usable for everyone.</b>
+      <b>Sorry this pages exist in order to keep the service usable for everyone.</b>
       <br>
-      <b>If you can't pass the test, please whitelist your extensions on this website.</b>
+      <b>If you can't pass the test, please whitelist your extensions on this website and <b>update your browser</b>.</b>
       <br>
       <b>In case you really can't pass the test then email me at antibot [AT] unixfox [DOT] eu with as much details as possible.</b>
       <br>
-      ]] .. top_body_ad_slot .. [[
+      <br>
+      <b>Want to access the original YouTube link? <a href="https://www.youtube.com.com]] .. ngx.var.request_uri ..[[">click here</a></b>
       <br>
       <br>
       <center>
       <h2>Information :</h2>
       ]] .. request_details .. [[
       </center>
-      ]] .. footer_body_ad_slot .. [[
       </div>
-      ]] .. ddos_credits .. [[
       </body>
       </html>
       ]]
