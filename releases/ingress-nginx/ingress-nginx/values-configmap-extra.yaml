@@ -239,7 +239,7 @@ controller:
       Timer to refresh auth page
       Time is in seconds only.
       ]]
-      local refresh_auth = 0
+      local refresh_auth = 2
 
       --[[
       Javascript variable checks
