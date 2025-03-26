@@ -108,7 +108,7 @@ config:
     dark_mode: ""
     latest_only: false
     listen: false
-    local: false
+    local: true
     locale: en-US
     max_results: 40
     notifications_only: false
