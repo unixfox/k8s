@@ -61,7 +61,7 @@ controller:
     server-snippet: |
       listen [::]:8444 ssl proxy_protocol;
       listen [::]:8445 proxy_protocol;
-      set_real_ip_from 2605:6400:30:ee66::/128;
+      set_real_ip_from 2605:6400:30:ee66::/128 104.244.72.25/32;
       real_ip_header proxy_protocol;
       set_by_lua_block $request_headers{
         local h = ngx.req.get_headers()
